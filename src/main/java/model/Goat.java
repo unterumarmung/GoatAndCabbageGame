@@ -34,7 +34,7 @@ public class Goat implements GameObject {
         var neighbor = _position.neighborCell(direction);
         if (neighbor == null
                 || neighbor.objects().stream().anyMatch(GameObject::isSolid)
-                || hasEnoughSteps())
+                || !hasEnoughSteps())
             return null;
 
         return neighbor;

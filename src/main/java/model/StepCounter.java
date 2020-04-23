@@ -19,7 +19,7 @@ public class StepCounter {
     }
 
     private void assertHasSteps(int stepsToDecrease) {
-        if (_steps - stepsToDecrease >= 0)
+        if (_steps - stepsToDecrease < 0)
             throw new NoEnoughStepsException();
     }
 }

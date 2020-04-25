@@ -18,7 +18,7 @@ class CellShould {
     private GameObject _gameObject;
 
     @BeforeEach
-    private void beforeEach() {
+    void beforeEach() {
         _messageSender = mock(MessageSender.class);
         _neighborCell = mock(Cell.class);
         _direction = Direction.NORTH;

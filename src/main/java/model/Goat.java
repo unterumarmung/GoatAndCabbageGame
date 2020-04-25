@@ -13,11 +13,10 @@ public class Goat implements GameObject {
     }
 
     public void move(@NotNull Direction direction) {
-        var newPosition = canMoveTo(direction);
-        if (newPosition == null)
+        if (!canMoveTo(direction))
             return;
 
-        setPosition(newPosition);
+        setPosition(_position.neighborCell(direction));
         _stepCounter.decrease(STEP_COST);
     }
 
@@ -29,14 +28,11 @@ public class Goat implements GameObject {
         _position = cell;
     }
 
-    private Cell canMoveTo(@NotNull Direction direction) {
+    boolean canMoveTo(@NotNull Direction direction) {
         var neighbor = _position.neighborCell(direction);
-        if (neighbor == null
-                || neighbor.objects().stream().anyMatch(GameObject::isSolid)
-                || !hasEnoughSteps())
-            return null;
-
-        return neighbor;
+        return neighbor != null
+                && neighbor.objects().stream().noneMatch(GameObject::isSolid)
+                && hasEnoughSteps();
     }
 
     public boolean hasEnoughSteps() {

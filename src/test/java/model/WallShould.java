@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -27,5 +28,15 @@ class WallShould {
 
         // Act & Assert
         assertTrue(wall.isSolid());
+    }
+
+    @Test
+    void haveGivenPosition() {
+        // Arrange
+        var cellMock = mock(Cell.class);
+        var wall = new Wall(cellMock);
+
+        // Act & Assert
+        assertSame(cellMock, wall.position());
     }
 }

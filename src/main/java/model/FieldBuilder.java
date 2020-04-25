@@ -2,6 +2,7 @@ package model;
 
 import events.MessageSender;
 import org.jetbrains.annotations.NotNull;
+import utils.Point;
 
 public abstract class FieldBuilder {
     private final @NotNull MessageSender _messageSender;

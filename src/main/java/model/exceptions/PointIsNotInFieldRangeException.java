@@ -1,6 +1,6 @@
 package model.exceptions;
 
-import model.Point;
+import utils.Point;
 import org.jetbrains.annotations.NotNull;
 
 public class PointIsNotInFieldRangeException extends IllegalArgumentException {

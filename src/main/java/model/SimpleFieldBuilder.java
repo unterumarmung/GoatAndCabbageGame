@@ -2,6 +2,7 @@ package model;
 
 import events.MessageSender;
 import org.jetbrains.annotations.NotNull;
+import utils.Point;
 
 public class SimpleFieldBuilder extends FieldBuilder {
     private static final int FIELD_HEIGHT = 5;

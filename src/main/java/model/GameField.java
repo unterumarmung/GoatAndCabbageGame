@@ -4,6 +4,7 @@ import events.MessageSender;
 import model.exceptions.PointIsNotInFieldRangeException;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
+import utils.Point;
 import utils.collections.ReadOnlyList;
 
 import java.util.HashMap;

@@ -1,6 +1,7 @@
 package model;
 
 import org.jetbrains.annotations.NotNull;
+import utils.Point;
 
 public class CellWithPosition {
     public final @NotNull Cell cell;

@@ -12,12 +12,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GameField {
-    private final Map<Point, Cell> _cells = new HashMap<>();
+    private final @NotNull Map<Point, Cell> _cells = new HashMap<>();
     private final int _width;
     private final int _height;
     private final @NotNull Point _exitPoint;
     private final @NotNull MessageSender _messageSender;
-    private final Cabbage _cabbage;
+    private final @NotNull Cabbage _cabbage;
 
     public GameField(int width, int height, @NotNull Point exitPoint, @NotNull MessageSender messageSender) {
         _width = width;

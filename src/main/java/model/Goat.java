@@ -5,9 +5,8 @@ import utils.Direction;
 
 public class Goat implements GameObject {
     private final int STEP_COST = 1;
-
-    private Cell _position;
     private final @NotNull StepCounter _stepCounter;
+    private Cell _position;
 
     public Goat(@NotNull StepCounter stepCounter) {
         _stepCounter = stepCounter;

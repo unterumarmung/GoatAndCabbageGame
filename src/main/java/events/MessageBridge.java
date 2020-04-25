@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class MessageBridge implements MessageSender, SubscriptionHandler {
     private final Map<MessageSource, List<MessageListener>> _listeners = new HashMap<>();
+
     @Override
     public void emitMessage(@NotNull MessageSource messageSource, MessageData data) {
         for (var listener : _listeners.get(messageSource)) {

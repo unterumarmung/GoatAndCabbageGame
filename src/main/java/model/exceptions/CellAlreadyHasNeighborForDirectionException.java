@@ -1,8 +1,8 @@
 package model.exceptions;
 
 import model.Cell;
-import utils.Direction;
 import org.jetbrains.annotations.NotNull;
+import utils.Direction;
 
 public class CellAlreadyHasNeighborForDirectionException extends IllegalArgumentException {
     public final Cell cell;

@@ -12,15 +12,19 @@ public abstract class FieldBuilder {
     }
 
     public GameField build() {
-        _gameField = new GameField(fieldWidth(), fieldHeight(),exitPoint(), _messageSender);
+        _gameField = new GameField(fieldWidth(), fieldHeight(), exitPoint(), _messageSender);
         addGoat();
         addWalls();
         return _gameField;
     }
 
     protected abstract int fieldHeight();
+
     protected abstract int fieldWidth();
+
     protected abstract Point exitPoint();
+
     protected abstract void addGoat();
+
     protected abstract void addWalls();
 }

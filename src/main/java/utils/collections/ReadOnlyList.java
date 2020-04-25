@@ -12,6 +12,14 @@ public class ReadOnlyList<T> implements Iterable<T> {
         _list = Collections.unmodifiableList(list);
     }
 
+    public static <T> ReadOnlyList<T> fromList(List<T> list) {
+        return new ReadOnlyList<>(list);
+    }
+
+    public static <T> ReadOnlyList<T> fromArray(T[] array) {
+        return new ReadOnlyList<>(Arrays.asList(array));
+    }
+
     public boolean contains(T o) {
         return _list.contains(o);
     }
@@ -60,13 +68,5 @@ public class ReadOnlyList<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return _list.iterator();
-    }
-
-    public static <T> ReadOnlyList<T> fromList(List<T> list) {
-        return new ReadOnlyList<>(list);
-    }
-
-    public static <T> ReadOnlyList<T> fromArray(T[] array) {
-        return new ReadOnlyList<>(Arrays.asList(array));
     }
 }

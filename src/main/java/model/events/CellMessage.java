@@ -8,20 +8,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class CellMessage extends MessageData {
+    public final @NotNull Type type;
+    public final @NotNull Cell cell;
+    public final @NotNull GameObject object;
+
     public CellMessage(@NotNull Type type, @NotNull Cell cell, @NotNull GameObject object) {
         this.type = type;
         this.cell = cell;
         this.object = object;
     }
-
-    public enum Type {
-        OBJECT_ENTERED,
-        OBJECT_LEAVED
-    }
-
-    public final @NotNull Type type;
-    public final @NotNull Cell cell;
-    public final @NotNull GameObject object;
 
     @Override
     public boolean equals(Object o) {
@@ -36,5 +31,10 @@ public class CellMessage extends MessageData {
     @Override
     public int hashCode() {
         return Objects.hash(type, cell, object);
+    }
+
+    public enum Type {
+        OBJECT_ENTERED,
+        OBJECT_LEAVED
     }
 }

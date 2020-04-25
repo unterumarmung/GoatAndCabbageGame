@@ -30,7 +30,7 @@ public class SimpleFieldBuilder extends FieldBuilder {
     @Override
     protected void addGoat() {
         var goat = new Goat(new StepCounter(DEFAULT_STEPS_COUNT));
-        goat.setPosition(_gameField.cell(new Point(0,0)));
+        goat.setPosition(_gameField.cell(new Point(0, 0)));
     }
 
     @Override

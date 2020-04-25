@@ -6,14 +6,14 @@ public enum Direction {
     WEST,
     EAST;
 
-    private Direction _opposite;
-
-    static  {
+    static {
         NORTH._opposite = SOUTH;
         SOUTH._opposite = NORTH;
         WEST._opposite = EAST;
         EAST._opposite = WEST;
     }
+
+    private Direction _opposite;
 
     public Direction opposite() {
         return _opposite;

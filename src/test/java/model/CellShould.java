@@ -5,11 +5,11 @@ import model.events.CellMessage;
 import model.exceptions.CellAlreadyHasNeighborForDirectionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import utils.Direction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 class CellShould {
     private MessageSender _messageSender;

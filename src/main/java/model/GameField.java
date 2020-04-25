@@ -30,7 +30,7 @@ public class GameField {
 
     private void setup() {
         for (int y = 0; y < _height; ++y) {
-             for (int x = 0; x < _width; ++x){
+            for (int x = 0; x < _width; ++x) {
                 var point = new Point(x, y);
                 var cell = new Cell(_messageSender);
                 if (x > 0)

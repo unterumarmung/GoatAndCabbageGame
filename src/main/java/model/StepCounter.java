@@ -5,12 +5,12 @@ import model.exceptions.NoEnoughStepsException;
 public class StepCounter {
     private int _steps;
 
-    public int steps() {
-        return _steps;
-    }
-
     public StepCounter(int steps) {
         _steps = steps;
+    }
+
+    public int steps() {
+        return _steps;
     }
 
     public void decrease(int stepsToDecrease) {

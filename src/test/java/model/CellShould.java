@@ -120,4 +120,23 @@ class CellShould {
         // Assert
         verify(_messageSender).emitMessage(cell, messageToBeSent);
     }
+
+    @Test
+    void beEmpty_afterCreation() {
+        // Arrange
+        var cell = new Cell(_messageSender);
+
+        // Act & Assert
+        assertTrue(cell.objects().isEmpty());
+    }
+
+    @Test
+    void returnNull_whenNoNeighbor() {
+        // Arrange
+        var cell = new Cell(_messageSender);
+
+        // Act & Assert
+        assertNull(cell.neighborCell(Direction.EAST));
+        assertNull(cell.isNeighbor(mock(Cell.class)));
+    }
 }

@@ -57,6 +57,6 @@ public class Cell implements MessageSource {
     }
 
     public @NotNull ReadOnlyList<GameObject> objects() {
-        return ReadOnlyList.fromList(_objects);
+        return ReadOnlyList.fromList(new ArrayList<>(_objects));
     }
 }

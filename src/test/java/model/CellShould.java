@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import utils.Direction;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class CellShould {
     private MessageSender _messageSender;
@@ -18,10 +19,10 @@ class CellShould {
 
     @BeforeEach
     private void beforeEach() {
-        _messageSender = Mockito.mock(MessageSender.class);
-        _neighborCell = Mockito.mock(Cell.class);
+        _messageSender = mock(MessageSender.class);
+        _neighborCell = mock(Cell.class);
         _direction = Direction.NORTH;
-        _gameObject = Mockito.mock(GameObject.class);
+        _gameObject = mock(GameObject.class);
     }
 
     @Test
@@ -42,7 +43,7 @@ class CellShould {
         // Arrange
         var cell = new Cell(_messageSender);
         cell.setNeighbor(_neighborCell, _direction);
-        var newCell = Mockito.mock(Cell.class);
+        var newCell = mock(Cell.class);
 
         // Act & Assert
         assertThrows(CellAlreadyHasNeighborForDirectionException.class, () -> cell.setNeighbor(newCell, _direction));
@@ -67,7 +68,7 @@ class CellShould {
         cell.setNeighbor(_neighborCell, _direction);
 
         // Assert
-        Mockito.verify(_neighborCell).setNeighbor(cell, _direction.opposite());
+        verify(_neighborCell).setNeighbor(cell, _direction.opposite());
     }
 
     @Test
@@ -104,7 +105,7 @@ class CellShould {
         cell.addObject(_gameObject);
 
         // Assert
-        Mockito.verify(_messageSender).emitMessage(cell, messageToBeSent);
+        verify(_messageSender).emitMessage(cell, messageToBeSent);
     }
 
     @Test
@@ -117,6 +118,6 @@ class CellShould {
         cell.removeObject(_gameObject);
 
         // Assert
-        Mockito.verify(_messageSender).emitMessage(cell, messageToBeSent);
+        verify(_messageSender).emitMessage(cell, messageToBeSent);
     }
 }

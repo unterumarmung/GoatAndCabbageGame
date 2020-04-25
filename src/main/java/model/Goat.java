@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 
 public class Goat implements GameObject {
-    private final int STEP_COST = 1;
+    static final int STEP_COST = 1;
     private final @NotNull StepCounter _stepCounter;
     private Cell _position;
 

@@ -1,6 +1,7 @@
 package model;
 
 import events.MessageSender;
+import model.exceptions.IllegalDimensionException;
 import model.exceptions.PointIsNotInFieldRangeException;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
@@ -20,6 +21,8 @@ public class GameField {
     private final @NotNull Cabbage _cabbage;
 
     public GameField(int width, int height, @NotNull Point exitPoint, @NotNull MessageSender messageSender) {
+        assertDimensionIsCorrect(width, "width");
+        assertDimensionIsCorrect(height, "height");
         _width = width;
         _height = height;
         assertPointInRange(exitPoint);
@@ -44,17 +47,17 @@ public class GameField {
     }
 
     public Cell cell(@NotNull Point point) {
-        assertPointInRange(point);
+        if (!isPointInRange(point)) {
+            return null;
+        }
         return _cells.get(point);
     }
 
-    private void assertPointInRange(@NotNull Point point) {
-        if (point.x < 0
-                || point.x >= width()
-                || point.y < 0
-                || point.y > height()) {
-            throw new PointIsNotInFieldRangeException(point, width(), height());
-        }
+    private boolean isPointInRange(@NotNull Point point) {
+        return point.x >= 0
+                && point.x < width()
+                && point.y >= 0
+                && point.y < height();
     }
 
     public int width() {
@@ -76,5 +79,15 @@ public class GameField {
 
     public ReadOnlyList<CellWithPosition> cells() {
         return ReadOnlyList.fromList(_cells.entrySet().stream().map(entry -> new CellWithPosition(entry.getValue(), entry.getKey())).collect(Collectors.toList()));
+    }
+
+    private void assertPointInRange(@NotNull Point point) {
+        if (!isPointInRange(point))
+            throw new PointIsNotInFieldRangeException(point, _width, _height);
+    }
+
+    private void assertDimensionIsCorrect(int dimension, @NotNull String name) {
+        if (dimension <= 0)
+            throw new IllegalDimensionException(dimension, name);
     }
 }

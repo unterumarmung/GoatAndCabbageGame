@@ -31,12 +31,12 @@ class WallShould {
     }
 
     @Test
-    void haveGivenPosition() {
+    void haveGivenCell() {
         // Arrange
         var cellMock = mock(Cell.class);
         var wall = new Wall(cellMock);
 
         // Act & Assert
-        assertSame(cellMock, wall.position());
+        assertSame(cellMock, wall.cell());
     }
 }

@@ -1,7 +1,7 @@
 package model;
 
 public interface GameObject {
-    Cell position();
+    Cell cell();
 
     boolean isSolid();
 }

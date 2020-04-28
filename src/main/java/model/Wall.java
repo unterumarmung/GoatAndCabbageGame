@@ -11,7 +11,7 @@ public class Wall implements GameObject {
     }
 
     @Override
-    public Cell position() {
+    public Cell cell() {
         return _cell;
     }
 

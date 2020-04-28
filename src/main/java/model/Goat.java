@@ -39,7 +39,7 @@ public class Goat implements GameObject {
         return _stepCounter.steps() - STEP_COST >= 0;
     }
 
-    public Cell position() {
+    public Cell cell() {
         return _position;
     }
 

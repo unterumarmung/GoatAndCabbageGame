@@ -69,7 +69,7 @@ class GoatShould {
         goat.move(_direction);
 
         // Assert
-        assertSame(_cell2, goat.position());
+        assertSame(_cell2, goat.cell());
     }
 
     @Test
@@ -78,11 +78,12 @@ class GoatShould {
         var goat = new Goat(_stepCounter);
         goat.setPosition(_cell1);
         _cell2.addObject(_notSolidGameObject);
+
         // Act
         goat.move(_direction);
 
         // Assert
-        assertSame(_cell2, goat.position());
+        assertSame(_cell2, goat.cell());
     }
 
     @Test
@@ -95,7 +96,7 @@ class GoatShould {
         goat.move(_direction);
 
         // Assert
-        assertSame(_cell1, goat.position());
+        assertSame(_cell1, goat.cell());
     }
 
     @Test

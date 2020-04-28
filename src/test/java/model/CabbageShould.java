@@ -31,12 +31,12 @@ class CabbageShould {
     }
 
     @Test
-    void haveGivenPosition() {
+    void haveGivenCell() {
         // Arrange
         var cellMock = mock(Cell.class);
         var cabbage = new Cabbage(cellMock);
 
         // Act & Assert
-        assertSame(cellMock, cabbage.position());
+        assertSame(cellMock, cabbage.cell());
     }
 }

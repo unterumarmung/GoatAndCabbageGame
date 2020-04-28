@@ -9,32 +9,32 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class GoatShould {
-    private MessageSender _messageSender;
-    private Cell _cell1;
-    private Cell _cell2;
-    private Direction _direction;
-    private GameObject _solidGameObject;
-    private GameObject _notSolidGameObject;
-    private StepCounter _stepCounter;
+    private MessageSender messageSender;
+    private Cell cell1;
+    private Cell cell2;
+    private Direction direction;
+    private GameObject solidGameObject;
+    private GameObject notSolidGameObject;
+    private StepCounter stepCounter;
 
     @BeforeEach
     void beforeEach() {
-        _stepCounter = new StepCounter(Goat.STEP_COST * 4);
+        stepCounter = new StepCounter(Goat.STEP_COST * 4);
 
         // Создание клеток поля для имитации движения козы
-        _messageSender = mock(MessageSender.class);
-        _cell1 = new Cell(_messageSender);
-        _cell2 = new Cell(_messageSender);
-        _direction = Direction.EAST;
-        _cell1.setNeighbor(_cell2, _direction);
+        messageSender = mock(MessageSender.class);
+        cell1 = new Cell(messageSender);
+        cell2 = new Cell(messageSender);
+        direction = Direction.EAST;
+        cell1.setNeighbor(cell2, direction);
 
         // Настройка поведения мок объекта, который ведёт себя как твёрдый объект
-        _solidGameObject = mock(GameObject.class);
-        when(_solidGameObject.isSolid()).thenReturn(true);
+        solidGameObject = mock(GameObject.class);
+        when(solidGameObject.isSolid()).thenReturn(true);
 
         // Настройка поведения мок объекта, который ведёт себя как нетвёрдый объект
-        _notSolidGameObject = mock(GameObject.class);
-        when(_notSolidGameObject.isSolid()).thenReturn(false);
+        notSolidGameObject = mock(GameObject.class);
+        when(notSolidGameObject.isSolid()).thenReturn(false);
     }
 
     @Test
@@ -62,115 +62,115 @@ class GoatShould {
     @Test
     void move_toEmptyCell() {
         // Arrange
-        var goat = new Goat(_stepCounter);
-        goat.setPosition(_cell1);
+        var goat = new Goat(stepCounter);
+        goat.setPosition(cell1);
 
         // Act
-        goat.move(_direction);
+        goat.move(direction);
 
         // Assert
-        assertSame(_cell2, goat.cell());
+        assertSame(cell2, goat.cell());
     }
 
     @Test
     void move_toCellWithNotSolidObject() {
         // Arrange
-        var goat = new Goat(_stepCounter);
-        goat.setPosition(_cell1);
-        _cell2.addObject(_notSolidGameObject);
+        var goat = new Goat(stepCounter);
+        goat.setPosition(cell1);
+        cell2.addObject(notSolidGameObject);
 
         // Act
-        goat.move(_direction);
+        goat.move(direction);
 
         // Assert
-        assertSame(_cell2, goat.cell());
+        assertSame(cell2, goat.cell());
     }
 
     @Test
     void notMove_toCellWithSolidObject() {
         // Arrange
-        var goat = new Goat(_stepCounter);
-        goat.setPosition(_cell1);
-        _cell2.addObject(_solidGameObject);
+        var goat = new Goat(stepCounter);
+        goat.setPosition(cell1);
+        cell2.addObject(solidGameObject);
         // Act
-        goat.move(_direction);
+        goat.move(direction);
 
         // Assert
-        assertSame(_cell1, goat.cell());
+        assertSame(cell1, goat.cell());
     }
 
     @Test
     void addItselfToNewCell_whenMoveSuccessful() {
         // Arrange
-        var goat = new Goat(_stepCounter);
-        goat.setPosition(_cell1);
-        var objectsBeforeMove = _cell2.objects();
+        var goat = new Goat(stepCounter);
+        goat.setPosition(cell1);
+        var objectsBeforeMove = cell2.objects();
 
         // Act
-        goat.move(_direction);
+        goat.move(direction);
 
         // Assert
         assertFalse(objectsBeforeMove.contains(goat));
-        assertTrue(_cell2.objects().contains(goat));
+        assertTrue(cell2.objects().contains(goat));
     }
 
     @Test
     void removeItselfFromLastCell_whenMoveSuccessful() {
         // Arrange
-        var goat = new Goat(_stepCounter);
-        goat.setPosition(_cell1);
-        var objectsBeforeMove = _cell1.objects();
+        var goat = new Goat(stepCounter);
+        goat.setPosition(cell1);
+        var objectsBeforeMove = cell1.objects();
 
         // Act
-        goat.move(_direction);
+        goat.move(direction);
 
         // Assert
         assertTrue(objectsBeforeMove.contains(goat));
-        assertFalse(_cell1.objects().contains(goat));
+        assertFalse(cell1.objects().contains(goat));
     }
 
     @Test
     void notAddItselfToNewCell_whenMoveNotSuccessful() {
         // Arrange
-        var goat = spy(new Goat(_stepCounter));
-        goat.setPosition(_cell1);
+        var goat = spy(new Goat(stepCounter));
+        goat.setPosition(cell1);
         // Намеренно запрещаем козе куда-либо передвигаться
-        when(goat.canMoveTo(_direction)).thenReturn(false);
+        when(goat.canMoveTo(direction)).thenReturn(false);
 
         // Act
-        goat.move(_direction);
+        goat.move(direction);
 
         // Assert
-        assertFalse(_cell2.objects().contains(goat));
+        assertFalse(cell2.objects().contains(goat));
     }
 
     @Test
     void notRemoveItselfFromLastCell_whenMoveNotSuccessful() {
         // Arrange
-        var goat = spy(new Goat(_stepCounter));
-        goat.setPosition(_cell1);
+        var goat = spy(new Goat(stepCounter));
+        goat.setPosition(cell1);
         // Намеренно запрещаем козе куда-либо передвигаться
-        when(goat.canMoveTo(_direction)).thenReturn(false);
+        when(goat.canMoveTo(direction)).thenReturn(false);
 
         // Act
-        goat.move(_direction);
+        goat.move(direction);
 
         // Assert
-        assertTrue(_cell1.objects().contains(goat));
+        assertTrue(cell1.objects().contains(goat));
     }
 
     @Test
     void beSolid() {
         // Arrange & Act & Assert
-        assertTrue(new Goat(_stepCounter).isSolid());
+        assertTrue(new Goat(stepCounter).isSolid());
     }
 
     @Test
     void haveGivenStepCounter() {
         // Arrange
-        var goat = new Goat(_stepCounter);
+        var goat = new Goat(stepCounter);
 
         // Act & Assert
-        assertSame(_stepCounter, goat.stepCounter());
+        assertSame(stepCounter, goat.stepCounter());
     }
 }

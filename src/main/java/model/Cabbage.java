@@ -3,16 +3,16 @@ package model;
 import org.jetbrains.annotations.NotNull;
 
 public class Cabbage implements GameObject {
-    private final Cell _position;
+    private final Cell position;
 
     public Cabbage(@NotNull Cell position) {
-        _position = position;
-        _position.addObject(this);
+        this.position = position;
+        this.position.addObject(this);
     }
 
     @Override
     public Cell cell() {
-        return _position;
+        return position;
     }
 
     @Override

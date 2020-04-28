@@ -15,23 +15,23 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class GameFieldShould {
-    private int _width;
-    private int _height;
-    private Point _exitPoint;
-    private MessageSender _messageSender;
+    private int width;
+    private int height;
+    private Point exitPoint;
+    private MessageSender messageSender;
 
     @BeforeEach
     void beforeEach() {
-        _width = 2;
-        _height = 2;
-        _exitPoint = new Point(1, 1);
-        _messageSender = mock(MessageSender.class);
+        width = 2;
+        height = 2;
+        exitPoint = new Point(1, 1);
+        messageSender = mock(MessageSender.class);
     }
 
     @Test
     void connectCellsCorrectly() {
         // Arrange & Act
-        var field = new GameField(_width, _height, _exitPoint, _messageSender);
+        var field = new GameField(width, height, exitPoint, messageSender);
         var cell_00 = field.cell(new Point(0, 0));
         var cell_01 = field.cell(new Point(1, 0));
         var cell_10 = field.cell(new Point(0, 1));
@@ -51,8 +51,8 @@ class GameFieldShould {
     @Test
     void insertCabbageToExitPointCell() {
         // Arrange & Act
-        var field = new GameField(_width, _height, _exitPoint, _messageSender);
-        var exitPointCell = field.cell(_exitPoint);
+        var field = new GameField(width, height, exitPoint, messageSender);
+        var exitPointCell = field.cell(exitPoint);
 
         // Assert
         assertTrue(exitPointCell.objects().stream().anyMatch(object -> object instanceof Cabbage));
@@ -73,7 +73,7 @@ class GameFieldShould {
 
         // Act & Assert
         for (var dimension : dimensions) {
-            assertThrows(IllegalDimensionException.class, () -> new GameField(dimension.first, dimension.second, _exitPoint, _messageSender));
+            assertThrows(IllegalDimensionException.class, () -> new GameField(dimension.first, dimension.second, exitPoint, messageSender));
         }
     }
 
@@ -81,42 +81,42 @@ class GameFieldShould {
     void throw_whenExitPointIsOutOfField() {
         // Arrange
         var exitPoints = Arrays.asList(
-                new Point(_width, _height - 1),
-                new Point(_width - 1, _height),
-                new Point(_width, _height),
+                new Point(width, height - 1),
+                new Point(width - 1, height),
+                new Point(width, height),
                 new Point(-1, 0),
                 new Point(0, -1),
                 new Point(-1, -1)
         );
 
         // Act & Assert
-        for (var exitPoint : exitPoints)
-            assertThrows(PointIsNotInFieldRangeException.class, () -> new GameField(_width, _height, exitPoint, _messageSender));
+        for (var point : exitPoints)
+            assertThrows(PointIsNotInFieldRangeException.class, () -> new GameField(width, height, point, messageSender));
     }
 
     @Test
     void haveGivenWidth() {
         // Arrange
-        var field = new GameField(_width, _height, _exitPoint, _messageSender);
+        var field = new GameField(width, height, exitPoint, messageSender);
 
         // Act & Assert
-        assertEquals(_width, field.width());
+        assertEquals(width, field.width());
     }
 
     @Test
     void haveGivenHeight() {
         // Arrange
-        var field = new GameField(_width, _height, _exitPoint, _messageSender);
+        var field = new GameField(width, height, exitPoint, messageSender);
 
         // Act & Assert
-        assertEquals(_height, field.height());
+        assertEquals(height, field.height());
     }
 
     @Test
     void haveActualGoat() {
         // Arrange
         var goat = new Goat(mock(StepCounter.class));
-        var field = new GameField(4, 5, _exitPoint, _messageSender);
+        var field = new GameField(4, 5, exitPoint, messageSender);
 
         assertNull(field.goat());
         for (int y = 0; y < field.height(); ++y) {
@@ -132,14 +132,14 @@ class GameFieldShould {
     void returnNull_whenRequestedCellDoesntExist() {
         // Arrange
         var points = Arrays.asList(
-                new Point(_width, _height - 1),
-                new Point(_width - 1, _height),
-                new Point(_width, _height),
+                new Point(width, height - 1),
+                new Point(width - 1, height),
+                new Point(width, height),
                 new Point(-1, 0),
                 new Point(0, -1),
                 new Point(-1, -1)
         );
-        var field = new GameField(_width, _height, _exitPoint, _messageSender);
+        var field = new GameField(width, height, exitPoint, messageSender);
         // Act & Assert
         for (var point : points)
             assertNull(field.cell(point));

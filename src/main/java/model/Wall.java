@@ -3,16 +3,16 @@ package model;
 import org.jetbrains.annotations.NotNull;
 
 public class Wall implements GameObject {
-    private final Cell _cell;
+    private final Cell cell;
 
     public Wall(@NotNull Cell cell) {
-        _cell = cell;
-        _cell.addObject(this);
+        this.cell = cell;
+        this.cell.addObject(this);
     }
 
     @Override
     public Cell cell() {
-        return _cell;
+        return cell;
     }
 
     @Override

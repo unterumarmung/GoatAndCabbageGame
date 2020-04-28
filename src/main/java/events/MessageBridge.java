@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 public class MessageBridge implements MessageSender, SubscriptionHandler {
-    private final Map<MessageSource, List<MessageListener>> _listeners = new HashMap<>();
+    private final Map<MessageSource, List<MessageListener>> listeners = new HashMap<>();
 
     @Override
     public void emitMessage(@NotNull MessageSource messageSource, MessageData data) {
-        for (var listener : _listeners.get(messageSource)) {
+        for (var listener : listeners.get(messageSource)) {
             listener.handleMessage(messageSource, data);
         }
     }
@@ -20,10 +20,10 @@ public class MessageBridge implements MessageSender, SubscriptionHandler {
     @Override
     public void subscribeTo(MessageSource messageSource, MessageListener messageListener) {
         ensureListForMessageSource(messageSource);
-        _listeners.get(messageSource).add(messageListener);
+        listeners.get(messageSource).add(messageListener);
     }
 
     private void ensureListForMessageSource(MessageSource source) {
-        _listeners.computeIfAbsent(source, k -> new ArrayList<>());
+        listeners.computeIfAbsent(source, k -> new ArrayList<>());
     }
 }

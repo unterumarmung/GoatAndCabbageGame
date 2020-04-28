@@ -13,35 +13,35 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GameField {
-    private final @NotNull Map<Point, Cell> _cells = new HashMap<>();
-    private final int _width;
-    private final int _height;
-    private final @NotNull Point _exitPoint;
-    private final @NotNull MessageSender _messageSender;
-    private final @NotNull Cabbage _cabbage;
+    private final @NotNull Map<Point, Cell> cells = new HashMap<>();
+    private final int width;
+    private final int height;
+    private final @NotNull Point exitPoint;
+    private final @NotNull MessageSender messageSender;
+    private final @NotNull Cabbage cabbage;
 
     public GameField(int width, int height, @NotNull Point exitPoint, @NotNull MessageSender messageSender) {
         assertDimensionIsCorrect(width, "width");
         assertDimensionIsCorrect(height, "height");
-        _width = width;
-        _height = height;
+        this.width = width;
+        this.height = height;
         assertPointInRange(exitPoint);
-        _exitPoint = exitPoint;
-        _messageSender = messageSender;
+        this.exitPoint = exitPoint;
+        this.messageSender = messageSender;
         setup();
-        _cabbage = new Cabbage(cell(exitPoint));
+        cabbage = new Cabbage(cell(exitPoint));
     }
 
     private void setup() {
-        for (int y = 0; y < _height; ++y) {
-            for (int x = 0; x < _width; ++x) {
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
                 var point = new Point(x, y);
-                var cell = new Cell(_messageSender);
+                var cell = new Cell(messageSender);
                 if (x > 0)
                     cell(new Point(point.x - 1, point.y)).setNeighbor(cell, Direction.EAST);
                 if (y > 0)
                     cell(new Point(point.x, point.y - 1)).setNeighbor(cell, Direction.SOUTH);
-                _cells.put(point, cell);
+                cells.put(point, cell);
             }
         }
     }
@@ -50,7 +50,7 @@ public class GameField {
         if (!isPointInRange(point)) {
             return null;
         }
-        return _cells.get(point);
+        return cells.get(point);
     }
 
     private boolean isPointInRange(@NotNull Point point) {
@@ -61,15 +61,15 @@ public class GameField {
     }
 
     public int width() {
-        return _width;
+        return width;
     }
 
     public int height() {
-        return _height;
+        return height;
     }
 
     public Goat goat() {
-        for (var cell : _cells.entrySet()) {
+        for (var cell : cells.entrySet()) {
             var possibleGoat = cell.getValue().objects().stream().filter(gameObject -> gameObject instanceof Goat).findFirst();
             if (possibleGoat.isPresent())
                 return (Goat) possibleGoat.get();
@@ -78,12 +78,12 @@ public class GameField {
     }
 
     public ReadOnlyList<CellWithPosition> cells() {
-        return ReadOnlyList.fromList(_cells.entrySet().stream().map(entry -> new CellWithPosition(entry.getValue(), entry.getKey())).collect(Collectors.toList()));
+        return ReadOnlyList.fromList(cells.entrySet().stream().map(entry -> new CellWithPosition(entry.getValue(), entry.getKey())).collect(Collectors.toList()));
     }
 
     private void assertPointInRange(@NotNull Point point) {
         if (!isPointInRange(point))
-            throw new PointIsNotInFieldRangeException(point, _width, _height);
+            throw new PointIsNotInFieldRangeException(point, width, height);
     }
 
     private void assertDimensionIsCorrect(int dimension, @NotNull String name) {

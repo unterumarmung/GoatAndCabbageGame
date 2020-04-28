@@ -5,29 +5,29 @@ import model.events.GameMessage;
 import org.jetbrains.annotations.NotNull;
 
 public class Game implements MessageListener, MessageSource {
-    private final @NotNull FieldBuilder _fieldBuilder;
-    private final @NotNull SubscriptionHandler _subscriptionHandler;
-    private final @NotNull MessageSender _messageSender;
-    private final @NotNull GameField _gameField;
-    private GameState _gameState;
+    private final @NotNull FieldBuilder fieldBuilder;
+    private final @NotNull SubscriptionHandler subscriptionHandler;
+    private final @NotNull MessageSender messageSender;
+    private final @NotNull GameField gameField;
+    private GameState gameState;
 
     public Game(@NotNull FieldBuilder fieldBuilder, @NotNull SubscriptionHandler subscriptionHandler, @NotNull MessageSender messageSender) {
-        _fieldBuilder = fieldBuilder;
-        _subscriptionHandler = subscriptionHandler;
-        _messageSender = messageSender;
-        _gameField = _fieldBuilder.build();
+        this.fieldBuilder = fieldBuilder;
+        this.subscriptionHandler = subscriptionHandler;
+        this.messageSender = messageSender;
+        gameField = this.fieldBuilder.build();
         setup();
     }
 
     private void setup() {
-        for (var cell : _gameField.cells()) {
-            _subscriptionHandler.subscribeTo(cell.cell, this);
+        for (var cell : gameField.cells()) {
+            subscriptionHandler.subscribeTo(cell.cell, this);
         }
-        _gameState = GameState.CONTINUING;
+        gameState = GameState.CONTINUING;
     }
 
     private GameState determineOutcomeGame() {
-        var goat = _gameField.goat();
+        var goat = gameField.goat();
         var isGoatOnCellWithCabbage = goat.cell().objects().stream().anyMatch(gameObject -> gameObject instanceof Cabbage);
         var hasNoSteps = !goat.hasEnoughSteps();
 
@@ -40,12 +40,16 @@ public class Game implements MessageListener, MessageSource {
     }
 
     public GameState gameState() {
-        return _gameState;
+        return gameState;
+    }
+
+    public GameField gameField() {
+        return gameField;
     }
 
     @Override
     public void handleMessage(MessageSource source, MessageData data) {
-        _gameState = determineOutcomeGame();
-        _messageSender.emitMessage(this, new GameMessage(_gameState));
+        gameState = determineOutcomeGame();
+        messageSender.emitMessage(this, new GameMessage(gameState));
     }
 }

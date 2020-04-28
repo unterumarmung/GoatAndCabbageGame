@@ -14,32 +14,32 @@ import java.util.List;
 import java.util.Map;
 
 public class Cell implements MessageSource {
-    private final Map<Direction, Cell> _neighbors = new EnumMap<>(Direction.class);
-    private final List<GameObject> _objects = new ArrayList<>();
-    private final MessageSender _messageSender;
+    private final Map<Direction, Cell> neighbors = new EnumMap<>(Direction.class);
+    private final List<GameObject> objects = new ArrayList<>();
+    private final MessageSender messageSender;
 
     public Cell(@NotNull MessageSender messageSender) {
-        _messageSender = messageSender;
+        this.messageSender = messageSender;
     }
 
     public Cell neighborCell(@NotNull Direction direction) {
-        return _neighbors.get(direction);
+        return neighbors.get(direction);
     }
 
     void setNeighbor(@NotNull Cell cell, @NotNull Direction direction) {
-        if (_neighbors.containsKey(direction) && _neighbors.containsValue(cell))
+        if (neighbors.containsKey(direction) && neighbors.containsValue(cell))
             return;
-        if (_neighbors.containsKey(direction))
+        if (neighbors.containsKey(direction))
             throw new CellAlreadyHasNeighborForDirectionException(this, direction);
 
-        _neighbors.put(direction, cell);
+        neighbors.put(direction, cell);
         if (cell.neighborCell(direction.opposite()) == null) {
             cell.setNeighbor(this, direction.opposite());
         }
     }
 
     public Direction isNeighbor(@NotNull Cell cell) {
-        for (var i : _neighbors.entrySet()) {
+        for (var i : neighbors.entrySet()) {
             if (i.getValue().equals(cell))
                 return i.getKey();
         }
@@ -47,16 +47,16 @@ public class Cell implements MessageSource {
     }
 
     public void addObject(@NotNull GameObject object) {
-        _objects.add(object);
-        _messageSender.emitMessage(this, new CellMessage(CellMessage.Type.OBJECT_ENTERED, this, object));
+        objects.add(object);
+        messageSender.emitMessage(this, new CellMessage(CellMessage.Type.OBJECT_ENTERED, this, object));
     }
 
     public void removeObject(@NotNull GameObject object) {
-        _objects.remove(object);
-        _messageSender.emitMessage(this, new CellMessage(CellMessage.Type.OBJECT_LEAVED, this, object));
+        objects.remove(object);
+        messageSender.emitMessage(this, new CellMessage(CellMessage.Type.OBJECT_LEAVED, this, object));
     }
 
     public @NotNull ReadOnlyList<GameObject> objects() {
-        return ReadOnlyList.fromList(new ArrayList<>(_objects));
+        return ReadOnlyList.fromList(new ArrayList<>(objects));
     }
 }

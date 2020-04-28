@@ -5,18 +5,18 @@ import org.jetbrains.annotations.NotNull;
 import utils.Point;
 
 public abstract class FieldBuilder {
-    private final @NotNull MessageSender _messageSender;
-    protected GameField _gameField;
+    private final @NotNull MessageSender messageSender;
+    protected GameField gameField;
 
     protected FieldBuilder(@NotNull MessageSender messageSender) {
-        _messageSender = messageSender;
+        this.messageSender = messageSender;
     }
 
     public GameField build() {
-        _gameField = new GameField(fieldWidth(), fieldHeight(), exitPoint(), _messageSender);
+        gameField = new GameField(fieldWidth(), fieldHeight(), exitPoint(), messageSender);
         addGoat();
         addWalls();
-        return _gameField;
+        return gameField;
     }
 
     protected abstract int fieldHeight();

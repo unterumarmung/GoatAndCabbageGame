@@ -31,12 +31,12 @@ public class SimpleFieldBuilder extends FieldBuilder {
     @Override
     protected void addGoat() {
         var goat = new Goat(new StepCounter(DEFAULT_STEPS_COUNT));
-        goat.setPosition(_gameField.cell(new Point(0, 0)));
+        goat.setPosition(gameField.cell(new Point(0, 0)));
     }
 
     @Override
     protected void addWalls() {
-        new Wall(_gameField.cell(new Point(2, 3)));
-        new Wall(_gameField.cell(new Point(3, 2)));
+        new Wall(gameField.cell(new Point(2, 3)));
+        new Wall(gameField.cell(new Point(3, 2)));
     }
 }

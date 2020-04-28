@@ -12,119 +12,119 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 class CellShould {
-    private MessageSender _messageSender;
-    private Cell _neighborCell;
-    private Direction _direction;
-    private GameObject _gameObject;
+    private MessageSender messageSender;
+    private Cell neighborCell;
+    private Direction direction;
+    private GameObject gameObject;
 
     @BeforeEach
     void beforeEach() {
-        _messageSender = mock(MessageSender.class);
-        _neighborCell = mock(Cell.class);
-        _direction = Direction.NORTH;
-        _gameObject = mock(GameObject.class);
+        messageSender = mock(MessageSender.class);
+        neighborCell = mock(Cell.class);
+        direction = Direction.NORTH;
+        gameObject = mock(GameObject.class);
     }
 
     @Test
     void addNeighbor_whenNoNeighborInDirection() {
         // Arrange
-        var cell = new Cell(_messageSender);
+        var cell = new Cell(messageSender);
 
         // Act
-        cell.setNeighbor(_neighborCell, _direction);
+        cell.setNeighbor(neighborCell, direction);
 
         // Assert
-        assertEquals(_direction, cell.isNeighbor(_neighborCell));
-        assertSame(_neighborCell, cell.neighborCell(_direction));
+        assertEquals(direction, cell.isNeighbor(neighborCell));
+        assertSame(neighborCell, cell.neighborCell(direction));
     }
 
     @Test
     void throw_whenAddNewNeighborInUsedDirection() {
         // Arrange
-        var cell = new Cell(_messageSender);
-        cell.setNeighbor(_neighborCell, _direction);
+        var cell = new Cell(messageSender);
+        cell.setNeighbor(neighborCell, direction);
         var newCell = mock(Cell.class);
 
         // Act & Assert
-        assertThrows(CellAlreadyHasNeighborForDirectionException.class, () -> cell.setNeighbor(newCell, _direction));
+        assertThrows(CellAlreadyHasNeighborForDirectionException.class, () -> cell.setNeighbor(newCell, direction));
     }
 
     @Test
     void notThrow_whenAddSameNeighborInUsedDirection() {
         // Arrange
-        var cell = new Cell(_messageSender);
-        cell.setNeighbor(_neighborCell, _direction);
+        var cell = new Cell(messageSender);
+        cell.setNeighbor(neighborCell, direction);
 
         // Act & Assert
-        assertDoesNotThrow(() -> cell.setNeighbor(_neighborCell, _direction));
+        assertDoesNotThrow(() -> cell.setNeighbor(neighborCell, direction));
     }
 
     @Test
     void setItselfAsNeighbor_whenNewNeighborAdded() {
         // Arrange
-        var cell = new Cell(_messageSender);
+        var cell = new Cell(messageSender);
 
         // Act
-        cell.setNeighbor(_neighborCell, _direction);
+        cell.setNeighbor(neighborCell, direction);
 
         // Assert
-        verify(_neighborCell).setNeighbor(cell, _direction.opposite());
+        verify(neighborCell).setNeighbor(cell, direction.opposite());
     }
 
     @Test
     void addObject() {
         // Arrange
-        var cell = new Cell(_messageSender);
+        var cell = new Cell(messageSender);
 
         // Act
-        cell.addObject(_gameObject);
+        cell.addObject(gameObject);
 
         // Assert
-        assertTrue(cell.objects().contains(_gameObject));
+        assertTrue(cell.objects().contains(gameObject));
     }
 
     @Test
     void removeObject() {
         // Arrange
-        var cell = new Cell(_messageSender);
-        cell.addObject(_gameObject);
+        var cell = new Cell(messageSender);
+        cell.addObject(gameObject);
 
         // Act
-        cell.removeObject(_gameObject);
+        cell.removeObject(gameObject);
 
         // Assert
-        assertFalse(cell.objects().contains(_gameObject));
+        assertFalse(cell.objects().contains(gameObject));
     }
 
     @Test
     void sendMessage_whenObjectAdded() {
         // Arrange
-        var cell = new Cell(_messageSender);
-        var messageToBeSent = new CellMessage(CellMessage.Type.OBJECT_ENTERED, cell, _gameObject);
+        var cell = new Cell(messageSender);
+        var messageToBeSent = new CellMessage(CellMessage.Type.OBJECT_ENTERED, cell, gameObject);
         // Act
-        cell.addObject(_gameObject);
+        cell.addObject(gameObject);
 
         // Assert
-        verify(_messageSender).emitMessage(cell, messageToBeSent);
+        verify(messageSender).emitMessage(cell, messageToBeSent);
     }
 
     @Test
     void sendMessage_whenObjectRemoved() {
         // Arrange
-        var cell = new Cell(_messageSender);
-        var messageToBeSent = new CellMessage(CellMessage.Type.OBJECT_LEAVED, cell, _gameObject);
-        cell.addObject(_gameObject);
+        var cell = new Cell(messageSender);
+        var messageToBeSent = new CellMessage(CellMessage.Type.OBJECT_LEAVED, cell, gameObject);
+        cell.addObject(gameObject);
         // Act
-        cell.removeObject(_gameObject);
+        cell.removeObject(gameObject);
 
         // Assert
-        verify(_messageSender).emitMessage(cell, messageToBeSent);
+        verify(messageSender).emitMessage(cell, messageToBeSent);
     }
 
     @Test
     void beEmpty_afterCreation() {
         // Arrange
-        var cell = new Cell(_messageSender);
+        var cell = new Cell(messageSender);
 
         // Act & Assert
         assertTrue(cell.objects().isEmpty());
@@ -133,7 +133,7 @@ class CellShould {
     @Test
     void returnNull_whenNoNeighbor() {
         // Arrange
-        var cell = new Cell(_messageSender);
+        var cell = new Cell(messageSender);
 
         // Act & Assert
         assertNull(cell.neighborCell(Direction.EAST));

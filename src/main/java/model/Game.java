@@ -27,6 +27,8 @@ public class Game implements MessageListener, MessageSource {
     }
 
     private GameState determineOutcomeGame() {
+        if (gameField.goat() == null)
+            return gameState;
         var goat = gameField.goat();
         var isGoatOnCellWithCabbage = gameField.cell(gameField.exitPoint()).objects().stream().anyMatch(gameObject -> gameObject == goat);
         var hasNoSteps = !goat.hasEnoughSteps();

@@ -12,6 +12,8 @@ public class MessageBridge implements MessageSender, SubscriptionHandler {
 
     @Override
     public void emitMessage(@NotNull MessageSource messageSource, MessageData data) {
+        if (!listeners.containsKey(messageSource))
+            return;
         for (var listener : listeners.get(messageSource)) {
             listener.handleMessage(messageSource, data);
         }

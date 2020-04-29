@@ -6,10 +6,10 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class ReadOnlyList<T> implements Iterable<T> {
-    private final List<T> _list;
+    private final List<T> list;
 
     private ReadOnlyList(@NotNull List<T> list) {
-        _list = Collections.unmodifiableList(list);
+        this.list = Collections.unmodifiableList(list);
     }
 
     public static <T> ReadOnlyList<T> fromList(List<T> list) {
@@ -21,52 +21,52 @@ public class ReadOnlyList<T> implements Iterable<T> {
     }
 
     public boolean contains(T o) {
-        return _list.contains(o);
+        return list.contains(o);
     }
 
     public boolean isEmpty() {
-        return _list.isEmpty();
+        return list.isEmpty();
     }
 
     public boolean containsAll(Collection<?> c) {
-        return _list.containsAll(c);
+        return list.containsAll(c);
     }
 
     public List<T> toUnmodifiableList() {
-        return _list;
+        return list;
     }
 
     public T get(int index) {
-        return _list.get(index);
+        return list.get(index);
     }
 
     public int indexOf(T o) {
-        return _list.indexOf(o);
+        return list.indexOf(o);
     }
 
     public int lastIndexOf(T o) {
-        return _list.lastIndexOf(o);
+        return list.lastIndexOf(o);
     }
 
     public ListIterator<T> listIterator() {
-        return _list.listIterator();
+        return list.listIterator();
     }
 
     public ListIterator<T> listIterator(int index) {
-        return _list.listIterator(index);
+        return list.listIterator(index);
     }
 
     public ReadOnlyList<T> subList(int fromIndex, int toIndex) {
-        return new ReadOnlyList<>(_list.subList(fromIndex, toIndex));
+        return new ReadOnlyList<>(list.subList(fromIndex, toIndex));
     }
 
     public Stream<T> stream() {
-        return _list.stream();
+        return list.stream();
     }
 
     @NotNull
     @Override
     public Iterator<T> iterator() {
-        return _list.iterator();
+        return list.iterator();
     }
 }

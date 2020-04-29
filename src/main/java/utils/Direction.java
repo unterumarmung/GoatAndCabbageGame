@@ -7,16 +7,16 @@ public enum Direction {
     EAST;
 
     static {
-        NORTH._opposite = SOUTH;
-        SOUTH._opposite = NORTH;
-        WEST._opposite = EAST;
-        EAST._opposite = WEST;
+        NORTH.opposite = SOUTH;
+        SOUTH.opposite = NORTH;
+        WEST.opposite = EAST;
+        EAST.opposite = WEST;
     }
 
-    private Direction _opposite;
+    private Direction opposite;
 
     public Direction opposite() {
-        return _opposite;
+        return opposite;
     }
 
     @Override

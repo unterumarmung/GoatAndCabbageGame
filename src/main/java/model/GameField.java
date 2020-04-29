@@ -81,6 +81,10 @@ public class GameField {
         return ReadOnlyList.fromList(cells.entrySet().stream().map(entry -> new CellWithPosition(entry.getValue(), entry.getKey())).collect(Collectors.toList()));
     }
 
+    public Point exitPoint() {
+        return exitPoint;
+    }
+
     private void assertPointInRange(@NotNull Point point) {
         if (!isPointInRange(point))
             throw new PointIsNotInFieldRangeException(point, width, height);

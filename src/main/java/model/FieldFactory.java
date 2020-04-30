@@ -4,11 +4,11 @@ import events.MessageSender;
 import org.jetbrains.annotations.NotNull;
 import utils.Point;
 
-public abstract class FieldBuilder {
+public abstract class FieldFactory {
     private final @NotNull MessageSender messageSender;
     protected GameField gameField;
 
-    protected FieldBuilder(@NotNull MessageSender messageSender) {
+    protected FieldFactory(@NotNull MessageSender messageSender) {
         this.messageSender = messageSender;
     }
 

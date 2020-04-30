@@ -4,12 +4,12 @@ import events.MessageSender;
 import org.jetbrains.annotations.NotNull;
 import utils.Point;
 
-public class SimpleFieldBuilder extends FieldBuilder {
+public class SimpleFieldFactory extends FieldFactory {
     private static final int FIELD_HEIGHT = 5;
     private static final int FIELD_WIDTH = 5;
     private static final int DEFAULT_STEPS_COUNT = 10;
 
-    public SimpleFieldBuilder(@NotNull MessageSender messageSender) {
+    public SimpleFieldFactory(@NotNull MessageSender messageSender) {
         super(messageSender);
     }
 

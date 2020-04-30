@@ -115,7 +115,7 @@ class GameFieldShould {
     @Test
     void haveActualGoat() {
         // Arrange
-        var goat = new Goat(mock(StepCounter.class));
+        var goat = new Goat(Goat.STEP_COST);
         var field = new GameField(4, 5, exitPoint, messageSender);
 
         assertNull(field.goat());

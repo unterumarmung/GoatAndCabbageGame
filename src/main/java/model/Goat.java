@@ -1,22 +1,23 @@
 package model;
 
+import model.exceptions.NoEnoughStepsException;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 
 public class Goat implements GameObject {
     static final int STEP_COST = 1;
-    private final @NotNull StepCounter stepCounter;
     private Cell position;
+    private int steps;
 
-    public Goat(@NotNull StepCounter stepCounter) {
-        this.stepCounter = stepCounter;
+    public Goat(int initialSteps) {
+        steps = initialSteps;
     }
 
     public void move(@NotNull Direction direction) {
         if (!canMoveTo(direction))
             return;
 
-        stepCounter.decrease(STEP_COST);
+        decreaseSteps();
         setPosition(position.neighborCell(direction));
     }
 
@@ -36,15 +37,25 @@ public class Goat implements GameObject {
     }
 
     public boolean hasEnoughSteps() {
-        return stepCounter.steps() - STEP_COST >= 0;
+        return steps() - STEP_COST >= 0;
     }
 
     public Cell cell() {
         return position;
     }
 
-    public @NotNull StepCounter stepCounter() {
-        return stepCounter;
+    private void assertHasSteps() {
+        if (!hasEnoughSteps())
+            throw new NoEnoughStepsException();
+    }
+
+    void decreaseSteps() {
+        assertHasSteps();
+        steps -= STEP_COST;
+    }
+
+    public int steps() {
+        return steps;
     }
 
     @Override

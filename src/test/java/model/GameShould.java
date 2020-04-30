@@ -9,7 +9,6 @@ import utils.Direction;
 import utils.Point;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
 class GameShould {
@@ -73,7 +72,7 @@ class GameShould {
         var field = game.gameField();
         var goat = field.goat();
         var direction = Direction.EAST;
-        decreaseStepCounterToStepCost(goat.stepCounter());
+        decreaseStepCounterToStepCost(goat);
 
         // Act
         goat.move(direction);
@@ -93,7 +92,7 @@ class GameShould {
         var neighborDirection = Direction.EAST;
         var exitCell = field.cell(field.exitPoint());
         goat.setPosition(exitCell.neighborCell(neighborDirection));
-        decreaseStepCounterToStepCost(goat.stepCounter());
+        decreaseStepCounterToStepCost(goat);
 
         // Act
         goat.move(neighborDirection.opposite());
@@ -102,8 +101,11 @@ class GameShould {
         assertEquals(GameState.ENDED_SUCCESS_GOAT_REACHED_CABBAGE, game.gameState());
     }
 
-    private void decreaseStepCounterToStepCost(StepCounter stepCounter) {
-        var decreaseValue = stepCounter.steps() - Goat.STEP_COST;
-        stepCounter.decrease(decreaseValue);
+    private void decreaseStepCounterToStepCost(Goat goat) {
+        var decreaseTimes = goat.steps() / Goat.STEP_COST - 1;
+        while (decreaseTimes != 0) {
+            goat.decreaseSteps();
+            decreaseTimes--;
+        }
     }
 }

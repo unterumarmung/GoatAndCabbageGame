@@ -1,6 +1,7 @@
 package model;
 
 import events.MessageSender;
+import model.exceptions.NoEnoughStepsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.Direction;
@@ -14,12 +15,9 @@ class GoatShould {
     private Direction direction;
     private GameObject solidGameObject;
     private GameObject notSolidGameObject;
-    private StepCounter stepCounter;
 
     @BeforeEach
     void beforeEach() {
-        stepCounter = new StepCounter(Goat.STEP_COST * 4);
-
         // Создание клеток поля для имитации движения козы
         var messageSender = mock(MessageSender.class);
         cell1 = new Cell(messageSender);
@@ -37,11 +35,11 @@ class GoatShould {
     }
 
     @Test
-    void haveEnoughSteps_whenStepCounterHasLargerOrEqualCount() {
+    void haveEnoughSteps_whenStepsHasLargerOrEqualCount() {
         // Arrange
-        var goat1 = new Goat(new StepCounter(Goat.STEP_COST * 4));
-        var goat2 = new Goat(new StepCounter(Goat.STEP_COST + 1));
-        var goat3 = new Goat(new StepCounter(Goat.STEP_COST));
+        var goat1 = new Goat(Goat.STEP_COST * 4);
+        var goat2 = new Goat(Goat.STEP_COST + 1);
+        var goat3 = new Goat(Goat.STEP_COST);
 
         // Act & Assert
         assertTrue(goat1.hasEnoughSteps());
@@ -52,7 +50,7 @@ class GoatShould {
     @Test
     void notHaveEnoughSteps_whenStepCounterHasSmallerThanStepCost() {
         // Arrange
-        var goat = new Goat(new StepCounter(Goat.STEP_COST - 1));
+        var goat = new Goat(Goat.STEP_COST - 1);
 
         // Act & Assert
         assertFalse(goat.hasEnoughSteps());
@@ -61,7 +59,7 @@ class GoatShould {
     @Test
     void move_toEmptyCell() {
         // Arrange
-        var goat = new Goat(stepCounter);
+        var goat = new Goat(Goat.STEP_COST * 4);
         goat.setPosition(cell1);
 
         // Act
@@ -74,7 +72,7 @@ class GoatShould {
     @Test
     void move_toCellWithNotSolidObject() {
         // Arrange
-        var goat = new Goat(stepCounter);
+        var goat = new Goat(Goat.STEP_COST * 4);
         goat.setPosition(cell1);
         cell2.addObject(notSolidGameObject);
 
@@ -88,7 +86,7 @@ class GoatShould {
     @Test
     void notMove_toCellWithSolidObject() {
         // Arrange
-        var goat = new Goat(stepCounter);
+        var goat = new Goat(Goat.STEP_COST * 4);
         goat.setPosition(cell1);
         cell2.addObject(solidGameObject);
         // Act
@@ -101,7 +99,7 @@ class GoatShould {
     @Test
     void addItselfToNewCell_whenMoveSuccessful() {
         // Arrange
-        var goat = new Goat(stepCounter);
+        var goat = new Goat(Goat.STEP_COST * 4);
         goat.setPosition(cell1);
         var objectsBeforeMove = cell2.objects();
 
@@ -116,7 +114,7 @@ class GoatShould {
     @Test
     void removeItselfFromLastCell_whenMoveSuccessful() {
         // Arrange
-        var goat = new Goat(stepCounter);
+        var goat = new Goat(Goat.STEP_COST * 4);
         goat.setPosition(cell1);
         var objectsBeforeMove = cell1.objects();
 
@@ -131,7 +129,7 @@ class GoatShould {
     @Test
     void notAddItselfToNewCell_whenMoveNotSuccessful() {
         // Arrange
-        var goat = spy(new Goat(stepCounter));
+        var goat = spy(new Goat(Goat.STEP_COST * 4));
         goat.setPosition(cell1);
         // Намеренно запрещаем козе куда-либо передвигаться
         when(goat.canMoveTo(direction)).thenReturn(false);
@@ -146,7 +144,7 @@ class GoatShould {
     @Test
     void notRemoveItselfFromLastCell_whenMoveNotSuccessful() {
         // Arrange
-        var goat = spy(new Goat(stepCounter));
+        var goat = spy(new Goat(Goat.STEP_COST * 4));
         goat.setPosition(cell1);
         // Намеренно запрещаем козе куда-либо передвигаться
         when(goat.canMoveTo(direction)).thenReturn(false);
@@ -161,15 +159,28 @@ class GoatShould {
     @Test
     void beSolid() {
         // Arrange & Act & Assert
-        assertTrue(new Goat(stepCounter).isSolid());
+        assertTrue(new Goat(Goat.STEP_COST * 4).isSolid());
     }
 
     @Test
-    void haveGivenStepCounter() {
+    void initializeWithGivenSteps() {
         // Arrange
-        var goat = new Goat(stepCounter);
+        var steps = 15;
+
+        // Act
+        var goat = new Goat(steps);
+
+        // Assert
+        assertEquals(steps, goat.steps());
+    }
+
+    @Test
+    void throw_whenNotEnoughSteps() {
+        // Arrange
+        var initialSteps = 0;
+        var goat = new Goat(initialSteps);
 
         // Act & Assert
-        assertSame(stepCounter, goat.stepCounter());
+        assertThrows(NoEnoughStepsException.class, goat::decreaseSteps);
     }
 }

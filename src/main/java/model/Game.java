@@ -8,13 +8,16 @@ public class Game implements MessageListener, MessageSource {
     private final @NotNull FieldBuilder fieldBuilder;
     private final @NotNull SubscriptionHandler subscriptionHandler;
     private final @NotNull MessageSender messageSender;
-    private final @NotNull GameField gameField;
+    private GameField gameField;
     private GameState gameState;
 
     public Game(@NotNull FieldBuilder fieldBuilder, @NotNull SubscriptionHandler subscriptionHandler, @NotNull MessageSender messageSender) {
         this.fieldBuilder = fieldBuilder;
         this.subscriptionHandler = subscriptionHandler;
         this.messageSender = messageSender;
+    }
+
+    public void start() {
         gameField = this.fieldBuilder.build();
         setup();
     }

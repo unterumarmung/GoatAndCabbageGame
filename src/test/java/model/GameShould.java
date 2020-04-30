@@ -27,33 +27,41 @@ class GameShould {
         when(fieldBuilder.build()).thenReturn(gameField);
 
         subscriptionHandler = mock(SubscriptionHandler.class);
-
     }
 
     @Test
-    void beContinuing_afterCreation() {
+    void beContinuing_afterStart() {
         // Arrange
         var game = new Game(fieldBuilder, subscriptionHandler, messageSender);
 
-        // Act & Assert
+        // Act
+        game.start();
+
+        // Assert
         assertEquals(GameState.CONTINUING, game.gameState());
     }
 
     @Test
-    void buildField_usingBuilder() {
+    void buildField_usingBuilder_afterStart() {
         // Arrange
         when(fieldBuilder.build()).thenReturn(gameField);
         var game = new Game(fieldBuilder, subscriptionHandler, messageSender);
 
-        // Act & Assert
+        // Act
+        game.start();
+
+        // Assert
         verify(fieldBuilder).build();
         assertSame(gameField, game.gameField());
     }
 
     @Test
-    void subscribeToEachCell_whenCreated() {
-        // Arrange & Act
+    void subscribeToEachCell_whenStarted() {
+        // Arrange
         var game = new Game(fieldBuilder, subscriptionHandler, messageSender);
+
+        // Act
+        game.start();
 
         // Assert
         for (var cellWithPosition : gameField.cells()) {
@@ -66,6 +74,7 @@ class GameShould {
         // Arrange
         var messageBridge = new MessageBridge();
         var game = new Game(new SimpleFieldBuilder(messageBridge), messageBridge, messageBridge);
+        game.start();
         var goat = game.gameField().goat();
 
         // Act
@@ -79,6 +88,7 @@ class GameShould {
     void endWithFailure_whenStepCounterEnded() {
         var messageBridge = new MessageBridge();
         var game = new Game(new SimpleFieldBuilder(messageBridge), messageBridge, messageBridge);
+        game.start();
         var field = game.gameField();
         var goat = field.goat();
         var direction = Direction.EAST;
@@ -96,6 +106,7 @@ class GameShould {
         // Arrange
         var messageBridge = new MessageBridge();
         var game = new Game(new SimpleFieldBuilder(messageBridge), messageBridge, messageBridge);
+        game.start();
         var field = game.gameField();
         var goat = field.goat();
         var neighborDirection = Direction.EAST;

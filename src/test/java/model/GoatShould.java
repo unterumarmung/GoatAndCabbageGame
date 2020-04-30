@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class GoatShould {
-    private MessageSender messageSender;
     private Cell cell1;
     private Cell cell2;
     private Direction direction;
@@ -22,7 +21,7 @@ class GoatShould {
         stepCounter = new StepCounter(Goat.STEP_COST * 4);
 
         // Создание клеток поля для имитации движения козы
-        messageSender = mock(MessageSender.class);
+        var messageSender = mock(MessageSender.class);
         cell1 = new Cell(messageSender);
         cell2 = new Cell(messageSender);
         direction = Direction.EAST;

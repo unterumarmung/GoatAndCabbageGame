@@ -12,7 +12,7 @@ public abstract class FieldFactory {
         this.messageSender = messageSender;
     }
 
-    public GameField build() {
+    public GameField create() {
         gameField = new GameField(fieldWidth(), fieldHeight(), exitPoint(), messageSender);
         addGoat();
         addWalls();

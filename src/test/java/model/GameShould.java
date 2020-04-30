@@ -54,7 +54,7 @@ class GameShould {
     void endWithSuccess_whenGoatOnCabbageCell() {
         // Arrange
         var messageBridge = new MessageBridge();
-        var game = new Game(new SimpleFieldFactory(messageBridge).build(), messageBridge, messageBridge);
+        var game = new Game(new SimpleFieldFactory(messageBridge).create(), messageBridge, messageBridge);
         game.start();
         var goat = game.gameField().goat();
 
@@ -68,7 +68,7 @@ class GameShould {
     @Test
     void endWithFailure_whenStepCounterEnded() {
         var messageBridge = new MessageBridge();
-        var game = new Game(new SimpleFieldFactory(messageBridge).build(), messageBridge, messageBridge);
+        var game = new Game(new SimpleFieldFactory(messageBridge).create(), messageBridge, messageBridge);
         game.start();
         var field = game.gameField();
         var goat = field.goat();
@@ -86,7 +86,7 @@ class GameShould {
     void endWithSuccess_whenReachedCabbage_andStepCounterEnded() {
         // Arrange
         var messageBridge = new MessageBridge();
-        var game = new Game(new SimpleFieldFactory(messageBridge).build(), messageBridge, messageBridge);
+        var game = new Game(new SimpleFieldFactory(messageBridge).create(), messageBridge, messageBridge);
         game.start();
         var field = game.gameField();
         var goat = field.goat();

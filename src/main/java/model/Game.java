@@ -5,18 +5,20 @@ import model.events.GameMessage;
 import org.jetbrains.annotations.NotNull;
 
 public class Game implements MessageListener, MessageSource {
+    private final @NotNull FieldFactory fieldFactory;
     private final @NotNull SubscriptionHandler subscriptionHandler;
     private final @NotNull MessageSender messageSender;
-    private final @NotNull GameField gameField;
+    private GameField gameField;
     private GameState gameState;
 
-    public Game(@NotNull GameField gameField, @NotNull SubscriptionHandler subscriptionHandler, @NotNull MessageSender messageSender) {
-        this.gameField = gameField;
+    public Game(@NotNull FieldFactory fieldFactory, @NotNull SubscriptionHandler subscriptionHandler, @NotNull MessageSender messageSender) {
+        this.fieldFactory = fieldFactory;
         this.subscriptionHandler = subscriptionHandler;
         this.messageSender = messageSender;
     }
 
     public void start() {
+        gameField = fieldFactory.create();
         for (var cell : gameField.cells()) {
             subscriptionHandler.subscribeTo(cell.cell, this);
         }

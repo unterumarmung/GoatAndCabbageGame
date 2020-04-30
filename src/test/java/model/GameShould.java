@@ -9,24 +9,28 @@ import utils.Direction;
 import utils.Point;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
 class GameShould {
+    private FieldFactory fieldFactory;
     private SubscriptionHandler subscriptionHandler;
     private MessageSender messageSender;
     private GameField gameField;
 
     @BeforeEach
     void beforeEach() {
+        fieldFactory = mock(FieldFactory.class);
         messageSender = mock(MessageSender.class);
         gameField = new GameField(5, 5, new Point(1, 1), messageSender);
         subscriptionHandler = mock(SubscriptionHandler.class);
+        when(fieldFactory.create()).thenReturn(gameField);
     }
 
     @Test
     void beContinuing_afterStart() {
         // Arrange
-        var game = new Game(gameField, subscriptionHandler, messageSender);
+        var game = new Game(fieldFactory, subscriptionHandler, messageSender);
 
         // Act
         game.start();
@@ -38,7 +42,7 @@ class GameShould {
     @Test
     void subscribeToEachCell_whenStarted() {
         // Arrange
-        var game = new Game(gameField, subscriptionHandler, messageSender);
+        var game = new Game(fieldFactory, subscriptionHandler, messageSender);
 
         // Act
         game.start();
@@ -48,12 +52,24 @@ class GameShould {
             verify(subscriptionHandler).subscribeTo(cellWithPosition.cell, game);
         }
     }
+    @Test
+    void buildField_usingBuilder_afterStart() {
+        // Arrange
+        var game = new Game(fieldFactory, subscriptionHandler, messageSender);
+
+        // Act
+        game.start();
+
+        // Assert
+        verify(fieldFactory).create();
+        assertSame(gameField, game.gameField());
+    }
 
     @Test
     void endWithSuccess_whenGoatOnCabbageCell() {
         // Arrange
         var messageBridge = new MessageBridge();
-        var game = new Game(new SimpleFieldFactory(messageBridge).create(), messageBridge, messageBridge);
+        var game = new Game(new SimpleFieldFactory(messageBridge), messageBridge, messageBridge);
         game.start();
         var goat = game.gameField().goat();
 
@@ -67,7 +83,7 @@ class GameShould {
     @Test
     void endWithFailure_whenStepCounterEnded() {
         var messageBridge = new MessageBridge();
-        var game = new Game(new SimpleFieldFactory(messageBridge).create(), messageBridge, messageBridge);
+        var game = new Game(new SimpleFieldFactory(messageBridge), messageBridge, messageBridge);
         game.start();
         var field = game.gameField();
         var goat = field.goat();
@@ -85,7 +101,7 @@ class GameShould {
     void endWithSuccess_whenReachedCabbage_andStepCounterEnded() {
         // Arrange
         var messageBridge = new MessageBridge();
-        var game = new Game(new SimpleFieldFactory(messageBridge).create(), messageBridge, messageBridge);
+        var game = new Game(new SimpleFieldFactory(messageBridge), messageBridge, messageBridge);
         game.start();
         var field = game.gameField();
         var goat = field.goat();

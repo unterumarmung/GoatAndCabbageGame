@@ -19,6 +19,7 @@ public class GameField {
     private final @NotNull Point exitPoint;
     private final @NotNull MessageSender messageSender;
     private final @NotNull Cabbage cabbage;
+    private Goat goat;
 
     public GameField(int width, int height, @NotNull Point exitPoint, @NotNull MessageSender messageSender) {
         assertDimensionIsCorrect(width, "width");
@@ -69,12 +70,13 @@ public class GameField {
     }
 
     public Goat goat() {
+        if (goat != null)
+            return goat;
         for (var cell : cells.entrySet()) {
             var possibleGoat = cell.getValue().objects().stream().filter(gameObject -> gameObject instanceof Goat).findFirst();
-            if (possibleGoat.isPresent())
-                return (Goat) possibleGoat.get();
+            possibleGoat.ifPresent(object -> goat = (Goat) object);
         }
-        return null;
+        return goat;
     }
 
     public ReadOnlyList<CellWithPosition> cells() {

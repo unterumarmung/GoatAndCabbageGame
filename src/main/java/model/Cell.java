@@ -38,7 +38,7 @@ public class Cell implements MessageSource {
         }
     }
 
-    public Direction isNeighbor(@NotNull Cell cell) {
+    public Direction neighborDirection(@NotNull Cell cell) {
         for (var i : neighbors.entrySet()) {
             if (i.getValue().equals(cell))
                 return i.getKey();

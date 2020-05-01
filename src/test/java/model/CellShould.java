@@ -34,7 +34,7 @@ class CellShould {
         cell.setNeighbor(neighborCell, direction);
 
         // Assert
-        assertEquals(direction, cell.isNeighbor(neighborCell));
+        assertEquals(direction, cell.neighborDirection(neighborCell));
         assertSame(neighborCell, cell.neighborCell(direction));
     }
 
@@ -137,6 +137,6 @@ class CellShould {
 
         // Act & Assert
         assertNull(cell.neighborCell(Direction.EAST));
-        assertNull(cell.isNeighbor(mock(Cell.class)));
+        assertNull(cell.neighborDirection(mock(Cell.class)));
     }
 }

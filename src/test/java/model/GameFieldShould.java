@@ -38,14 +38,14 @@ class GameFieldShould {
         var cell_11 = field.cell(new Point(1, 1));
 
         // Assert
-        assertEquals(Direction.SOUTH, cell_00.isNeighbor(cell_10));
-        assertEquals(Direction.SOUTH, cell_01.isNeighbor(cell_11));
-        assertEquals(Direction.NORTH, cell_11.isNeighbor(cell_01));
-        assertEquals(Direction.NORTH, cell_10.isNeighbor(cell_00));
-        assertEquals(Direction.EAST, cell_00.isNeighbor(cell_01));
-        assertEquals(Direction.EAST, cell_10.isNeighbor(cell_11));
-        assertEquals(Direction.WEST, cell_01.isNeighbor(cell_00));
-        assertEquals(Direction.WEST, cell_11.isNeighbor(cell_10));
+        assertEquals(Direction.SOUTH, cell_00.neighborDirection(cell_10));
+        assertEquals(Direction.SOUTH, cell_01.neighborDirection(cell_11));
+        assertEquals(Direction.NORTH, cell_11.neighborDirection(cell_01));
+        assertEquals(Direction.NORTH, cell_10.neighborDirection(cell_00));
+        assertEquals(Direction.EAST, cell_00.neighborDirection(cell_01));
+        assertEquals(Direction.EAST, cell_10.neighborDirection(cell_11));
+        assertEquals(Direction.WEST, cell_01.neighborDirection(cell_00));
+        assertEquals(Direction.WEST, cell_11.neighborDirection(cell_10));
     }
 
     @Test

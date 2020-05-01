@@ -47,6 +47,8 @@ public class Cell implements MessageSource {
     }
 
     public void addObject(@NotNull GameObject object) {
+        if (objects.contains(object))
+            return;
         objects.add(object);
         messageSender.emitMessage(this, new CellMessage(CellMessage.Type.OBJECT_ENTERED, this, object));
     }

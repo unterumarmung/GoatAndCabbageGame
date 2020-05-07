@@ -2,6 +2,8 @@ package model;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class Wall implements GameObject {
     private final Cell cell;
 
@@ -18,5 +20,18 @@ public class Wall implements GameObject {
     @Override
     public boolean isSolid() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Wall wall = (Wall) o;
+        return cell.equals(wall.cell);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash("Wall");
     }
 }

@@ -26,7 +26,7 @@ public class Program {
 
     private static Map<Class, ImageProvider> imageProviders() {
         var map = new HashMap<Class, ImageProvider>();
-        map.put(Goat.class, new FileImageProvider("Goat.png"));
+        map.put(Goat.class, new FileImageProvider("goat.png"));
         map.put(Wall.class, new FileImageProvider("wall.png"));
         map.put(Cabbage.class, new FileImageProvider("cabbage.png"));
         map.put(Cell.class, new FileImageProvider("ground.png"));

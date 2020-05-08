@@ -39,19 +39,19 @@ public class WidgetFactory {
 
     public CellWidget getWidget(@NotNull Cell cell) {
         cellWidgets.computeIfAbsent(cell, cell1 -> {
-           var cellWidget = new CellWidget(imageProviders.get(cell.getClass()));
-           for (var object : cell.objects()) {
-               if (object instanceof Cabbage) {
-                   cellWidget.addObject(getWidget((Cabbage) object));
-               } else if (object instanceof Goat) {
-                   cellWidget.addObject(getWidget((Goat) object));
-               } else if (object instanceof Wall) {
-                   cellWidget.addObject(getWidget((Wall) object));
-               } else {
-                   throw new IllegalArgumentException("Object creation is not supported" + object);
-               }
-           }
-           return cellWidget;
+            var cellWidget = new CellWidget(imageProviders.get(cell.getClass()));
+            for (var object : cell.objects()) {
+                if (object instanceof Cabbage) {
+                    cellWidget.addObject(getWidget((Cabbage) object));
+                } else if (object instanceof Goat) {
+                    cellWidget.addObject(getWidget((Goat) object));
+                } else if (object instanceof Wall) {
+                    cellWidget.addObject(getWidget((Wall) object));
+                } else {
+                    throw new IllegalArgumentException("Object creation is not supported" + object);
+                }
+            }
+            return cellWidget;
         });
         return cellWidgets.get(cell);
     }

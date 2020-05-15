@@ -71,8 +71,10 @@ public class GamePanel extends JFrame implements MessageListener {
         var gameMessage = (GameMessage) data;
         if (gameMessage.gameState == GameState.ENDED_SUCCESS_GOAT_REACHED_CABBAGE) {
             showMessageDialog(this, "Коза успешно достигла капусты!", MESSAGE_TITLE, PLAIN_MESSAGE);
+            close();
         } else if (gameMessage.gameState == GameState.ENDED_FAILURE_STEPS_EXPIRED) {
             showMessageDialog(this, "У козы закончились шаги!", MESSAGE_TITLE, PLAIN_MESSAGE);
+            close();
         }
     }
 

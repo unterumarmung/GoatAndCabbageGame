@@ -55,6 +55,7 @@ public class GamePanel extends JFrame implements MessageListener {
                     game.gameField().goat().move(keyCodeToDirection(e.getKeyCode()));
                     GamePanel.this.fieldWidget.repaint();
                 }
+                handleState(game.gameState());
             }
 
             @Override
@@ -64,18 +65,21 @@ public class GamePanel extends JFrame implements MessageListener {
         });
     }
 
-    @Override
-    public void handleMessage(MessageSource source, MessageData data) {
+    private void handleState(GameState gameState) {
         final String MESSAGE_TITLE = "Игра завершена!";
-
-        var gameMessage = (GameMessage) data;
-        if (gameMessage.gameState == GameState.ENDED_SUCCESS_GOAT_REACHED_CABBAGE) {
+        if (gameState == GameState.ENDED_SUCCESS_GOAT_REACHED_CABBAGE) {
             showMessageDialog(this, "Коза успешно достигла капусты!", MESSAGE_TITLE, PLAIN_MESSAGE);
             close();
-        } else if (gameMessage.gameState == GameState.ENDED_FAILURE_STEPS_EXPIRED) {
+        } else if (gameState == GameState.ENDED_FAILURE_STEPS_EXPIRED) {
             showMessageDialog(this, "У козы закончились шаги!", MESSAGE_TITLE, PLAIN_MESSAGE);
             close();
         }
+    }
+
+    @Override
+    public void handleMessage(MessageSource source, MessageData data) {
+        var gameMessage = (GameMessage) data;
+        handleState(gameMessage.gameState);
     }
 
     private void close() {

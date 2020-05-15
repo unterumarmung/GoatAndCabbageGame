@@ -39,6 +39,7 @@ public class GamePanel extends JFrame implements MessageListener {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setFocusable(true);
+        setTitle("Игра «Коза и капуста»");
     }
 
     private void subscribeToKeyboardEvents() {
@@ -65,11 +66,13 @@ public class GamePanel extends JFrame implements MessageListener {
 
     @Override
     public void handleMessage(MessageSource source, MessageData data) {
+        final String MESSAGE_TITLE = "Игра завершена!";
+
         var gameMessage = (GameMessage) data;
         if (gameMessage.gameState == GameState.ENDED_SUCCESS_GOAT_REACHED_CABBAGE) {
-            showMessageDialog(this, "Коза успешно достигла капусты!");
+            showMessageDialog(this, "Коза успешно достигла капусты!", MESSAGE_TITLE, PLAIN_MESSAGE);
         } else if (gameMessage.gameState == GameState.ENDED_FAILURE_STEPS_EXPIRED) {
-            showMessageDialog(this, "У козы закончились шаги!");
+            showMessageDialog(this, "У козы закончились шаги!", MESSAGE_TITLE, PLAIN_MESSAGE);
         }
     }
 

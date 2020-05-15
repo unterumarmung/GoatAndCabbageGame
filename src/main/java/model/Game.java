@@ -41,7 +41,7 @@ public class Game implements MessageListener, MessageSource {
     }
 
     public GameState gameState() {
-        return gameState;
+        return determineOutcomeGame();
     }
 
     public @NotNull GameField gameField() {

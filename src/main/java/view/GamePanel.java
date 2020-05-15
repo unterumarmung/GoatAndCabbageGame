@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 
 import static javax.swing.JOptionPane.*;
 import static view.utils.DirectionUtils.isDirectionKeyCode;
@@ -70,5 +71,9 @@ public class GamePanel extends JFrame implements MessageListener {
         } else if (gameMessage.gameState == GameState.ENDED_FAILURE_STEPS_EXPIRED) {
             showMessageDialog(this, "У козы закончились шаги!");
         }
+    }
+
+    private void close() {
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 }

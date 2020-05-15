@@ -37,8 +37,10 @@ public class FieldWidget extends JPanel {
         var sortedCells = gameField.cells().stream()
                 .sorted(Comparator.comparingInt(cellWithPosition -> cellWithPosition.position.x))
                 .sorted(Comparator.comparingInt(cellWithPosition -> cellWithPosition.position.y))
-                .map(cellWithPosition -> cellWithPosition.cell);
-        for (var cell : sortedCells.collect(Collectors.toList())) {
+                .map(cellWithPosition -> cellWithPosition.cell)
+                .collect(Collectors.toList());
+
+        for (var cell : sortedCells) {
             var cellWidget = widgetFactory.getWidget(cell);
             add(cellWidget);
         }

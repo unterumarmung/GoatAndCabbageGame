@@ -19,8 +19,8 @@ public class Goat implements GameObject {
         if (!canMoveTo(direction))
             return;
 
-        decreaseSteps();
         setPosition(position.neighborCell(direction));
+        decreaseSteps();
     }
 
     void setPosition(Cell cell) {

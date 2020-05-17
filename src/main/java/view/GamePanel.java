@@ -53,7 +53,7 @@ public class GamePanel extends JFrame implements MessageListener {
             public void keyPressed(KeyEvent e) {
                 if (isDirectionKeyCode(e.getKeyCode())) {
                     game.gameField().goat().move(keyCodeToDirection(e.getKeyCode()));
-                    GamePanel.this.fieldWidget.repaint();
+                    fieldWidget.repaint();
                 }
                 handleState(game.gameState());
             }

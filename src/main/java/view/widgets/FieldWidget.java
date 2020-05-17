@@ -61,18 +61,18 @@ public class FieldWidget extends JPanel {
 
         private void onObjectLeaved(CellMessage cellMessage) {
             var cellWidget = widgetFactory.getWidget(cellMessage.cell);
-            var object = widgetFactory.getWidget(cellMessage.object);
-            if (object == null)
+            var objectWidget = widgetFactory.getWidget(cellMessage.object);
+            if (objectWidget == null)
                 return;
-            cellWidget.removeObject(object);
+            cellWidget.removeObject(objectWidget);
         }
 
         private void onObjectEntered(CellMessage cellMessage) {
             var cellWidget = widgetFactory.getWidget(cellMessage.cell);
-            var object = widgetFactory.getWidget(cellMessage.object);
-            if (object == null)
+            var objectWidget = widgetFactory.getWidget(cellMessage.object);
+            if (objectWidget == null)
                 return;
-            cellWidget.addObject(object);
+            cellWidget.addObject(objectWidget);
         }
     }
 }

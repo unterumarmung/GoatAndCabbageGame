@@ -52,6 +52,7 @@ class GameShould {
             verify(subscriptionHandler).subscribeTo(cellWithPosition.cell, game);
         }
     }
+
     @Test
     void buildField_usingBuilder_afterStart() {
         // Arrange

@@ -8,10 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 import utils.collections.ReadOnlyList;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Cell implements MessageSource {
     private final Map<Direction, Cell> neighbors = new EnumMap<>(Direction.class);
@@ -60,5 +57,15 @@ public class Cell implements MessageSource {
 
     public @NotNull ReadOnlyList<GameObject> objects() {
         return ReadOnlyList.fromList(new ArrayList<>(objects));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return this == o;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(neighbors.size());
     }
 }

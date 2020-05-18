@@ -1,33 +1,35 @@
-import model.GameState;
-import model.LevelBuilder;
-import utils.Direction;
+import events.MessageBridge;
+import model.*;
+import view.GamePanel;
+import view.WidgetFactory;
+import view.providers.FileImageProvider;
+import view.providers.ImageProvider;
+import view.widgets.FieldWidget;
 
-import java.util.Scanner;
+import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Program {
+
     public static void main(String[] args) {
-        var scanner = new Scanner(System.in);
-        var game = new LevelBuilder().buildSimpleGame();
+        var messageBridge = new MessageBridge();
+        var fieldFactory = new SimpleFieldFactory(messageBridge);
+        var widgetFactory = new WidgetFactory(imageProviders());
+
+        var game = new Game(fieldFactory, messageBridge, messageBridge);
         game.start();
-        while (true) {
-            System.out.print("Введите направление движения козы: ");
-            var direction = directionFromString(scanner.next());
-            if (direction == null)
-                continue;
-            game.gameField().goat().move(direction);
-            System.out.println("Текущее состояние игры:" + game.gameState());
-            if (game.gameState() != GameState.CONTINUING)
-                break;
-        }
+        var fieldWidget = new FieldWidget(game.gameField(), widgetFactory, messageBridge);
+        SwingUtilities.invokeLater(() -> new GamePanel(game, fieldWidget, messageBridge));
     }
 
-    private static Direction directionFromString(String string) {
-        return switch (string) {
-            case "С", "N" -> Direction.NORTH;
-            case "Ю", "S" -> Direction.SOUTH;
-            case "В", "E" -> Direction.EAST;
-            case "З", "W" -> Direction.WEST;
-            default -> null;
-        };
+    private static Map<Class, ImageProvider> imageProviders() {
+        var map = new HashMap<Class, ImageProvider>();
+        map.put(Goat.class, new FileImageProvider("goat.png"));
+        map.put(Wall.class, new FileImageProvider("wall.png"));
+        map.put(Cabbage.class, new FileImageProvider("cabbage.png"));
+        map.put(Cell.class, new FileImageProvider("ground.png"));
+        return map;
     }
 }

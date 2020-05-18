@@ -4,6 +4,8 @@ import model.exceptions.NoEnoughStepsException;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 
+import java.util.Objects;
+
 public class Goat implements GameObject {
     static final int STEP_COST = 1;
     private Cell position;
@@ -17,8 +19,8 @@ public class Goat implements GameObject {
         if (!canMoveTo(direction))
             return;
 
-        decreaseSteps();
         setPosition(position.neighborCell(direction));
+        decreaseSteps();
     }
 
     void setPosition(Cell cell) {
@@ -61,5 +63,19 @@ public class Goat implements GameObject {
     @Override
     public boolean isSolid() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Goat goat = (Goat) o;
+        return steps == goat.steps &&
+                position.equals(goat.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash("Goat");
     }
 }

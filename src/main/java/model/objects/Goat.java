@@ -1,7 +1,7 @@
-package model;
+package model.objects;
 
+import model.Cell;
 import model.exceptions.NoEnoughStepsException;
-import model.objects.GameObject;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 
@@ -12,8 +12,10 @@ public class Goat implements GameObject {
     private Cell position;
     private int steps;
 
-    public Goat(int initialSteps) {
+    public Goat(int initialSteps, Cell initialCell) {
         steps = initialSteps;
+        position = initialCell;
+        setPosition(position);
     }
 
     public void move(@NotNull Direction direction) {

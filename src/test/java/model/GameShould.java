@@ -3,6 +3,8 @@ package model;
 import events.MessageBridge;
 import events.MessageSender;
 import events.SubscriptionHandler;
+import model.objects.Goat;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.Direction;
@@ -69,12 +71,9 @@ class GameShould {
     void endWithSuccess_whenGoatOnCabbageCell() {
         // Arrange
         var messageBridge = new MessageBridge();
-        var game = new Game(new SimpleFieldFactory(messageBridge), messageBridge, messageBridge);
+        var game = new Game(new TestFactoryWithSteps(messageBridge, null, 20), messageBridge, messageBridge);
         game.start();
         var goat = game.gameField().goat();
-
-        // Act
-        goat.setPosition(game.gameField().cell(game.gameField().exitPoint()));
 
         // Assert
         assertEquals(GameState.ENDED_SUCCESS_GOAT_REACHED_CABBAGE, game.gameState());
@@ -83,12 +82,11 @@ class GameShould {
     @Test
     void endWithFailure_whenStepCounterEnded() {
         var messageBridge = new MessageBridge();
-        var game = new Game(new SimpleFieldFactory(messageBridge), messageBridge, messageBridge);
+        var game = new Game(new TestFactoryWithSteps(messageBridge, new Point(0,0), 0), messageBridge, messageBridge);
         game.start();
         var field = game.gameField();
         var goat = field.goat();
         var direction = Direction.EAST;
-        decreaseStepCounterToStepCost(goat);
 
         // Act
         goat.move(direction);
@@ -101,14 +99,12 @@ class GameShould {
     void endWithSuccess_whenReachedCabbage_andStepCounterEnded() {
         // Arrange
         var messageBridge = new MessageBridge();
-        var game = new Game(new SimpleFieldFactory(messageBridge), messageBridge, messageBridge);
+        var game = new Game(new TestFactoryWithSteps(messageBridge,null, 0), messageBridge, messageBridge);
         game.start();
         var field = game.gameField();
         var goat = field.goat();
         var neighborDirection = Direction.EAST;
         var exitCell = field.cell(field.exitPoint());
-        goat.setPosition(exitCell.neighborCell(neighborDirection));
-        decreaseStepCounterToStepCost(goat);
 
         // Act
         goat.move(neighborDirection.opposite());
@@ -117,11 +113,24 @@ class GameShould {
         assertEquals(GameState.ENDED_SUCCESS_GOAT_REACHED_CABBAGE, game.gameState());
     }
 
-    private void decreaseStepCounterToStepCost(Goat goat) {
-        var decreaseTimes = goat.steps() / Goat.STEP_COST - 1;
-        while (decreaseTimes != 0) {
-            goat.decreaseSteps();
-            decreaseTimes--;
+
+    static class TestFactoryWithSteps extends SimpleFieldFactory {
+        private final Point initialGoatPoint;
+        private final int steps;
+        public TestFactoryWithSteps(@NotNull MessageSender messageSender, Point initialGoatPoint, int steps) {
+            super(messageSender);
+            this.initialGoatPoint = initialGoatPoint;
+            this.steps = steps;
+        }
+
+        @Override
+        protected void addGoat() {
+            Point point;
+            if (initialGoatPoint == null)
+                point = super.exitPoint();
+            else
+                point = initialGoatPoint;
+            var goat = new Goat(steps, gameField.cell(point));
         }
     }
 }

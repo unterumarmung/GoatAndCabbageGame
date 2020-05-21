@@ -4,6 +4,7 @@ import events.MessageSender;
 import model.exceptions.IllegalDimensionException;
 import model.exceptions.PointIsNotInFieldRangeException;
 import model.objects.Cabbage;
+import model.objects.Goat;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 import utils.Point;

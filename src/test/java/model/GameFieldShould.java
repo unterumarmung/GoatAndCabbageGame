@@ -4,6 +4,7 @@ import events.MessageSender;
 import model.exceptions.IllegalDimensionException;
 import model.exceptions.PointIsNotInFieldRangeException;
 import model.objects.Cabbage;
+import model.objects.Goat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.Direction;
@@ -116,17 +117,10 @@ class GameFieldShould {
     @Test
     void haveActualGoat() {
         // Arrange
-        var goat = new Goat(Goat.STEP_COST);
         var field = new GameField(4, 5, exitPoint, messageSender);
-
         assertNull(field.goat());
-        for (int y = 0; y < field.height(); ++y) {
-            for (int x = 0; x < field.width(); ++x) {
-                goat.setPosition(field.cell(new Point(x, y)));
-                // Act & Assert
-                assertSame(goat, field.goat());
-            }
-        }
+        var goat = new Goat(100, field.cell(new Point(0, 0)));
+        assertSame(goat, field.goat());
     }
 
     @Test

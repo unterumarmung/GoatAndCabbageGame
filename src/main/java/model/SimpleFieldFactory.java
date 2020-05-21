@@ -1,6 +1,7 @@
 package model;
 
 import events.MessageSender;
+import model.objects.Goat;
 import model.objects.Wall;
 import org.jetbrains.annotations.NotNull;
 import utils.Point;
@@ -31,8 +32,7 @@ public class SimpleFieldFactory extends FieldFactory {
 
     @Override
     protected void addGoat() {
-        var goat = new Goat(DEFAULT_STEPS_COUNT);
-        goat.setPosition(gameField.cell(new Point(0, 0)));
+        var goat = new Goat(DEFAULT_STEPS_COUNT, gameField.cell(new Point(0, 0)));
     }
 
     @Override

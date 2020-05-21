@@ -3,6 +3,7 @@ package model;
 import events.MessageSender;
 import model.exceptions.IllegalDimensionException;
 import model.exceptions.PointIsNotInFieldRangeException;
+import model.objects.Cabbage;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 import utils.Point;

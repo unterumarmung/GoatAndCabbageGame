@@ -3,6 +3,7 @@ package model;
 import events.MessageSender;
 import model.exceptions.IllegalDimensionException;
 import model.exceptions.PointIsNotInFieldRangeException;
+import model.objects.Cabbage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.Direction;

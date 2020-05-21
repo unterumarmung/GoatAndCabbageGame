@@ -3,6 +3,7 @@ package model;
 import events.MessageSender;
 import model.events.CellMessage;
 import model.exceptions.CellAlreadyHasNeighborForDirectionException;
+import model.objects.GameObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.Direction;

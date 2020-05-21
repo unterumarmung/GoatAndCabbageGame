@@ -2,6 +2,7 @@ package model;
 
 import events.MessageSender;
 import model.exceptions.NoEnoughStepsException;
+import model.objects.GameObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.Direction;

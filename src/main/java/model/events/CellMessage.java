@@ -2,7 +2,7 @@ package model.events;
 
 import events.MessageData;
 import model.Cell;
-import model.GameObject;
+import model.objects.GameObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

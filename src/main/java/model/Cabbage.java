@@ -1,5 +1,6 @@
 package model;
 
+import model.objects.GameObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

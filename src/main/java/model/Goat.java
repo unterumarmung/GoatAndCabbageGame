@@ -1,6 +1,7 @@
 package model;
 
 import model.exceptions.NoEnoughStepsException;
+import model.objects.GameObject;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 

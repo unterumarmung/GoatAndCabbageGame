@@ -4,6 +4,7 @@ import events.MessageSender;
 import events.MessageSource;
 import model.events.CellMessage;
 import model.exceptions.CellAlreadyHasNeighborForDirectionException;
+import model.objects.GameObject;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 import utils.collections.ReadOnlyList;

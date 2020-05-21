@@ -1,6 +1,7 @@
 package model;
 
 import events.MessageSender;
+import model.objects.Wall;
 import org.jetbrains.annotations.NotNull;
 import utils.Point;
 

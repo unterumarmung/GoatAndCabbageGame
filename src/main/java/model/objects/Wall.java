@@ -1,6 +1,6 @@
-package model;
+package model.objects;
 
-import model.objects.GameObject;
+import model.Cell;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

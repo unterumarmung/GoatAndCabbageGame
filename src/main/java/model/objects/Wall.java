@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class Wall implements GameObject {
+public class Wall implements SolidObject {
     private final Cell cell;
 
     public Wall(@NotNull Cell cell) {
@@ -16,11 +16,6 @@ public class Wall implements GameObject {
     @Override
     public Cell cell() {
         return cell;
-    }
-
-    @Override
-    public boolean isSolid() {
-        return true;
     }
 
     @Override

@@ -7,7 +7,7 @@ import utils.Direction;
 
 import java.util.Objects;
 
-public class Goat implements GameObject {
+public class Goat implements SolidObject {
     static final int STEP_COST = 1;
     private Cell position;
     private int steps;
@@ -61,11 +61,6 @@ public class Goat implements GameObject {
 
     public int steps() {
         return steps;
-    }
-
-    @Override
-    public boolean isSolid() {
-        return true;
     }
 
     @Override

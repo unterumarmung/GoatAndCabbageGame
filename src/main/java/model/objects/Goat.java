@@ -9,33 +9,33 @@ import java.util.Objects;
 
 public class Goat implements SolidObject {
     static final int STEP_COST = 1;
-    private Cell position;
+    private Cell cell;
     private int steps;
 
     public Goat(int initialSteps, Cell initialCell) {
         steps = initialSteps;
-        position = initialCell;
-        setPosition(position);
+        cell = initialCell;
+        setCell(cell);
     }
 
     public void move(@NotNull Direction direction) {
         if (!canMoveTo(direction))
             return;
 
-        setPosition(position.neighborCell(direction));
+        setCell(cell.neighborCell(direction));
         decreaseSteps();
     }
 
-    void setPosition(Cell cell) {
-        if (position != null)
-            position.removeObject(this);
+    void setCell(Cell cell) {
+        if (this.cell != null)
+            this.cell.removeObject(this);
         if (cell != null)
             cell.addObject(this);
-        position = cell;
+        this.cell = cell;
     }
 
     boolean canMoveTo(@NotNull Direction direction) {
-        var neighbor = position.neighborCell(direction);
+        var neighbor = cell.neighborCell(direction);
         return neighbor != null
                 && neighbor.objects().stream().noneMatch(GameObject::isSolid)
                 && hasEnoughSteps();
@@ -46,7 +46,7 @@ public class Goat implements SolidObject {
     }
 
     public Cell cell() {
-        return position;
+        return cell;
     }
 
     private void assertHasSteps() {
@@ -69,7 +69,7 @@ public class Goat implements SolidObject {
         if (o == null || getClass() != o.getClass()) return false;
         Goat goat = (Goat) o;
         return steps == goat.steps &&
-                position.equals(goat.position);
+                cell.equals(goat.cell);
     }
 
     @Override

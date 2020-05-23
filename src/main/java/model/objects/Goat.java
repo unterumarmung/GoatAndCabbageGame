@@ -42,6 +42,13 @@ public class Goat implements SolidObject, MovableObject {
                 && hasEnoughSteps();
     }
 
+    @Override
+    public boolean canReplace(@NotNull GameObject gameObject, @NotNull Direction direction) {
+        var neighbor = cell.neighborCell(direction);
+        return neighbor != null
+                && neighbor.objects().stream().filter(o -> o != gameObject).noneMatch(GameObject::isSolid);
+    }
+
     public boolean hasEnoughSteps() {
         return steps() - STEP_COST >= 0;
     }

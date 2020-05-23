@@ -33,6 +33,13 @@ public class SimpleBox implements Box {
     }
 
     @Override
+    public boolean canReplace(@NotNull GameObject gameObject, @NotNull Direction direction) {
+        var neighbor = cell.neighborCell(direction);
+        return neighbor != null
+                && neighbor.objects().stream().filter(o -> o != gameObject).noneMatch(GameObject::isSolid);
+    }
+
+    @Override
     public Cell cell() {
         return cell;
     }

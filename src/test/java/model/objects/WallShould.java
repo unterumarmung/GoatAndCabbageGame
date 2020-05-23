@@ -1,43 +1,44 @@
-package model;
+package model.objects;
 
-import model.objects.Cabbage;
+import model.Cell;
+import model.objects.Wall;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-class CabbageShould {
+class WallShould {
     @Test
     void addItselfToCellObjects() {
         // Arrange
         var cellMock = mock(Cell.class);
 
         // Act
-        var cabbage = new Cabbage(cellMock);
+        var wall = new Wall(cellMock);
 
         // Assert
-        verify(cellMock).addObject(cabbage);
+        verify(cellMock).addObject(wall);
     }
 
     @Test
-    void shouldNotBeSolid() {
+    void beSolid() {
         // Arrange
         var cellMock = mock(Cell.class);
-        var cabbage = new Cabbage(cellMock);
+        var wall = new Wall(cellMock);
 
         // Act & Assert
-        assertFalse(cabbage.isSolid());
+        assertTrue(wall.isSolid());
     }
 
     @Test
     void haveGivenCell() {
         // Arrange
         var cellMock = mock(Cell.class);
-        var cabbage = new Cabbage(cellMock);
+        var wall = new Wall(cellMock);
 
         // Act & Assert
-        assertSame(cellMock, cabbage.cell());
+        assertSame(cellMock, wall.cell());
     }
 }

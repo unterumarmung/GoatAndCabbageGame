@@ -10,6 +10,7 @@ import utils.Direction;
 import utils.collections.ReadOnlyList;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Cell implements MessageSource {
     private final Map<Direction, Cell> neighbors = new EnumMap<>(Direction.class);
@@ -58,6 +59,10 @@ public class Cell implements MessageSource {
 
     public @NotNull ReadOnlyList<GameObject> objects() {
         return ReadOnlyList.fromList(new ArrayList<>(objects));
+    }
+
+    public @NotNull ReadOnlyList<Cell> neighbours() {
+        return ReadOnlyList.fromList(new ArrayList<>(neighbors.values()));
     }
 
     @Override

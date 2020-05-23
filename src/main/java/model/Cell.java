@@ -12,6 +12,8 @@ import utils.collections.ReadOnlyList;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static utils.collections.ReadOnlyList.*;
+
 public class Cell implements MessageSource {
     private final Map<Direction, Cell> neighbors = new EnumMap<>(Direction.class);
     private final List<GameObject> objects = new ArrayList<>();
@@ -58,11 +60,13 @@ public class Cell implements MessageSource {
     }
 
     public @NotNull ReadOnlyList<GameObject> objects() {
-        return ReadOnlyList.fromList(new ArrayList<>(objects));
+        return fromList(new ArrayList<>(objects));
     }
 
-    public @NotNull ReadOnlyList<Cell> neighbours() {
-        return ReadOnlyList.fromList(new ArrayList<>(neighbors.values()));
+    public @NotNull ReadOnlyList<CellWithDirection> neighbours() {
+        return fromList(neighbors.entrySet().stream()
+                .map(entry -> new CellWithDirection(entry.getValue(), entry.getKey()))
+                .collect(Collectors.toList()));
     }
 
     @Override

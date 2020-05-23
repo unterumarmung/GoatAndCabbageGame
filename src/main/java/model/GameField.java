@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static utils.collections.ReadOnlyList.*;
+
 public class GameField {
     private final @NotNull Map<Point, Cell> cells = new HashMap<>();
     private final int width;
@@ -83,7 +85,7 @@ public class GameField {
     }
 
     public ReadOnlyList<CellWithPosition> cells() {
-        return ReadOnlyList.fromList(cells.entrySet().stream().map(entry -> new CellWithPosition(entry.getValue(), entry.getKey())).collect(Collectors.toList()));
+        return fromList(cells.entrySet().stream().map(entry -> new CellWithPosition(entry.getValue(), entry.getKey())).collect(Collectors.toList()));
     }
 
     public Point exitPoint() {

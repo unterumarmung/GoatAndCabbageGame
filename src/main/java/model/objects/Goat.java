@@ -14,8 +14,7 @@ public class Goat implements SolidObject {
 
     public Goat(int initialSteps, Cell initialCell) {
         steps = initialSteps;
-        cell = initialCell;
-        setCell(cell);
+        setCell(initialCell);
     }
 
     public void move(@NotNull Direction direction) {

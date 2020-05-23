@@ -7,7 +7,7 @@ import utils.Direction;
 
 import java.util.Objects;
 
-public class Goat implements SolidObject {
+public class Goat implements SolidObject, MovableObject {
     static final int STEP_COST = 1;
     private Cell cell;
     private int steps;
@@ -17,6 +17,7 @@ public class Goat implements SolidObject {
         setCell(initialCell);
     }
 
+    @Override
     public void move(@NotNull Direction direction) {
         if (!canMoveTo(direction))
             return;
@@ -33,7 +34,8 @@ public class Goat implements SolidObject {
         this.cell = cell;
     }
 
-    boolean canMoveTo(@NotNull Direction direction) {
+    @Override
+    public boolean canMoveTo(@NotNull Direction direction) {
         var neighbor = cell.neighborCell(direction);
         return neighbor != null
                 && neighbor.objects().stream().noneMatch(GameObject::isSolid)

@@ -45,43 +45,31 @@ public class MetalBox implements Box, SolidObject, HookableObject {
     @Override
     public boolean canMoveTo(@NotNull Direction direction) {
         var hookedObjects = hookedObjects();
-        if (hookedObjects.isEmpty() && canMoveToIndependent(direction)) {
+        if (hookedObjects.isEmpty() && canMoveToIndependent(direction))
             return true;
-        }
-
-        var neighborCellObjects = cell.neighborCell(direction).objects();
-        var hookedInDirection = hookedObjects.stream().map(pair -> pair.first).filter(neighborCellObjects::contains).findFirst();
-        var isAnyOfHookedInDirection = hookedInDirection.isPresent();
 
         var allHookedAreMovable = hookedObjects.stream().allMatch(hookedObject -> hookedObject.first instanceof MovableObject);
         if (!allHookedAreMovable)
             return false;
 
-        var movableHookedObjects = hookedObjects.stream().map(hookedObject -> new Pair<>((MovableObject)hookedObject.first, hookedObject.second));
+        var movableHookedObjects = hookedObjects.stream().map(Pair::<MovableObject>castFirst);
 
-        // TODO обобщить это всё в один красивый код (куча повторов - меееее)
-        if (isAnyOfHookedInDirection) {
-                var movableHooked = (MovableObject)hookedInDirection.get();
-                movableHookedObjects = movableHookedObjects.filter(o -> o.first != movableHooked);
-                return movableHooked.canMoveTo(direction)
-                        // все зацепленные объекты (кроме тех, которые в обратном направлении) могут передвинуться
-                        && movableHookedObjects.filter(hookedObject -> hookedObject.second != direction.opposite())
-                        .allMatch(movable -> movable.first.canMoveTo(direction))
+        var allHookedCanMoveExceptOppositeObjects =
+                movableHookedObjects
+                .filter(hookedObject -> hookedObject.second != direction.opposite())
+                .allMatch(movable -> movable.first.canMoveTo(direction));
+        var allOppositeObjectsCanReplaceThis =
+                movableHookedObjects
+                .filter(hookedObject -> hookedObject.second == direction.opposite())
+                .allMatch(movable -> movable.first.canReplace(this, direction));
 
-                        // все зацепленные объекты, которые находятся в обратном направлении, могут заменить текущий объект в клетке
-                        && movableHookedObjects.filter(hookedObject -> hookedObject.second == direction.opposite())
-                        .allMatch(movable -> movable.first.canReplace(this, direction));
-        } else {
-            return canMoveToIndependent(direction)  // может передвинуться на соседнюю клетку самостоятельно
+        var canMove = allHookedCanMoveExceptOppositeObjects && allOppositeObjectsCanReplaceThis;
 
-                    // все зацепленные объекты (кроме тех, которые в обратном направлении) могут передвинуться
-                    && movableHookedObjects.filter(hookedObject -> hookedObject.second != direction.opposite())
-                    .allMatch(movable -> movable.first.canMoveTo(direction))
+        var isAnyOfHookedInDirection = hookedObjects.stream().anyMatch(hookedObject -> hookedObject.second == direction);
+        if (!isAnyOfHookedInDirection)
+            canMove &= canMoveToIndependent(direction);
 
-                    // все зацепленные объекты, которые находятся в обратном направлении, могут заменить текущий объект в клетке
-                    && movableHookedObjects.filter(hookedObject -> hookedObject.second == direction.opposite())
-                    .allMatch(movable -> movable.first.canReplace(this, direction));
-        }
+        return canMove;
     }
 
     @Override

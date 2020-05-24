@@ -30,8 +30,15 @@ public class MetalBox implements Box, SolidObject, HookableObject {
     }
 
     @Override
+    // FIXIT уйдёт в бесконечную рекурсию когда в зацепленный элемент у зацепленного находится дальше текущего (сложнооо написать)
     public void move(@NotNull Direction direction) {
-
+        if (canMoveTo(direction)) {
+            var hookedObjects = hookedObjects().stream().map(pair -> (MovableObject)pair.first).collect(Collectors.toList());
+            var neighborCell = cell.neighborCell(direction);
+            setCell(neighborCell);
+            for (var hookedObject : hookedObjects)
+                hookedObject.move(direction);
+        }
     }
 
     void setCell(Cell cell) {

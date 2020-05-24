@@ -64,11 +64,11 @@ public class MetalBox implements Box, SolidObject, HookableObject {
         var allHookedCanMoveExceptOppositeObjects =
                 movableHookedObjects
                 .filter(hookedObject -> hookedObject.second != direction.opposite())
-                .allMatch(movable -> movable.first.canMoveTo(direction));
+                .allMatch(hookedObject -> hookedObject.first.canMoveTo(direction));
         var allOppositeObjectsCanReplaceThis =
                 movableHookedObjects
                 .filter(hookedObject -> hookedObject.second == direction.opposite())
-                .allMatch(movable -> movable.first.canReplace(this, direction));
+                .allMatch(hookedObject -> hookedObject.first.canReplace(this, direction));
 
         var canMove = allHookedCanMoveExceptOppositeObjects && allOppositeObjectsCanReplaceThis;
 

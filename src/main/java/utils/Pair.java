@@ -11,6 +11,16 @@ public final class Pair<TFirst, TSecond> {
         this.second = second;
     }
 
+    @SuppressWarnings("unchecked")
+    public <T> Pair<T, TSecond> castFirst() {
+        return new Pair<>((T) first, second);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> Pair<TFirst, T> castSecond() {
+        return new Pair<>(first, (T) second);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

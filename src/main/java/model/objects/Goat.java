@@ -4,16 +4,31 @@ import model.Cell;
 import model.exceptions.NoEnoughStepsException;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
+import utils.Pair;
+import utils.collections.ReadOnlyList;
 
 import java.util.Objects;
 
-public class Goat implements SolidObject, MovableObject {
+import static utils.collections.ReadOnlyList.*;
+
+public class Goat extends MovableHookable implements SolidObject, MovableObject {
     static final int STEP_COST = 1;
     private int steps;
+    private Pair<Box, Direction> hookedBox;
 
     public Goat(int initialSteps, Cell initialCell) {
         super(initialCell);
         steps = initialSteps;
+    }
+
+    public boolean hookBox(@NotNull Direction direction) {
+        var possibleBox = cell().neighborCell(direction).objects().stream().filter(gameObject -> gameObject instanceof Box).findFirst();
+        if (possibleBox.isPresent())
+        {
+            hookedBox = new Pair<>((Box) possibleBox.get(), direction);
+            return true;
+        }
+        return false;
     }
 
     @Override

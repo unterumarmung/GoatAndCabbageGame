@@ -3,44 +3,40 @@ package model.objects;
 import model.Cell;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
+import utils.Pair;
+import utils.collections.ReadOnlyList;
 
-public class SimpleBox implements Box {
-    private Cell cell;
+import static utils.collections.ReadOnlyList.*;
+
+public class SimpleBox extends MovableHookable implements Box {
 
     public SimpleBox(@NotNull Cell initialCell) {
-        this.cell = initialCell;
-    }
-
-    public void move(@NotNull Direction direction) {
-        if (canMoveTo(direction)) {
-            setCell(cell.neighborCell(direction));
-        }
-    }
-
-    void setCell(Cell cell) {
-        if (this.cell != null)
-            this.cell.removeObject(this);
-        if (cell != null)
-            cell.addObject(this);
-        this.cell = cell;
+        super(initialCell);
     }
 
     @Override
+    /// Так как мы знаем, что простой ящик никогда не захватывает объекты сам, то смысла в коде из MovableHookable нет
+    /// Так что override'им, чтобы упростить вычисления
     public boolean canMoveTo(@NotNull Direction direction) {
-        var neighbor = cell.neighborCell(direction);
+        return canMoveToIndependent(direction);
+    }
+
+    @Override
+    protected boolean canMoveToIndependent(Direction direction) {
+        var neighbor = cell().neighborCell(direction);
         return neighbor != null
                 && neighbor.objects().stream().noneMatch(GameObject::isSolid);
     }
 
     @Override
     public boolean canReplace(@NotNull GameObject gameObject, @NotNull Direction direction) {
-        var neighbor = cell.neighborCell(direction);
+        var neighbor = cell().neighborCell(direction);
         return neighbor != null
                 && neighbor.objects().stream().filter(o -> o != gameObject).noneMatch(GameObject::isSolid);
     }
 
     @Override
-    public Cell cell() {
-        return cell;
+    public ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
+        return empty();
     }
 }

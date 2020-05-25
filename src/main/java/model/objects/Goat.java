@@ -82,11 +82,6 @@ public class Goat extends MovableHookable implements SolidObject, MovableObject 
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash("Goat");
-    }
-
-    @Override
     public ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
         if (hookedBox == null)
             return empty();

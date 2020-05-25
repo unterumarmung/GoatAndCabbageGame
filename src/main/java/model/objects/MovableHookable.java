@@ -82,4 +82,9 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
     public Cell cell() {
         return cell;
     }
+
+    @Override
+    public int hashCode() {
+        return hash();
+    }
 }

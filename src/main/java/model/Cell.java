@@ -2,6 +2,7 @@ package model;
 
 import events.MessageSender;
 import events.MessageSource;
+import hash.Hashable;
 import model.events.CellMessage;
 import model.exceptions.CellAlreadyHasNeighborForDirectionException;
 import model.objects.GameObject;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static utils.collections.ReadOnlyList.*;
 
-public class Cell implements MessageSource {
+public class Cell implements MessageSource, Hashable {
     private final Map<Direction, Cell> neighbors = new EnumMap<>(Direction.class);
     private final List<GameObject> objects = new ArrayList<>();
     private final MessageSender messageSender;
@@ -76,6 +77,6 @@ public class Cell implements MessageSource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(neighbors.size());
+        return hash();
     }
 }

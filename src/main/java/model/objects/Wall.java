@@ -20,14 +20,11 @@ public class Wall implements SolidObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Wall wall = (Wall) o;
-        return cell.equals(wall.cell);
+        return this == o;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash("Wall");
+        return hash();
     }
 }

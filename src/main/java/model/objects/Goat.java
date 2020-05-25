@@ -31,6 +31,10 @@ public class Goat extends MovableHookable implements SolidObject, MovableObject 
         return false;
     }
 
+    public void unhookBox() {
+        hookedBox = null;
+    }
+
     @Override
     public boolean move(@NotNull Direction direction) {
         var moved = super.move(direction);

@@ -56,14 +56,14 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
         if (!allHookedAreMovable)
             return false;
 
-        var movableHookedObjects = hookedObjects.stream().map(Pair::<MovableObject>castFirst);
+        var movableHookedObjects = hookedObjects.stream().map(Pair::<MovableObject>castFirst).collect(Collectors.toList());
 
         var allHookedCanMoveExceptOppositeObjects =
-                movableHookedObjects
+                movableHookedObjects.stream()
                         .filter(hookedObject -> hookedObject.second != direction.opposite())
                         .allMatch(hookedObject -> hookedObject.first.canMoveTo(direction));
         var allOppositeObjectsCanReplaceThis =
-                movableHookedObjects
+                movableHookedObjects.stream()
                         .filter(hookedObject -> hookedObject.second == direction.opposite())
                         .allMatch(hookedObject -> hookedObject.first.canReplace(this, direction));
 

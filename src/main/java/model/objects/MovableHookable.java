@@ -23,7 +23,7 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
 
     protected boolean move(@NotNull Direction direction, Set<MovableHookable> alreadyMoved) {
         if (canMoveTo(direction) && !alreadyMoved.contains(this)) {
-            var hookedObjects = hookedObjects().stream().map(pair -> (MovableHookable)pair.first).collect(Collectors.toList());
+            var hookedObjects = hookedObjects().stream().map(pair -> (MovableHookable) pair.first).collect(Collectors.toList());
 
             var neighborCell = cell.neighborCell(direction);
             setCell(neighborCell);

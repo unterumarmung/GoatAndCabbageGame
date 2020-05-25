@@ -7,9 +7,8 @@ import utils.Direction;
 import utils.Pair;
 import utils.collections.ReadOnlyList;
 
-import java.util.Objects;
-
-import static utils.collections.ReadOnlyList.*;
+import static utils.collections.ReadOnlyList.empty;
+import static utils.collections.ReadOnlyList.of;
 
 public class Goat extends MovableHookable implements SolidObject, MovableObject {
     static final int STEP_COST = 1;
@@ -23,8 +22,7 @@ public class Goat extends MovableHookable implements SolidObject, MovableObject 
 
     public boolean hookBox(@NotNull Direction direction) {
         var possibleBox = cell().neighborCell(direction).objects().stream().filter(gameObject -> gameObject instanceof Box).findFirst();
-        if (possibleBox.isPresent())
-        {
+        if (possibleBox.isPresent()) {
             hookedBox = new Pair<>((Box) possibleBox.get(), direction);
             return true;
         }

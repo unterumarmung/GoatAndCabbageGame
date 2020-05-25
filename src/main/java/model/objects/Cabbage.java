@@ -3,8 +3,6 @@ package model.objects;
 import model.Cell;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 public class Cabbage implements GameObject {
     private final Cell position;
 

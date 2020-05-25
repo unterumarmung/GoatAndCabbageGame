@@ -5,9 +5,10 @@ import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 import utils.Pair;
 import utils.collections.ReadOnlyList;
+
 import java.util.stream.Collectors;
 
-import static utils.collections.ReadOnlyList.*;
+import static utils.collections.ReadOnlyList.fromList;
 
 public class MetalBox extends MovableHookable implements Box, SolidObject, HookableObject {
 
@@ -22,7 +23,7 @@ public class MetalBox extends MovableHookable implements Box, SolidObject, Hooka
         var hooked = cell().neighbours().stream()
                 .flatMap(cellWithDirection -> cellWithDirection.cell.objects().stream()
                         .filter(o -> o instanceof MagneticObject)
-                        .map(o -> new Pair<>((HookableObject)o, cellWithDirection.direction)))
+                        .map(o -> new Pair<>((HookableObject) o, cellWithDirection.direction)))
                 .collect(Collectors.toList());
         return fromList(hooked);
     }

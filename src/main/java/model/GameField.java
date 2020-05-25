@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static utils.collections.ReadOnlyList.*;
+import static utils.collections.ReadOnlyList.fromList;
 
 public class GameField {
     private final @NotNull Map<Point, Cell> cells = new HashMap<>();
@@ -78,8 +78,8 @@ public class GameField {
             return goat;
 
         var possibleGoat = cells.values().stream().flatMap(cell -> cell.objects().stream())
-                                                    .filter(gameObject -> gameObject instanceof Goat).findFirst();
-        possibleGoat.ifPresent(gameObject -> goat = (Goat)gameObject);
+                .filter(gameObject -> gameObject instanceof Goat).findFirst();
+        possibleGoat.ifPresent(gameObject -> goat = (Goat) gameObject);
 
         return goat;
     }

@@ -3,8 +3,6 @@ package model.objects;
 import model.Cell;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 public class Wall implements SolidObject {
     private final Cell cell;
 

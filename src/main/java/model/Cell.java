@@ -10,10 +10,13 @@ import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 import utils.collections.ReadOnlyList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import static utils.collections.ReadOnlyList.*;
+import static utils.collections.ReadOnlyList.fromList;
 
 public class Cell implements MessageSource, Hashable {
     private final Map<Direction, Cell> neighbors = new EnumMap<>(Direction.class);

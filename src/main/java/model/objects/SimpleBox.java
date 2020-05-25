@@ -6,7 +6,7 @@ import utils.Direction;
 import utils.Pair;
 import utils.collections.ReadOnlyList;
 
-import static utils.collections.ReadOnlyList.*;
+import static utils.collections.ReadOnlyList.empty;
 
 public class SimpleBox extends MovableHookable implements Box {
 

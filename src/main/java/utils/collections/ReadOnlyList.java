@@ -20,6 +20,15 @@ public class ReadOnlyList<T> implements Iterable<T> {
         return new ReadOnlyList<>(Arrays.asList(array));
     }
 
+    public static <T> ReadOnlyList<T> empty() {
+        return new ReadOnlyList<>(new ArrayList<>());
+    }
+
+    @SafeVarargs
+    public static <T> ReadOnlyList<T> of(T... elements) {
+        return new ReadOnlyList<>(Arrays.asList(elements));
+    }
+
     public boolean contains(T o) {
         return list.contains(o);
     }
@@ -62,15 +71,6 @@ public class ReadOnlyList<T> implements Iterable<T> {
 
     public Stream<T> stream() {
         return list.stream();
-    }
-
-    public static <T> ReadOnlyList<T> empty() {
-        return new ReadOnlyList<>(new ArrayList<>());
-    }
-
-    @SafeVarargs
-    public static <T> ReadOnlyList<T> of(T... elements) {
-        return new ReadOnlyList<>(Arrays.asList(elements));
     }
 
     @NotNull

@@ -14,7 +14,6 @@ public class Goat implements SolidObject, MovableObject {
     public Goat(int initialSteps, Cell initialCell) {
         super(initialCell);
         steps = initialSteps;
-        setCell(initialCell);
     }
 
     @Override

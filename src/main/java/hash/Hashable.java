@@ -1,24 +1,27 @@
 package hash;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import utils.Pair;
+
+import java.util.*;
 
 import static java.util.UUID.randomUUID;
 
 public interface Hashable {
     default int hash() {
-        return Objects.hash(UuidSingletonFactory.get(this));
+        return Objects.hash();
     }
 }
 
 class UuidSingletonFactory {
-    private static final Map<Hashable, UUID> ids = new HashMap<>();
+    private static final List<Pair<Hashable, UUID>> ids = new LinkedList<>();
 
     static UUID get(Hashable hashable) {
-        ids.computeIfAbsent(hashable, hashable1 -> randomUUID());
-        return ids.get(hashable);
+        var possible = ids.stream().filter(id -> id.first == hashable).findFirst();
+        if (possible.isPresent())
+            return possible.get().second;
+        var id = randomUUID();
+        ids.add(new Pair<>(hashable, id));
+        return id;
     }
 }
 

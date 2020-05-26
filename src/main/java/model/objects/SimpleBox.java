@@ -36,7 +36,7 @@ public class SimpleBox extends MovableHookable implements Box {
     }
 
     @Override
-    public ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
+    public @NotNull ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
         return empty();
     }
 }

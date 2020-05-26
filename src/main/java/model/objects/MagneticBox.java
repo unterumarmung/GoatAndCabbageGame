@@ -84,9 +84,9 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
     }
 
     @Override
-    public ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
+    public @NotNull ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
         if (cell() == null)
-            return null;
+            return empty();
         var hooked = cell().neighbours().stream()
                 .flatMap(cellWithDirection -> cellWithDirection.cell.objects().stream()
                         .filter(o -> o instanceof MagnitableObject)

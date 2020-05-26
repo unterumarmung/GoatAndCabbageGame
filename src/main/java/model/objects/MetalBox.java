@@ -8,6 +8,7 @@ import utils.collections.ReadOnlyList;
 
 import java.util.stream.Collectors;
 
+import static utils.collections.ReadOnlyList.*;
 import static utils.collections.ReadOnlyList.fromList;
 
 public class MetalBox extends MovableHookable implements Box, SolidObject, MagnitableObject {
@@ -17,9 +18,9 @@ public class MetalBox extends MovableHookable implements Box, SolidObject, Magni
     }
 
     @Override
-    public ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
+    public @NotNull ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
         if (cell() == null)
-            return null;
+            return empty();
         var hooked = cell().neighbours().stream()
                 .flatMap(cellWithDirection -> cellWithDirection.cell.objects().stream()
                         .filter(o -> o instanceof MagneticObject)

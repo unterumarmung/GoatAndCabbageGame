@@ -80,7 +80,7 @@ public class Goat extends MovableHookable implements SolidObject, MovableObject 
     }
 
     @Override
-    public ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
+    public @NotNull ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
         if (hookedBox == null)
             return empty();
         else

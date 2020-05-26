@@ -1,5 +1,7 @@
 package utils;
 
+import org.jetbrains.annotations.NotNull;
+
 public enum Direction {
     NORTH,
     SOUTH,
@@ -15,6 +17,7 @@ public enum Direction {
 
     private Direction opposite;
 
+    @NotNull
     public Direction opposite() {
         return opposite;
     }

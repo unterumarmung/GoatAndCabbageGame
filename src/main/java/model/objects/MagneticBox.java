@@ -11,7 +11,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static model.objects.MagneticBox.Alignment.VERTICAL_NORTH_HORIZONTAL_SOUTH;
-import static utils.collections.ReadOnlyList.*;
+import static utils.collections.ReadOnlyList.empty;
+import static utils.collections.ReadOnlyList.fromList;
 
 public class MagneticBox extends MovableHookable implements MagneticObject, MagnitableObject {
     private final @NotNull Map<Direction, MagneticPole> magneticPoles;
@@ -71,14 +72,14 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
         var neighbourObjectsWithDirection =
                 cellToMove.neighbours().stream()
                         .filter(cellWithDirection -> cellWithDirection.direction != direction.opposite())
-                .flatMap(cellWithDirection -> cellWithDirection.cell.objects().stream()
-                        .map(gameObject -> new Pair<>(gameObject, cellWithDirection.direction))
+                        .flatMap(cellWithDirection -> cellWithDirection.cell.objects().stream()
+                                .map(gameObject -> new Pair<>(gameObject, cellWithDirection.direction))
                         ).collect(Collectors.toList());
 
         var noneOfNeighborCellHasWrongPole =
                 neighbourObjectsWithDirection.stream()
                         .filter(pair -> pair.first instanceof MagneticObject).map(Pair::<MagneticObject>castFirst)
-                       .allMatch(magneticObject -> isMagnitableTo(magneticObject.first, magneticObject.second));
+                        .allMatch(magneticObject -> isMagnitableTo(magneticObject.first, magneticObject.second));
 
         return noneSolidInDirection && noneOfNeighborCellHasWrongPole;
     }
@@ -90,7 +91,7 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
         var hooked = cell().neighbours().stream()
                 .flatMap(cellWithDirection -> cellWithDirection.cell.objects().stream()
                         .filter(o -> o instanceof MagnitableObject)
-                        .filter(o -> ((MagnitableObject)o).isMagnitableTo(this, cellWithDirection.direction.opposite()))
+                        .filter(o -> ((MagnitableObject) o).isMagnitableTo(this, cellWithDirection.direction.opposite()))
                         .map(o -> new Pair<>((HookableObject) o, cellWithDirection.direction)))
                 .collect(Collectors.toList());
         return fromList(hooked);

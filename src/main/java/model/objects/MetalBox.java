@@ -8,7 +8,7 @@ import utils.collections.ReadOnlyList;
 
 import java.util.stream.Collectors;
 
-import static utils.collections.ReadOnlyList.*;
+import static utils.collections.ReadOnlyList.empty;
 import static utils.collections.ReadOnlyList.fromList;
 
 public class MetalBox extends MovableHookable implements Box, SolidObject, MagnitableObject {

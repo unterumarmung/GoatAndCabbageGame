@@ -1,7 +1,6 @@
 package model.objects;
 
 import org.jetbrains.annotations.NotNull;
-import utils.Direction;
 
 public enum MagneticPole {
     NORTH,

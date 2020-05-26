@@ -12,7 +12,7 @@ import static java.util.UUID.randomUUID;
 
 public interface Hashable {
     default int hash() {
-        return Objects.hash();
+        return Objects.hash(UuidSingletonFactory.get(this));
     }
 }
 

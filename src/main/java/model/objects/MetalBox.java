@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static utils.collections.ReadOnlyList.fromList;
 
-public class MetalBox extends MovableHookable implements Box, SolidObject, HookableObject {
+public class MetalBox extends MovableHookable implements Box, SolidObject, MagnitableObject {
 
     public MetalBox(Cell initialCell) {
         super(initialCell);
@@ -41,5 +41,10 @@ public class MetalBox extends MovableHookable implements Box, SolidObject, Hooka
         var neighbor = cell().neighborCell(direction);
         return neighbor != null
                 && neighbor.objects().stream().noneMatch(GameObject::isSolid);
+    }
+
+    @Override
+    public boolean isMagnitableTo(@NotNull MagneticObject magneticObject, @NotNull Direction direction) {
+        return true;
     }
 }

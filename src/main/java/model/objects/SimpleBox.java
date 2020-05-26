@@ -22,7 +22,7 @@ public class SimpleBox extends MovableHookable implements Box {
     }
 
     @Override
-    protected boolean canMoveToIndependent(Direction direction) {
+    protected boolean canMoveToIndependent(@NotNull Direction direction) {
         var neighbor = cell().neighborCell(direction);
         return neighbor != null
                 && neighbor.objects().stream().noneMatch(GameObject::isSolid);

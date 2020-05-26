@@ -64,7 +64,7 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
     }
 
     @Override
-    protected boolean canMoveToIndependent(Direction direction) {
+    protected boolean canMoveToIndependent(@NotNull Direction direction) {
         var cellToMove = cell().neighborCell(direction);
         var noneSolidInDirection = cellToMove.objects().stream().noneMatch(GameObject::isSolid);
 

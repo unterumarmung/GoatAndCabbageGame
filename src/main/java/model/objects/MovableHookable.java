@@ -76,7 +76,7 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
         return canMove;
     }
 
-    protected abstract boolean canMoveToIndependent(Direction direction);
+    protected abstract boolean canMoveToIndependent(@NotNull Direction direction);
 
     @Override
     public Cell cell() {

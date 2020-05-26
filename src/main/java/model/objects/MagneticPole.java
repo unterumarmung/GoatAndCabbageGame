@@ -1,5 +1,6 @@
 package model.objects;
 
+import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 
 public enum MagneticPole {
@@ -13,6 +14,7 @@ public enum MagneticPole {
 
     private MagneticPole opposite;
 
+    @NotNull
     public MagneticPole opposite() {
         return opposite;
     }

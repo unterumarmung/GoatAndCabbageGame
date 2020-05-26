@@ -1,7 +1,10 @@
 package model.objects;
 
+import utils.Direction;
 import utils.collections.ReadOnlyList;
 
+import java.util.Map;
+
 public interface MagneticObject extends HookableObject {
-    ReadOnlyList<MagneticPoleWithDirection> magneticPoles();
+    Map<Direction, MagneticPole> magneticPoles();
 }

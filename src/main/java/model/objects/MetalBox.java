@@ -6,6 +6,7 @@ import utils.Direction;
 import utils.Pair;
 import utils.collections.ReadOnlyList;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static utils.collections.ReadOnlyList.empty;
@@ -21,12 +22,17 @@ public class MetalBox extends MovableHookable implements Box, SolidObject, Magni
     public @NotNull ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects() {
         if (cell() == null)
             return empty();
-        var hooked = cell().neighbours().stream()
+        var hooked = getAllPossibleHooked();
+        return fromList(hooked);
+    }
+
+    @NotNull
+    private List<Pair<HookableObject, Direction>> getAllPossibleHooked() {
+        return cell().neighbours().stream()
                 .flatMap(cellWithDirection -> cellWithDirection.cell.objects().stream()
                         .filter(o -> o instanceof MagneticObject)
                         .map(o -> new Pair<>((HookableObject) o, cellWithDirection.direction)))
                 .collect(Collectors.toList());
-        return fromList(hooked);
     }
 
 

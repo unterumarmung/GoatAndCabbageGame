@@ -5,6 +5,7 @@ import model.exceptions.IllegalDimensionException;
 import model.exceptions.PointIsNotInFieldRangeException;
 import model.objects.Cabbage;
 import model.objects.Goat;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 import utils.Point;
@@ -51,6 +52,7 @@ public class GameField {
         }
     }
 
+    @Contract(pure = true)
     public Cell cell(@NotNull Point point) {
         if (!isPointInRange(point)) {
             return null;
@@ -58,6 +60,7 @@ public class GameField {
         return cells.get(point);
     }
 
+    @Contract(pure = true)
     private boolean isPointInRange(@NotNull Point point) {
         return point.x >= 0
                 && point.x < width()
@@ -73,6 +76,7 @@ public class GameField {
         return height;
     }
 
+    @Contract(pure = true)
     public Goat goat() {
         if (goat != null)
             return goat;
@@ -84,10 +88,12 @@ public class GameField {
         return goat;
     }
 
+    @Contract(pure = true)
     public ReadOnlyList<CellWithPosition> cells() {
         return fromList(cells.entrySet().stream().map(entry -> new CellWithPosition(entry.getValue(), entry.getKey())).collect(Collectors.toList()));
     }
 
+    @Contract(pure = true)
     public Point exitPoint() {
         return exitPoint;
     }

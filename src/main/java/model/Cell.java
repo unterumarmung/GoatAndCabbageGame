@@ -6,6 +6,7 @@ import hash.Hashable;
 import model.events.CellMessage;
 import model.exceptions.CellAlreadyHasNeighborForDirectionException;
 import model.objects.GameObject;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 import utils.collections.ReadOnlyList;
@@ -27,6 +28,7 @@ public class Cell implements MessageSource, Hashable {
         this.messageSender = messageSender;
     }
 
+    @Contract(pure = true)
     public Cell neighborCell(@NotNull Direction direction) {
         return neighbors.get(direction);
     }
@@ -43,6 +45,7 @@ public class Cell implements MessageSource, Hashable {
         }
     }
 
+    @Contract(pure = true)
     public Direction neighborDirection(@NotNull Cell cell) {
         for (var i : neighbors.entrySet()) {
             if (i.getValue().equals(cell))
@@ -63,10 +66,12 @@ public class Cell implements MessageSource, Hashable {
         messageSender.emitMessage(this, new CellMessage(CellMessage.Type.OBJECT_LEAVED, this, object));
     }
 
+    @Contract(pure = true)
     public @NotNull ReadOnlyList<GameObject> objects() {
         return fromList(new ArrayList<>(objects));
     }
 
+    @Contract(pure = true)
     public @NotNull ReadOnlyList<CellWithDirection> neighbours() {
         return fromList(neighbors.entrySet().stream()
                 .map(entry -> new CellWithDirection(entry.getValue(), entry.getKey()))

@@ -1,6 +1,7 @@
 package model.objects;
 
 import model.Cell;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class Wall implements SolidObject {
@@ -11,6 +12,7 @@ public class Wall implements SolidObject {
         this.cell.addObject(this);
     }
 
+    @Contract(pure = true)
     @Override
     public Cell cell() {
         return cell;

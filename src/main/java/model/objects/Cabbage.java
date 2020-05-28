@@ -1,6 +1,7 @@
 package model.objects;
 
 import model.Cell;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class Cabbage implements GameObject {
@@ -11,11 +12,13 @@ public class Cabbage implements GameObject {
         this.position.addObject(this);
     }
 
+    @Contract(pure = true)
     @Override
     public Cell cell() {
         return position;
     }
 
+    @Contract(pure = true)
     @Override
     public boolean isSolid() {
         return false;

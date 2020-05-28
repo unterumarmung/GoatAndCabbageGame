@@ -1,6 +1,7 @@
 package model.objects;
 
 import model.Cell;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
 import utils.Pair;
@@ -100,6 +101,7 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
 
     protected abstract boolean canMoveToIndependent(@NotNull Direction direction);
 
+    @Contract(pure = true)
     @Override
     public Cell cell() {
         return cell;

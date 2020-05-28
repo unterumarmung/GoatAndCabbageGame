@@ -130,7 +130,7 @@ class GameShould {
                 point = super.exitPoint();
             else
                 point = initialGoatPoint;
-            var goat = new Goat(steps, gameField.cell(point));
+            var goat = new Goat(steps, gameField.cell(point), messageSender);
         }
     }
 }

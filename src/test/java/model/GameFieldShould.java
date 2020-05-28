@@ -119,7 +119,7 @@ class GameFieldShould {
         // Arrange
         var field = new GameField(4, 5, exitPoint, messageSender);
         assertNull(field.goat());
-        var goat = new Goat(100, field.cell(new Point(0, 0)));
+        var goat = new Goat(100, field.cell(new Point(0, 0)), messageSender);
         assertSame(goat, field.goat());
     }
 

@@ -1,6 +1,9 @@
 package model.objects;
 
+import events.MessageSender;
+import events.MessageSource;
 import model.Cell;
+import model.events.GoatMessage;
 import model.exceptions.NoEnoughStepsException;
 import org.jetbrains.annotations.NotNull;
 import utils.Direction;
@@ -10,14 +13,16 @@ import utils.collections.ReadOnlyList;
 import static utils.collections.ReadOnlyList.empty;
 import static utils.collections.ReadOnlyList.of;
 
-public class Goat extends MovableHookable implements SolidObject, MovableObject {
+public class Goat extends MovableHookable implements SolidObject, MovableObject, MessageSource {
     static final int STEP_COST = 1;
     private int steps;
     private Pair<Box, Direction> hookedBox;
+    private final @NotNull MessageSender messageSender;
 
-    public Goat(int initialSteps, Cell initialCell) {
+    public Goat(int initialSteps, Cell initialCell, @NotNull MessageSender messageSender) {
         super(initialCell);
         steps = initialSteps;
+        this.messageSender = messageSender;
     }
 
     public boolean hookBox(@NotNull Direction direction) {
@@ -35,9 +40,12 @@ public class Goat extends MovableHookable implements SolidObject, MovableObject 
 
     @Override
     public boolean move(@NotNull Direction direction) {
+        var cellFrom = cell();
         var moved = super.move(direction);
-        if (moved)
+        if (moved) {
             decreaseSteps();
+            messageSender.emitMessage(this, new GoatMessage(cellFrom, cell()));
+        }
         return moved;
     }
 

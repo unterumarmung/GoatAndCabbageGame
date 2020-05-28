@@ -32,7 +32,7 @@ public class SimpleFieldFactory extends FieldFactory {
 
     @Override
     protected void addGoat() {
-        var goat = new Goat(DEFAULT_STEPS_COUNT, gameField.cell(new Point(0, 0)));
+        var goat = new Goat(DEFAULT_STEPS_COUNT, gameField.cell(new Point(0, 0)), messageSender);
     }
 
     @Override

@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import utils.Point;
 
 public abstract class FieldFactory {
-    private final @NotNull MessageSender messageSender;
+    protected final @NotNull MessageSender messageSender;
     protected GameField gameField;
 
     protected FieldFactory(@NotNull MessageSender messageSender) {

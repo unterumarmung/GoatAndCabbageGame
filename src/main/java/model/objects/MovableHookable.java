@@ -74,6 +74,22 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
         return canMove;
     }
 
+    @Override
+    public boolean canReplace(@NotNull GameObject gameObject, @NotNull Direction direction) {
+        var hookedObjects = hookedObjects();
+        if (hookedObjects.isEmpty() && canReplaceIndependent(gameObject, direction))
+            return true;
+
+        if (!allHookedAreMovable(hookedObjects))
+            return false;
+
+        var movableHookedObjects = castHookedToMovable(hookedObjects);
+
+        return allOppositeObjectsCanReplaceThis(movableHookedObjects, direction) && canReplaceIndependent(gameObject, direction);
+    }
+
+    protected abstract boolean canReplaceIndependent(@NotNull GameObject gameObject, @NotNull Direction direction);
+
     private boolean isAnyOfHookedInDirection(@NotNull ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects, @NotNull Direction direction) {
         return hookedObjects.stream().anyMatch(hookedObject -> hookedObject.second == direction);
     }

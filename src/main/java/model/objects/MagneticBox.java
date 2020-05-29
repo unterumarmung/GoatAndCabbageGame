@@ -116,7 +116,7 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
     }
 
     @Override
-    public boolean canReplace(@NotNull GameObject gameObject, @NotNull Direction direction) {
+    protected boolean canReplaceIndependent(@NotNull GameObject gameObject, @NotNull Direction direction) {
         var cellToMove = cell().neighborCell(direction);
         var noneSolidInDirection = cellToMove.objects().stream()
                 .filter(gameObject1 -> gameObject1 != gameObject)

@@ -19,9 +19,7 @@ public class Game implements MessageListener, MessageSource {
 
     public void start() {
         gameField = fieldFactory.create();
-        for (var cell : gameField.cells()) {
-            subscriptionHandler.subscribeTo(cell.cell, this);
-        }
+        subscriptionHandler.subscribeTo(gameField.goat(), this);
         gameState = GameState.CONTINUING;
     }
 

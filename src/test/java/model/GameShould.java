@@ -42,7 +42,7 @@ class GameShould {
     }
 
     @Test
-    void subscribeToEachCell_whenStarted() {
+    void subscribeToGoat_whenStarted() {
         // Arrange
         var game = new Game(fieldFactory, subscriptionHandler, messageSender);
 
@@ -50,10 +50,9 @@ class GameShould {
         game.start();
 
         // Assert
-        for (var cellWithPosition : gameField.cells()) {
-            verify(subscriptionHandler).subscribeTo(cellWithPosition.cell, game);
-        }
+        verify(subscriptionHandler).subscribeTo(game.gameField().goat(), game);
     }
+
     @Test
     void buildField_usingBuilder_afterStart() {
         // Arrange
@@ -82,7 +81,7 @@ class GameShould {
     @Test
     void endWithFailure_whenStepCounterEnded() {
         var messageBridge = new MessageBridge();
-        var game = new Game(new TestFactoryWithSteps(messageBridge, new Point(0,0), 0), messageBridge, messageBridge);
+        var game = new Game(new TestFactoryWithSteps(messageBridge, new Point(0, 0), 0), messageBridge, messageBridge);
         game.start();
         var field = game.gameField();
         var goat = field.goat();
@@ -99,7 +98,7 @@ class GameShould {
     void endWithSuccess_whenReachedCabbage_andStepCounterEnded() {
         // Arrange
         var messageBridge = new MessageBridge();
-        var game = new Game(new TestFactoryWithSteps(messageBridge,null, 0), messageBridge, messageBridge);
+        var game = new Game(new TestFactoryWithSteps(messageBridge, null, 0), messageBridge, messageBridge);
         game.start();
         var field = game.gameField();
         var goat = field.goat();
@@ -117,6 +116,7 @@ class GameShould {
     static class TestFactoryWithSteps extends SimpleFieldFactory {
         private final Point initialGoatPoint;
         private final int steps;
+
         public TestFactoryWithSteps(@NotNull MessageSender messageSender, Point initialGoatPoint, int steps) {
             super(messageSender);
             this.initialGoatPoint = initialGoatPoint;

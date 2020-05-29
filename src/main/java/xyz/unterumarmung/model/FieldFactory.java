@@ -16,6 +16,7 @@ public abstract class FieldFactory {
         gameField = new GameField(fieldWidth(), fieldHeight(), exitPoint(), messageSender);
         addGoat();
         addWalls();
+        addBoxes();
         return gameField;
     }
 
@@ -28,4 +29,6 @@ public abstract class FieldFactory {
     protected abstract void addGoat();
 
     protected abstract void addWalls();
+
+    protected abstract void addBoxes();
 }

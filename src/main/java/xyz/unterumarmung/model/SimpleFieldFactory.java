@@ -40,4 +40,9 @@ public class SimpleFieldFactory extends FieldFactory {
         new Wall(gameField.cell(new Point(2, 3)));
         new Wall(gameField.cell(new Point(3, 2)));
     }
+
+    @Override
+    protected void addBoxes() {
+
+    }
 }

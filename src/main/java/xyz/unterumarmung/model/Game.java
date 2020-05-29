@@ -1,8 +1,8 @@
 package xyz.unterumarmung.model;
 
+import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.events.*;
 import xyz.unterumarmung.model.events.GameMessage;
-import org.jetbrains.annotations.NotNull;
 
 public class Game implements MessageListener, MessageSource {
     private final @NotNull FieldFactory fieldFactory;

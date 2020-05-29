@@ -1,8 +1,5 @@
 package xyz.unterumarmung.serialization.dto;
 
-import xyz.unterumarmung.Level;
-import xyz.unterumarmung.serialization.dto.LevelDto;
-
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;

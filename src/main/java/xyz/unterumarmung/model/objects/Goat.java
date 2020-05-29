@@ -1,11 +1,11 @@
 package xyz.unterumarmung.model.objects;
 
+import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.events.MessageSender;
 import xyz.unterumarmung.events.MessageSource;
 import xyz.unterumarmung.model.Cell;
 import xyz.unterumarmung.model.events.GoatMessage;
 import xyz.unterumarmung.model.exceptions.NoEnoughStepsException;
-import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.utils.Direction;
 import xyz.unterumarmung.utils.Pair;
 import xyz.unterumarmung.utils.collections.ReadOnlyList;

@@ -1,7 +1,7 @@
 package xyz.unterumarmung.model;
 
-import xyz.unterumarmung.events.MessageSender;
 import org.jetbrains.annotations.NotNull;
+import xyz.unterumarmung.events.MessageSender;
 import xyz.unterumarmung.utils.Point;
 
 public abstract class FieldFactory {

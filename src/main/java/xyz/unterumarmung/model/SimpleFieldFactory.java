@@ -1,9 +1,9 @@
 package xyz.unterumarmung.model;
 
+import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.events.MessageSender;
 import xyz.unterumarmung.model.objects.Goat;
 import xyz.unterumarmung.model.objects.Wall;
-import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.utils.Point;
 
 public class SimpleFieldFactory extends FieldFactory {

@@ -1,7 +1,7 @@
 package xyz.unterumarmung.model.objects;
 
-import xyz.unterumarmung.model.Cell;
 import org.jetbrains.annotations.NotNull;
+import xyz.unterumarmung.model.Cell;
 import xyz.unterumarmung.utils.Direction;
 import xyz.unterumarmung.utils.Pair;
 import xyz.unterumarmung.utils.collections.ReadOnlyList;

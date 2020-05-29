@@ -1,9 +1,9 @@
 package xyz.unterumarmung;
 
+import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.events.MessageSender;
 import xyz.unterumarmung.events.SubscriptionHandler;
 import xyz.unterumarmung.model.FieldFactory;
-import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.model.Game;
 
 public class Level {

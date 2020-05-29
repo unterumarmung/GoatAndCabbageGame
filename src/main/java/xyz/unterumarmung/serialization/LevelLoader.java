@@ -8,7 +8,6 @@ import xyz.unterumarmung.serialization.dto.LevelDto;
 import xyz.unterumarmung.utils.collections.ReadOnlyList;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
@@ -34,8 +33,7 @@ public class LevelLoader {
         try {
             var context = JAXBContext.newInstance(PACKAGE_NAME);
             unmarshaller = context.createUnmarshaller();
-        }
-        catch (JAXBException e) {
+        } catch (JAXBException e) {
             System.out.println(e.toString());
             return ReadOnlyList.empty();
         }

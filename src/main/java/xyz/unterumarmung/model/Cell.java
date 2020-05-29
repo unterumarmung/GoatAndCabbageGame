@@ -1,13 +1,13 @@
 package xyz.unterumarmung.model;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.events.MessageSender;
 import xyz.unterumarmung.events.MessageSource;
 import xyz.unterumarmung.hash.Hashable;
 import xyz.unterumarmung.model.events.CellMessage;
 import xyz.unterumarmung.model.exceptions.CellAlreadyHasNeighborForDirectionException;
 import xyz.unterumarmung.model.objects.GameObject;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.utils.Direction;
 import xyz.unterumarmung.utils.collections.ReadOnlyList;
 

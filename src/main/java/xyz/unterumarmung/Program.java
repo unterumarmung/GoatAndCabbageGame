@@ -2,7 +2,6 @@ package xyz.unterumarmung;
 
 import xyz.unterumarmung.events.MessageBridge;
 import xyz.unterumarmung.model.GameState;
-import xyz.unterumarmung.model.LevelBuilder;
 import xyz.unterumarmung.serialization.LevelLoader;
 import xyz.unterumarmung.utils.Direction;
 

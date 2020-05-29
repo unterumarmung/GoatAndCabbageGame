@@ -1,9 +1,9 @@
 package xyz.unterumarmung.serialization;
 
+import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.Level;
 import xyz.unterumarmung.events.MessageSender;
 import xyz.unterumarmung.events.SubscriptionHandler;
-import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.model.FieldFactory;
 import xyz.unterumarmung.model.objects.*;
 import xyz.unterumarmung.serialization.dto.FieldDto;
@@ -11,7 +11,7 @@ import xyz.unterumarmung.serialization.dto.LevelDto;
 import xyz.unterumarmung.serialization.dto.PointDto;
 import xyz.unterumarmung.utils.Point;
 
-import static xyz.unterumarmung.serialization.DtoConverter.*;
+import static xyz.unterumarmung.serialization.DtoConverter.convert;
 
 class DtoConverter {
     private final @NotNull SubscriptionHandler subscriptionHandler;
@@ -22,12 +22,12 @@ class DtoConverter {
         this.messageSender = messageSender;
     }
 
-    public Level convert(LevelDto levelDto) {
-        return new Level(levelDto.id, levelDto.description, messageSender, subscriptionHandler, new FieldDtoFactory(messageSender, levelDto.gameField));
-    }
-
     static Point convert(PointDto pointDto) {
         return new Point(pointDto.x, pointDto.y);
+    }
+
+    public Level convert(LevelDto levelDto) {
+        return new Level(levelDto.id, levelDto.description, messageSender, subscriptionHandler, new FieldDtoFactory(messageSender, levelDto.gameField));
     }
 }
 

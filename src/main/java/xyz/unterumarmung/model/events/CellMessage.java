@@ -1,9 +1,9 @@
 package xyz.unterumarmung.model.events;
 
+import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.events.MessageData;
 import xyz.unterumarmung.model.Cell;
 import xyz.unterumarmung.model.objects.GameObject;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 

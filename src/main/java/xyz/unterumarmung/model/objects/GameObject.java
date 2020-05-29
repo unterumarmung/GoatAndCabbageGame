@@ -1,8 +1,8 @@
 package xyz.unterumarmung.model.objects;
 
+import org.jetbrains.annotations.Contract;
 import xyz.unterumarmung.hash.Hashable;
 import xyz.unterumarmung.model.Cell;
-import org.jetbrains.annotations.Contract;
 
 public interface GameObject extends Hashable {
     @Contract(pure = true)

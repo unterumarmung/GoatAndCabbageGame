@@ -1,7 +1,7 @@
 package xyz.unterumarmung.model.exceptions;
 
-import xyz.unterumarmung.model.Cell;
 import org.jetbrains.annotations.NotNull;
+import xyz.unterumarmung.model.Cell;
 import xyz.unterumarmung.utils.Direction;
 
 public class CellAlreadyHasNeighborForDirectionException extends IllegalArgumentException {

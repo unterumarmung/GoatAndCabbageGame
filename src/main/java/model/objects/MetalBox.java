@@ -35,7 +35,7 @@ public class MetalBox extends MovableHookable implements Box, SolidObject, Magni
                 .collect(Collectors.toList());
     }
 
-        @Override
+    @Override
     protected boolean canReplaceIndependent(@NotNull GameObject gameObject, @NotNull Direction direction) {
         var neighbor = cell().neighborCell(direction);
         return neighbor != null

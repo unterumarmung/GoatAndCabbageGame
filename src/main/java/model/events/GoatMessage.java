@@ -9,6 +9,11 @@ public class GoatMessage extends MessageData {
     public final Cell from;
     public final Cell to;
 
+    public GoatMessage(Cell from, Cell to) {
+        this.from = from;
+        this.to = to;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -20,10 +25,5 @@ public class GoatMessage extends MessageData {
     @Override
     public int hashCode() {
         return Objects.hash(from, to);
-    }
-
-    public GoatMessage(Cell from, Cell to) {
-        this.from = from;
-        this.to = to;
     }
 }

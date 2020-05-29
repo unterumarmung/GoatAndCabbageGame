@@ -15,9 +15,9 @@ import static utils.collections.ReadOnlyList.of;
 
 public class Goat extends MovableHookable implements SolidObject, MovableObject, MessageSource {
     static final int STEP_COST = 1;
+    private final @NotNull MessageSender messageSender;
     private int steps;
     private Pair<Box, Direction> hookedBox;
-    private final @NotNull MessageSender messageSender;
 
     public Goat(int initialSteps, Cell initialCell, @NotNull MessageSender messageSender) {
         super(initialCell);

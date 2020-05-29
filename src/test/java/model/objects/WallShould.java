@@ -1,7 +1,6 @@
 package model.objects;
 
 import model.Cell;
-import model.objects.Wall;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertSame;

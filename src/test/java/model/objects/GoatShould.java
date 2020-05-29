@@ -1,6 +1,5 @@
 package model.objects;
 
-import events.MessageData;
 import events.MessageSender;
 import model.Cell;
 import model.GameField;

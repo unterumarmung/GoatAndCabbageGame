@@ -4,14 +4,12 @@ import events.MessageSender;
 import model.GameField;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockSettings;
-import org.mockito.Mockito;
 import utils.Direction;
 import utils.Pair;
 import utils.Point;
 import utils.collections.ReadOnlyList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
 
 class MovableHookableShould {
@@ -26,7 +24,6 @@ class MovableHookableShould {
         var cell1 = gameField.cell(new Point(2, 2));
         var cell2 = gameField.cell(new Point(3, 2));
         var cell3 = gameField.cell(new Point(4, 2));
-
 
         obj1 = mock(MovableHookable.class, withSettings().useConstructor(cell1).defaultAnswer(CALLS_REAL_METHODS));
         obj2 = mock(MovableHookable.class, withSettings().useConstructor(cell2).defaultAnswer(CALLS_REAL_METHODS));

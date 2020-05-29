@@ -1,6 +1,10 @@
 package utils;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import utils.collections.ReadOnlyList;
+
+import static utils.collections.ReadOnlyList.*;
 
 public enum Direction {
     NORTH,
@@ -20,6 +24,11 @@ public enum Direction {
     @NotNull
     public Direction opposite() {
         return opposite;
+    }
+
+    @Contract(pure = true)
+    public static @NotNull ReadOnlyList<Direction> all() {
+        return of(NORTH, EAST, SOUTH, WEST);
     }
 
     @Override

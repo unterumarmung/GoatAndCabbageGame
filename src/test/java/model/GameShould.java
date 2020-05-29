@@ -1,8 +1,6 @@
 package model;
 
-import events.MessageBridge;
-import events.MessageSender;
-import events.SubscriptionHandler;
+import events.*;
 import model.objects.Goat;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +30,7 @@ class GameShould {
     @Test
     void beContinuing_afterStart() {
         // Arrange
-        var game = new Game(fieldFactory, subscriptionHandler, messageSender);
+        var game = new Game(new SimpleFieldFactory(messageSender), subscriptionHandler, messageSender);
 
         // Act
         game.start();
@@ -112,6 +110,18 @@ class GameShould {
         assertEquals(GameState.ENDED_SUCCESS_GOAT_REACHED_CABBAGE, game.gameState());
     }
 
+    @Test
+    void emitMessage_afterHandling() {
+        // Arrange
+        var game = new Game(fieldFactory, subscriptionHandler, messageSender);
+
+        // Act
+        game.start();
+        game.handleMessage(mock(MessageSource.class), new MessageData());
+
+        // Assert
+        verify(messageSender).emitMessage(eq(game), any());
+    }
 
     static class TestFactoryWithSteps extends SimpleFieldFactory {
         private final Point initialGoatPoint;

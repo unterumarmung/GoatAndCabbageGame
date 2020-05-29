@@ -40,10 +40,10 @@ class MovableHookableShould {
         when(obj2.canMoveToIndependent(any())).thenReturn(true);
         when(obj3.canMoveToIndependent(any())).thenReturn(true);
 
-        when(obj1.canReplace(eq(obj2), any())).thenReturn(true);
-        when(obj2.canReplace(eq(obj1), any())).thenReturn(true);
-        when(obj2.canReplace(eq(obj3), any())).thenReturn(true);
-        when(obj3.canReplace(eq(obj2), any())).thenReturn(true);
+        when(obj1.canReplace(obj2, Direction.EAST)).thenReturn(true);
+        when(obj2.canReplace(obj1, Direction.WEST)).thenReturn(true);
+        when(obj2.canReplace(obj3, Direction.EAST)).thenReturn(true);
+        when(obj3.canReplace(obj2, Direction.WEST)).thenReturn(true);
     }
 
     @Test
@@ -57,7 +57,7 @@ class MovableHookableShould {
 
     @Test
     void notMove_whenOppositeCannotReplace() {
-        when(obj2.canReplace(eq(obj1), any())).thenReturn(false);
+        when(obj2.canReplace(obj1, Direction.WEST)).thenReturn(false);
 
         var result = obj1.move(Direction.WEST);
 
@@ -69,6 +69,16 @@ class MovableHookableShould {
         when(obj1.canMoveToIndependent(Direction.WEST)).thenReturn(false);
 
         var result = obj2.move(Direction.WEST);
+
+        assertFalse(result);
+    }
+
+    @Test
+    void notMove_whenHasNoMovable() {
+        var obj4 = mock(HookableObject.class);
+        when(obj3.hookedObjects()).thenReturn(ReadOnlyList.of(new Pair<>(obj2, Direction.WEST), new Pair<>(obj4, Direction.SOUTH)));
+
+        var result = obj1.move(Direction.WEST);
 
         assertFalse(result);
     }

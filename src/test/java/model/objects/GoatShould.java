@@ -244,4 +244,28 @@ class GoatShould {
         // Assert
         verify(messageSender, never()).emitMessage(eq(goat), any());
     }
+
+    @Test
+    void beAbleToReplaceSolidObject() {
+        // Arrange
+        var box = new Goat(10, gameField5x5.cell(new Point(0, 0)), messageSender);
+        gameField5x5.cell(new Point(1, 0)).addObject(solidGameObject);
+
+        // Act & Assert
+        assertTrue(box.canReplace(solidGameObject, Direction.EAST));
+    }
+
+    @Test
+    void unhookBox() {
+        // Arrange
+        var goat = new Goat(10, gameField5x5.cell(new Point(0, 0)), messageSender);
+        gameField5x5.cell(new Point(1, 0)).addObject(box);
+
+        // Act
+        goat.hookBox(Direction.EAST);
+        goat.unhookBox();
+
+        // Assert
+        assertTrue(goat.hookedObjects().isEmpty());
+    }
 }

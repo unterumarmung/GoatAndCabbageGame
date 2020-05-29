@@ -35,6 +35,11 @@ public class ReadOnlyList<T> implements Iterable<T> {
     }
 
     @Contract(pure = true)
+    public int size() {
+        return list.size();
+    }
+
+    @Contract(pure = true)
     public boolean contains(T o) {
         return list.contains(o);
     }

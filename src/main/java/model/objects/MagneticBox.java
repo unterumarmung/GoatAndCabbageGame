@@ -56,11 +56,11 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
 
     @Override
     public boolean isMagnitableTo(@NotNull MagneticObject magneticObject, @NotNull Direction direction) {
-        var objectPoleInDirection = magneticObject.magneticPoles().get(direction);
+        var objectPoleInDirection = magneticObject.magneticPoles().get(direction.opposite());
         if (objectPoleInDirection == null)
             return false;
 
-        var minePoleInOppositeDirection = magneticPoles().get(direction.opposite());
+        var minePoleInOppositeDirection = magneticPoles().get(direction);
         if (minePoleInOppositeDirection == null)
             return false;
 

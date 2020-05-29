@@ -1,7 +1,9 @@
 package xyz.unterumarmung;
 
+import xyz.unterumarmung.events.MessageBridge;
 import xyz.unterumarmung.model.GameState;
 import xyz.unterumarmung.model.LevelBuilder;
+import xyz.unterumarmung.serialization.LevelLoader;
 import xyz.unterumarmung.utils.Direction;
 
 import java.util.Scanner;
@@ -9,7 +11,11 @@ import java.util.Scanner;
 public class Program {
     public static void main(String[] args) {
         var scanner = new Scanner(System.in);
-        var game = new LevelBuilder().buildSimpleGame();
+        var messageBridge = new MessageBridge();
+        var levelLoader = new LevelLoader("levels", messageBridge, messageBridge);
+        var levels = levelLoader.levels();
+        System.out.println(levels.size());
+        var game = levels.get(0).game();
         game.start();
         while (true) {
             System.out.print("Введите направление движения козы: ");

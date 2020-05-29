@@ -3,18 +3,18 @@ package model.objects;
 import events.MessageSender;
 import model.Cell;
 import model.GameField;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.Direction;
 import utils.Point;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.unmodifiableMap;
-import static model.objects.MagneticBox.*;
+import static model.objects.MagneticBox.Alignment;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -87,8 +87,8 @@ class MagneticBoxShould {
         var moveToCell = cell.neighborCell(moveToDirection);
 
         var moveToCellNeighbours = moveToCell.neighbours().stream()
-                                .filter(cellWithDirection -> cellWithDirection.direction != moveToDirection.opposite())
-                                .collect(Collectors.toList());
+                .filter(cellWithDirection -> cellWithDirection.direction != moveToDirection.opposite())
+                .collect(Collectors.toList());
 
         // Act & Assert
         for (var neighbourCell : moveToCellNeighbours) {

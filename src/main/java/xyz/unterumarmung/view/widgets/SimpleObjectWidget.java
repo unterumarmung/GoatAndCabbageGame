@@ -6,11 +6,11 @@ import xyz.unterumarmung.view.utils.ImageUtils;
 
 import java.awt.*;
 
-public class StaticObjectWidget extends GameObjectWidget {
+public class SimpleObjectWidget extends GameObjectWidget {
     private static final int CELL_DIMENSION_DELTA = 0;
     private final @NotNull ImageProvider imageProvider;
 
-    public StaticObjectWidget(@NotNull ImageProvider imageProvider) {
+    public SimpleObjectWidget(@NotNull ImageProvider imageProvider) {
         super();
         this.imageProvider = imageProvider;
     }

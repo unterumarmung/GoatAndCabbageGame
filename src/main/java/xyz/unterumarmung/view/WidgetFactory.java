@@ -10,7 +10,7 @@ import xyz.unterumarmung.view.providers.ImageProvider;
 import xyz.unterumarmung.view.widgets.CellWidget;
 import xyz.unterumarmung.view.widgets.GameObjectWidget;
 import xyz.unterumarmung.view.widgets.GoatWidget;
-import xyz.unterumarmung.view.widgets.StaticObjectWidget;
+import xyz.unterumarmung.view.widgets.SimpleObjectWidget;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,11 +26,11 @@ public class WidgetFactory {
     }
 
     public GameObjectWidget getWidget(@NotNull Cabbage cabbage) {
-        return getGameObjectWidget(cabbage, gameObject -> new StaticObjectWidget(imageProviders.get(cabbage.getClass())));
+        return getGameObjectWidget(cabbage, gameObject -> new SimpleObjectWidget(imageProviders.get(cabbage.getClass())));
     }
 
     public GameObjectWidget getWidget(@NotNull Wall wall) {
-        return getGameObjectWidget(wall, gameObject -> new StaticObjectWidget(imageProviders.get(wall.getClass())));
+        return getGameObjectWidget(wall, gameObject -> new SimpleObjectWidget(imageProviders.get(wall.getClass())));
     }
 
     public GameObjectWidget getWidget(@NotNull Goat goat) {

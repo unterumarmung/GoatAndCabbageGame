@@ -2,10 +2,7 @@ package xyz.unterumarmung.view;
 
 import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.model.Cell;
-import xyz.unterumarmung.model.objects.Cabbage;
-import xyz.unterumarmung.model.objects.GameObject;
-import xyz.unterumarmung.model.objects.Goat;
-import xyz.unterumarmung.model.objects.Wall;
+import xyz.unterumarmung.model.objects.*;
 import xyz.unterumarmung.view.providers.ImageProvider;
 import xyz.unterumarmung.view.widgets.CellWidget;
 import xyz.unterumarmung.view.widgets.GameObjectWidget;
@@ -37,6 +34,10 @@ public class WidgetFactory {
         return getGameObjectWidget(goat, gameObject -> new GoatWidget(goat, imageProviders.get(goat.getClass())));
     }
 
+    public GameObjectWidget getWidget(@NotNull SimpleBox simpleBox) {
+        return getGameObjectWidget(simpleBox, gameObject -> new SimpleObjectWidget(imageProviders.get(simpleBox.getClass())));
+    }
+
     public GameObjectWidget getWidget(@NotNull GameObject gameObject) {
         return gameObjectWidgets.get(gameObject);
     }
@@ -51,6 +52,8 @@ public class WidgetFactory {
                     cellWidget.addObject(getWidget((Goat) object));
                 } else if (object instanceof Wall) {
                     cellWidget.addObject(getWidget((Wall) object));
+                } else if (object instanceof SimpleBox) {
+                    cellWidget.addObject(getWidget((SimpleBox) object));
                 } else {
                     throw new IllegalArgumentException("Object creation is not supported" + object);
                 }

@@ -4,6 +4,7 @@ import xyz.unterumarmung.events.MessageBridge;
 import xyz.unterumarmung.model.Cell;
 import xyz.unterumarmung.model.objects.Cabbage;
 import xyz.unterumarmung.model.objects.Goat;
+import xyz.unterumarmung.model.objects.SimpleBox;
 import xyz.unterumarmung.model.objects.Wall;
 import xyz.unterumarmung.serialization.LevelLoader;
 import xyz.unterumarmung.view.GamePanel;
@@ -41,6 +42,7 @@ public class Program {
         map.put(Wall.class, new FileImageProvider("wall.png"));
         map.put(Cabbage.class, new FileImageProvider("cabbage.png"));
         map.put(Cell.class, new FileImageProvider("ground.png"));
+        map.put(SimpleBox.class, new FileImageProvider("simple_box.png"));
         return map;
     }
 }

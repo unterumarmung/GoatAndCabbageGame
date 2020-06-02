@@ -1,14 +1,11 @@
-package view.widgets;
+package xyz.unterumarmung.view.widgets;
 
-import model.Goat;
 import org.jetbrains.annotations.NotNull;
-import view.providers.ImageProvider;
-import view.utils.ImageUtils;
+import xyz.unterumarmung.model.objects.Goat;
+import xyz.unterumarmung.view.providers.ImageProvider;
+import xyz.unterumarmung.view.utils.ImageUtils;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import static view.utils.DirectionUtils.*;
 
 public class GoatWidget extends GameObjectWidget {
     private final @NotNull Goat goat;

@@ -1,4 +1,4 @@
-package view.providers;
+package xyz.unterumarmung.view.providers;
 
 import org.jetbrains.annotations.NotNull;
 

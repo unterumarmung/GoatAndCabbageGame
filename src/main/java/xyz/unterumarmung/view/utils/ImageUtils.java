@@ -1,4 +1,4 @@
-package view.utils;
+package xyz.unterumarmung.view.utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

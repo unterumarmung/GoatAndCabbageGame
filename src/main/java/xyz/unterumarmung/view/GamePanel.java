@@ -1,11 +1,14 @@
-package view;
+package xyz.unterumarmung.view;
 
-import events.*;
-import model.Game;
-import model.GameState;
-import model.events.GameMessage;
 import org.jetbrains.annotations.NotNull;
-import view.widgets.FieldWidget;
+import xyz.unterumarmung.events.MessageData;
+import xyz.unterumarmung.events.MessageListener;
+import xyz.unterumarmung.events.MessageSource;
+import xyz.unterumarmung.events.SubscriptionHandler;
+import xyz.unterumarmung.model.Game;
+import xyz.unterumarmung.model.GameState;
+import xyz.unterumarmung.model.events.GameMessage;
+import xyz.unterumarmung.view.widgets.FieldWidget;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +17,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 
 import static javax.swing.JOptionPane.*;
-import static view.utils.DirectionUtils.isDirectionKeyCode;
-import static view.utils.DirectionUtils.keyCodeToDirection;
+import static xyz.unterumarmung.view.utils.DirectionUtils.isDirectionKeyCode;
+import static xyz.unterumarmung.view.utils.DirectionUtils.keyCodeToDirection;
 
 public class GamePanel extends JFrame implements MessageListener {
     private final @NotNull Game game;

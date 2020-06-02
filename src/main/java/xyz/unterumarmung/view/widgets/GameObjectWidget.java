@@ -1,4 +1,4 @@
-package view.widgets;
+package xyz.unterumarmung.view.widgets;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,12 +1,16 @@
-package view;
+package xyz.unterumarmung.view;
 
-import model.*;
 import org.jetbrains.annotations.NotNull;
-import view.providers.ImageProvider;
-import view.widgets.CellWidget;
-import view.widgets.GameObjectWidget;
-import view.widgets.GoatWidget;
-import view.widgets.StaticObjectWidget;
+import xyz.unterumarmung.model.Cell;
+import xyz.unterumarmung.model.objects.Cabbage;
+import xyz.unterumarmung.model.objects.GameObject;
+import xyz.unterumarmung.model.objects.Goat;
+import xyz.unterumarmung.model.objects.Wall;
+import xyz.unterumarmung.view.providers.ImageProvider;
+import xyz.unterumarmung.view.widgets.CellWidget;
+import xyz.unterumarmung.view.widgets.GameObjectWidget;
+import xyz.unterumarmung.view.widgets.GoatWidget;
+import xyz.unterumarmung.view.widgets.StaticObjectWidget;
 
 import java.util.HashMap;
 import java.util.Map;

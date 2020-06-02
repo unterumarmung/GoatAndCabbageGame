@@ -1,8 +1,8 @@
-package view.widgets;
+package xyz.unterumarmung.view.widgets;
 
 import org.jetbrains.annotations.NotNull;
-import view.providers.ImageProvider;
-import view.utils.ImageUtils;
+import xyz.unterumarmung.view.providers.ImageProvider;
+import xyz.unterumarmung.view.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;

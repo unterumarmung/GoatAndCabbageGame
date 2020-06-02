@@ -1,4 +1,4 @@
-package view.providers;
+package xyz.unterumarmung.view.providers;
 
 import java.awt.image.BufferedImage;
 

@@ -1,13 +1,13 @@
-package view.widgets;
+package xyz.unterumarmung.view.widgets;
 
-import events.MessageData;
-import events.MessageListener;
-import events.MessageSource;
-import events.SubscriptionHandler;
-import model.GameField;
-import model.events.CellMessage;
 import org.jetbrains.annotations.NotNull;
-import view.WidgetFactory;
+import xyz.unterumarmung.events.MessageData;
+import xyz.unterumarmung.events.MessageListener;
+import xyz.unterumarmung.events.MessageSource;
+import xyz.unterumarmung.events.SubscriptionHandler;
+import xyz.unterumarmung.model.GameField;
+import xyz.unterumarmung.model.events.CellMessage;
+import xyz.unterumarmung.view.WidgetFactory;
 
 import javax.swing.*;
 import java.awt.*;

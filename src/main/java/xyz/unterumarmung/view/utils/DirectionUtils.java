@@ -1,6 +1,7 @@
-package view.utils;
+package xyz.unterumarmung.view.utils;
 
-import utils.Direction;
+
+import xyz.unterumarmung.utils.Direction;
 
 import java.awt.event.KeyEvent;
 

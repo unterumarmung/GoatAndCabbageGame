@@ -1,7 +1,7 @@
 package xyz.unterumarmung.model.objects;
 
-import xyz.unterumarmung.model.Cell;
 import org.junit.jupiter.api.Test;
+import xyz.unterumarmung.model.Cell;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;

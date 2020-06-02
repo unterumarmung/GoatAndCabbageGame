@@ -1,10 +1,10 @@
 package xyz.unterumarmung.model;
 
-import xyz.unterumarmung.events.*;
-import xyz.unterumarmung.model.objects.Goat;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import xyz.unterumarmung.events.*;
+import xyz.unterumarmung.model.objects.Goat;
 import xyz.unterumarmung.utils.Direction;
 import xyz.unterumarmung.utils.Point;
 

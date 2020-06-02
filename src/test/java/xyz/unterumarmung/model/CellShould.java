@@ -1,11 +1,11 @@
 package xyz.unterumarmung.model;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import xyz.unterumarmung.events.MessageSender;
 import xyz.unterumarmung.model.events.CellMessage;
 import xyz.unterumarmung.model.exceptions.CellAlreadyHasNeighborForDirectionException;
 import xyz.unterumarmung.model.objects.GameObject;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import xyz.unterumarmung.utils.Direction;
 
 import static org.junit.jupiter.api.Assertions.*;

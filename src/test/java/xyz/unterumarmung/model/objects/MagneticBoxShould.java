@@ -1,10 +1,10 @@
 package xyz.unterumarmung.model.objects;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import xyz.unterumarmung.events.MessageSender;
 import xyz.unterumarmung.model.Cell;
 import xyz.unterumarmung.model.GameField;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import xyz.unterumarmung.utils.Direction;
 import xyz.unterumarmung.utils.Point;
 
@@ -14,9 +14,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.unmodifiableMap;
-import static xyz.unterumarmung.model.objects.MagneticBox.Alignment;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static xyz.unterumarmung.model.objects.MagneticBox.Alignment;
 
 class MagneticBoxShould {
     private GameField gameField;

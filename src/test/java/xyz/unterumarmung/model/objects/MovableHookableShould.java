@@ -1,9 +1,9 @@
 package xyz.unterumarmung.model.objects;
 
-import xyz.unterumarmung.events.MessageSender;
-import xyz.unterumarmung.model.GameField;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import xyz.unterumarmung.events.MessageSender;
+import xyz.unterumarmung.model.GameField;
 import xyz.unterumarmung.utils.Direction;
 import xyz.unterumarmung.utils.Pair;
 import xyz.unterumarmung.utils.Point;

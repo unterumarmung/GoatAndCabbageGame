@@ -18,6 +18,7 @@ import static xyz.unterumarmung.utils.collections.ReadOnlyList.fromList;
 
 public class MagneticBox extends MovableHookable implements MagneticObject, MagnitableObject {
     private final @NotNull Map<Direction, MagneticPole> magneticPoles;
+    private final @NotNull Alignment alignment;
 
     public MagneticBox(Cell cell) {
         this(cell, VERTICAL_NORTH_HORIZONTAL_SOUTH);
@@ -26,6 +27,7 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
     public MagneticBox(Cell cell, @NotNull Alignment alignment) {
         super(cell);
         magneticPoles = alignmentToPoles(alignment);
+        this.alignment = alignment;
     }
 
     @NotNull
@@ -47,6 +49,10 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
         }
 
         return unmodifiableMap(map);
+    }
+
+    public Alignment alignment() {
+        return alignment;
     }
 
     @Override

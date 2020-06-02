@@ -38,6 +38,10 @@ public class WidgetFactory {
         return getGameObjectWidget(simpleBox, gameObject -> new SimpleObjectWidget(imageProviders.get(simpleBox.getClass())));
     }
 
+    public GameObjectWidget getWidget(@NotNull MetalBox metalBox) {
+        return getGameObjectWidget(metalBox, gameObject -> new SimpleObjectWidget(imageProviders.get(metalBox.getClass())));
+    }
+
     public GameObjectWidget getWidget(@NotNull GameObject gameObject) {
         return gameObjectWidgets.get(gameObject);
     }
@@ -54,6 +58,8 @@ public class WidgetFactory {
                     cellWidget.addObject(getWidget((Wall) object));
                 } else if (object instanceof SimpleBox) {
                     cellWidget.addObject(getWidget((SimpleBox) object));
+                } else if (object instanceof MetalBox) {
+                    cellWidget.addObject(getWidget((MetalBox) object));
                 } else {
                     throw new IllegalArgumentException("Object creation is not supported" + object);
                 }

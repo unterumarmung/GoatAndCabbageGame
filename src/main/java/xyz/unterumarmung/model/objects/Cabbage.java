@@ -4,6 +4,8 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.model.Cell;
 
+import java.util.Objects;
+
 public class Cabbage implements GameObject {
     private final Cell position;
 

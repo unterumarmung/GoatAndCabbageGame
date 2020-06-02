@@ -87,4 +87,14 @@ public class Cell implements MessageSource, Hashable {
     public int hashCode() {
         return hash();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return this == o;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(neighbors.size());
+    }
 }

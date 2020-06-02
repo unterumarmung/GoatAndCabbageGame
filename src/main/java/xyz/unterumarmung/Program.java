@@ -41,6 +41,7 @@ public class Program {
         map.put(Cell.class, new FileImageProvider("ground.png"));
         map.put(SimpleBox.class, new FileImageProvider("simple_box.png"));
         map.put(MetalBox.class, new FileImageProvider("metal_box.png"));
+        map.put(MagneticBox.class, new FileImageProvider("magnetic_box.png"));
         return map;
     }
 }

@@ -4,10 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.model.Cell;
 import xyz.unterumarmung.model.objects.*;
 import xyz.unterumarmung.view.providers.ImageProvider;
-import xyz.unterumarmung.view.widgets.CellWidget;
-import xyz.unterumarmung.view.widgets.GameObjectWidget;
-import xyz.unterumarmung.view.widgets.GoatWidget;
-import xyz.unterumarmung.view.widgets.SimpleObjectWidget;
+import xyz.unterumarmung.view.widgets.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +39,10 @@ public class WidgetFactory {
         return getGameObjectWidget(metalBox, gameObject -> new SimpleObjectWidget(imageProviders.get(metalBox.getClass())));
     }
 
+    public GameObjectWidget getWidget(@NotNull MagneticBox magneticBox) {
+        return getGameObjectWidget(magneticBox, gameObject -> new MagneticBoxWidget(imageProviders.get(magneticBox.getClass()), magneticBox.alignment()));
+    }
+
     public GameObjectWidget getWidget(@NotNull GameObject gameObject) {
         return gameObjectWidgets.get(gameObject);
     }
@@ -60,6 +61,8 @@ public class WidgetFactory {
                     cellWidget.addObject(getWidget((SimpleBox) object));
                 } else if (object instanceof MetalBox) {
                     cellWidget.addObject(getWidget((MetalBox) object));
+                } else if (object instanceof MagneticBox) {
+                    cellWidget.addObject(getWidget((MagneticBox) object));
                 } else {
                     throw new IllegalArgumentException("Object creation is not supported" + object);
                 }

@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import static java.lang.Math.*;
 
 public class ImageUtils {
-    public static BufferedImage resizeImage(BufferedImage image, Dimension dimension) {
+    public static @NotNull BufferedImage resizeImage(@NotNull BufferedImage image, @NotNull Dimension dimension) {
         var tempImage = image.getScaledInstance(dimension.width, dimension.height, Image.SCALE_SMOOTH);
         var resizedImage = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_ARGB);
 

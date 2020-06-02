@@ -7,6 +7,7 @@ import xyz.unterumarmung.model.objects.Goat;
 import xyz.unterumarmung.model.objects.Wall;
 import xyz.unterumarmung.serialization.LevelLoader;
 import xyz.unterumarmung.view.GamePanel;
+import xyz.unterumarmung.view.LevelChooser;
 import xyz.unterumarmung.view.WidgetFactory;
 import xyz.unterumarmung.view.providers.FileImageProvider;
 import xyz.unterumarmung.view.providers.ImageProvider;
@@ -20,19 +21,22 @@ import java.util.Map;
 public class Program {
 
     public static void main(String[] args) {
-        var messageBridge = new MessageBridge();
-        var levelLoader = new LevelLoader("levels", messageBridge, messageBridge);
-        var levels = levelLoader.levels();
-        System.out.println(levels.size());
-        var game = levels.get(0).game();
+        final var messageBridge = new MessageBridge();
+        final var levelLoader = new LevelLoader("levels", messageBridge, messageBridge);
+        final var imageProviders = imageProviders();
+        final var levelChooser = new LevelChooser(levelLoader, imageProviders.get(Goat.class));
+        final var level = levelChooser.levelByUser();
+        if (level == null)
+            return;
+        final var game = level.game();
         game.start();
-        var widgetFactory = new WidgetFactory(imageProviders());
-        var fieldWidget = new FieldWidget(game.gameField(), widgetFactory, messageBridge);
+        final var widgetFactory = new WidgetFactory(imageProviders);
+        final var fieldWidget = new FieldWidget(game.gameField(), widgetFactory, messageBridge);
         SwingUtilities.invokeLater(() -> new GamePanel(game, fieldWidget, messageBridge));
     }
 
     private static Map<Class, ImageProvider> imageProviders() {
-        var map = new HashMap<Class, ImageProvider>();
+        final var map = new HashMap<Class, ImageProvider>();
         map.put(Goat.class, new FileImageProvider("goat.png"));
         map.put(Wall.class, new FileImageProvider("wall.png"));
         map.put(Cabbage.class, new FileImageProvider("cabbage.png"));

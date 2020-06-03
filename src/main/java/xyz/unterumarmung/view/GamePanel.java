@@ -54,8 +54,15 @@ public class GamePanel extends JFrame implements MessageListener {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (isDirectionKeyCode(e.getKeyCode())) {
+                if (isDirectionKeyCode(e.getKeyCode()) && e.isControlDown()) {
+                    game.gameField().goat().hookBox(keyCodeToDirection(e.getKeyCode()));
+                    fieldWidget.repaint();
+                }
+                else if (isDirectionKeyCode(e.getKeyCode())) {
                     game.gameField().goat().move(keyCodeToDirection(e.getKeyCode()));
+                    fieldWidget.repaint();
+                } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    game.gameField().goat().unhookBox();
                     fieldWidget.repaint();
                 }
                 handleState(game.gameState());

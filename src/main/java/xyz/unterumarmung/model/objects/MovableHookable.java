@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class MovableHookable implements MovableObject, HookableObject {
     private Cell cell;
@@ -21,29 +22,36 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
 
     @Override
     public boolean move(@NotNull Direction direction) {
-        return move(direction, new HashSet<>());
-    }
-
-    protected boolean move(@NotNull Direction direction, Set<MovableHookable> alreadyMoved) {
-        if (canMoveTo(direction) && !alreadyMoved.contains(this)) {
-            var hookedObjects = castHookedToMovableHookable();
-
-            var neighborCell = cell.neighborCell(direction);
-            setCell(neighborCell);
-
-            alreadyMoved.add(this);
-
-            for (var hookedObject : hookedObjects)
-                hookedObject.move(direction, alreadyMoved);
-
+        if (canMoveTo(direction))
+        {
+            var allHooked = collectAllHooked();
+            for (var hooked: allHooked) {
+                var newCell = hooked.cell().neighborCell(direction);
+                hooked.setCell(newCell);
+            }
             return true;
         }
         return false;
     }
 
-    @NotNull
-    private List<MovableHookable> castHookedToMovableHookable() {
-        return hookedObjects().stream().map(pair -> (MovableHookable) pair.first).collect(Collectors.toList());
+    private Set<MovableHookable> collectAllHooked() {
+        var allHooked = new HashSet<MovableHookable>();
+        allHooked.add(this);
+        collectAllHooked(allHooked);
+        return allHooked;
+    }
+
+    private void collectAllHooked(Set<MovableHookable> hooked) {
+        var objs = castHookedToMovableHookable();
+
+        for (var obj : objs.stream().map(pair -> pair.first).filter(obj -> !hooked.contains(obj)).collect(Collectors.toList())) {
+            hooked.add(obj);
+            obj.collectAllHooked(hooked);
+        }
+    }
+
+    private List<Pair<MovableHookable, Direction>> castHookedToMovableHookable() {
+        return hookedObjects().stream().map(Pair::<MovableHookable>castFirst).collect(Collectors.toList());
     }
 
     void setCell(Cell cell) {
@@ -56,7 +64,16 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
 
     @Override
     public boolean canMoveTo(@NotNull Direction direction) {
-        var hookedObjects = hookedObjects();
+        return canMoveTo(direction, new HashSet<>());
+    }
+
+    private <T extends HookableObject> List<Pair<T, Direction>> filterObjects(Stream<Pair<T, Direction>> objs, Set<MovableHookable> except) {
+        return objs.filter(pair -> !except.contains(pair.first)).collect(Collectors.toList());
+    }
+
+
+    private boolean canMoveTo(@NotNull Direction direction, Set<MovableHookable> exceptObjects) {
+        var hookedObjects = filterObjects(hookedObjects().stream(), exceptObjects);
         if (hookedObjects.isEmpty() && canMoveToIndependent(direction))
             return true;
 
@@ -64,9 +81,9 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
             return false;
 
         var movableHookedObjects = castHookedToMovable(hookedObjects);
-
-        var canMove = allHookedCanMoveExceptOppositeObjects(movableHookedObjects, direction)
-                && allOppositeObjectsCanReplaceThis(movableHookedObjects, direction);
+        exceptObjects.add(this);
+        var canMove = allHookedCanMoveExceptOppositeObjects(movableHookedObjects, direction, exceptObjects)
+                && allOppositeObjectsCanReplaceThis(movableHookedObjects, direction, exceptObjects);
 
         if (!isAnyOfHookedInDirection(hookedObjects, direction))
             canMove &= canMoveToIndependent(direction);
@@ -76,7 +93,11 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
 
     @Override
     public boolean canReplace(@NotNull GameObject gameObject, @NotNull Direction direction) {
-        var hookedObjects = hookedObjects();
+        return canReplace(gameObject, direction, new HashSet<>());
+    }
+
+    private boolean canReplace(@NotNull GameObject gameObject, @NotNull Direction direction, Set<MovableHookable> exceptObjects) {
+        var hookedObjects = filterObjects(hookedObjects().stream(), exceptObjects);
         if (hookedObjects.isEmpty() && canReplaceIndependent(gameObject, direction))
             return true;
 
@@ -84,35 +105,34 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
             return false;
 
         var movableHookedObjects = castHookedToMovable(hookedObjects);
-
-        return allOppositeObjectsCanReplaceThis(movableHookedObjects, direction) && canReplaceIndependent(gameObject, direction);
+        exceptObjects.add(this);
+        return allOppositeObjectsCanReplaceThis(movableHookedObjects, direction, exceptObjects) && canReplaceIndependent(gameObject, direction);
     }
 
     protected abstract boolean canReplaceIndependent(@NotNull GameObject gameObject, @NotNull Direction direction);
 
-    private boolean isAnyOfHookedInDirection(@NotNull ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects, @NotNull Direction direction) {
+    private boolean isAnyOfHookedInDirection(List<Pair<HookableObject, Direction>> hookedObjects, @NotNull Direction direction) {
         return hookedObjects.stream().anyMatch(hookedObject -> hookedObject.second == direction);
     }
 
-    @NotNull
-    private List<Pair<MovableObject, Direction>> castHookedToMovable(@NotNull ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects) {
-        return hookedObjects.stream().map(Pair::<MovableObject>castFirst).collect(Collectors.toList());
+    private List<Pair<MovableHookable, Direction>> castHookedToMovable(@NotNull List<Pair<HookableObject, Direction>> hookedObjects) {
+        return hookedObjects.stream().map(Pair::<MovableHookable>castFirst).collect(Collectors.toList());
     }
 
-    private boolean allHookedAreMovable(@NotNull ReadOnlyList<Pair<HookableObject, Direction>> hookedObjects) {
-        return hookedObjects.stream().allMatch(hookedObject -> hookedObject.first instanceof MovableObject);
+    private boolean allHookedAreMovable(List<Pair<HookableObject, Direction>> hookedObjects) {
+        return hookedObjects.stream().allMatch(hookedObject -> hookedObject.first instanceof MovableHookable);
     }
 
-    private boolean allHookedCanMoveExceptOppositeObjects(@NotNull List<Pair<MovableObject, Direction>> movableHookedObjects, @NotNull Direction direction) {
+    private boolean allHookedCanMoveExceptOppositeObjects(@NotNull List<Pair<MovableHookable, Direction>> movableHookedObjects, @NotNull Direction direction, Set<MovableHookable> except) {
         return movableHookedObjects.stream()
                 .filter(hookedObject -> hookedObject.second != direction.opposite())
-                .allMatch(hookedObject -> hookedObject.first.canMoveTo(direction));
+                .allMatch(hookedObject -> hookedObject.first.canMoveTo(direction, except));
     }
 
-    private boolean allOppositeObjectsCanReplaceThis(@NotNull List<Pair<MovableObject, Direction>> movableHookedObjects, @NotNull Direction direction) {
+    private boolean allOppositeObjectsCanReplaceThis(@NotNull List<Pair<MovableHookable, Direction>> movableHookedObjects, @NotNull Direction direction, Set<MovableHookable> except) {
         return movableHookedObjects.stream()
                 .filter(hookedObject -> hookedObject.second == direction.opposite())
-                .allMatch(hookedObject -> hookedObject.first.canReplace(this, direction));
+                .allMatch(hookedObject -> hookedObject.first.canReplace(this, direction, except));
     }
 
     protected abstract boolean canMoveToIndependent(@NotNull Direction direction);

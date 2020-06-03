@@ -33,9 +33,11 @@ class MovableHookableShould {
         when(obj2.hookedObjects()).thenReturn(ReadOnlyList.of(new Pair<>(obj1, Direction.WEST), new Pair<>(obj3, Direction.EAST)));
         when(obj3.hookedObjects()).thenReturn(ReadOnlyList.of(new Pair<>(obj2, Direction.WEST)));
 
-        when(obj1.canMoveToIndependent(any())).thenReturn(true);
-        when(obj2.canMoveToIndependent(any())).thenReturn(true);
-        when(obj3.canMoveToIndependent(any())).thenReturn(true);
+        for (var direction : Direction.all()) {
+            when(obj1.canMoveToIndependent(direction)).thenReturn(true);
+            when(obj2.canMoveToIndependent(direction)).thenReturn(true);
+            when(obj3.canMoveToIndependent(direction)).thenReturn(true);
+        }
 
         when(obj1.canReplace(obj2, Direction.EAST)).thenReturn(true);
         when(obj2.canReplace(obj1, Direction.WEST)).thenReturn(true);

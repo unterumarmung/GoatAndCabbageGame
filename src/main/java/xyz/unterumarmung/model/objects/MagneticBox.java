@@ -16,7 +16,7 @@ import static xyz.unterumarmung.model.objects.MagneticBox.Alignment.VERTICAL_NOR
 import static xyz.unterumarmung.utils.collections.ReadOnlyList.empty;
 import static xyz.unterumarmung.utils.collections.ReadOnlyList.fromList;
 
-public class MagneticBox extends MovableHookable implements MagneticObject, MagnitableObject {
+public class MagneticBox extends MovableHookable implements MagneticObject, MagnitableObject, Box {
     private final @NotNull Map<Direction, MagneticPole> magneticPoles;
     private final @NotNull Alignment alignment;
 
@@ -76,6 +76,8 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
     @Override
     protected boolean canMoveToIndependent(@NotNull Direction direction) {
         var cellToMove = cell().neighborCell(direction);
+        if (cellToMove == null)
+            return false;
         var noneSolidInDirection = noneSolidInCell(cellToMove);
 
         var neighbourObjectsWithDirection =

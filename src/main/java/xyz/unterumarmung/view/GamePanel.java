@@ -16,7 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 
-import static javax.swing.JOptionPane.*;
+import static javax.swing.JOptionPane.PLAIN_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 import static xyz.unterumarmung.view.utils.DirectionUtils.isDirectionKeyCode;
 import static xyz.unterumarmung.view.utils.DirectionUtils.keyCodeToDirection;
 
@@ -57,8 +58,7 @@ public class GamePanel extends JFrame implements MessageListener {
                 if (isDirectionKeyCode(e.getKeyCode()) && e.isControlDown()) {
                     game.gameField().goat().hookBox(keyCodeToDirection(e.getKeyCode()));
                     fieldWidget.repaint();
-                }
-                else if (isDirectionKeyCode(e.getKeyCode())) {
+                } else if (isDirectionKeyCode(e.getKeyCode())) {
                     game.gameField().goat().move(keyCodeToDirection(e.getKeyCode()));
                     fieldWidget.repaint();
                 } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {

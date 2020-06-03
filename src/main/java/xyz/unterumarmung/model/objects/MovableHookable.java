@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.model.Cell;
 import xyz.unterumarmung.utils.Direction;
 import xyz.unterumarmung.utils.Pair;
-import xyz.unterumarmung.utils.collections.ReadOnlyList;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,10 +21,9 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
 
     @Override
     public boolean move(@NotNull Direction direction) {
-        if (canMoveTo(direction))
-        {
+        if (canMoveTo(direction)) {
             var allHooked = collectAllHooked();
-            for (var hooked: allHooked) {
+            for (var hooked : allHooked) {
                 var newCell = hooked.cell().neighborCell(direction);
                 hooked.setCell(newCell);
             }

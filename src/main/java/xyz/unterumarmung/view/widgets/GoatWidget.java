@@ -3,9 +3,10 @@ package xyz.unterumarmung.view.widgets;
 import org.jetbrains.annotations.NotNull;
 import xyz.unterumarmung.model.objects.Goat;
 import xyz.unterumarmung.view.providers.ImageProvider;
-import xyz.unterumarmung.view.utils.ImageUtils;
 
 import java.awt.*;
+
+import static xyz.unterumarmung.view.utils.ImageUtils.resizeImage;
 
 public class GoatWidget extends GameObjectWidget {
     private final @NotNull Goat goat;
@@ -23,7 +24,7 @@ public class GoatWidget extends GameObjectWidget {
         var delta = CellWidget.CELL_DIMENSION.width / 5;
         var middle = CellWidget.CELL_DIMENSION.width / 2;
         var resizeDimension = new Dimension(CellWidget.CELL_DIMENSION.width - delta, CellWidget.CELL_DIMENSION.height - delta);
-        var resizedImage = ImageUtils.resizeImage(imageProvider.image(), resizeDimension);
+        var resizedImage = resizeImage(imageProvider.image(), resizeDimension);
 
         g.setFont(new Font("Arial", Font.PLAIN, delta));
         g.setColor(Color.WHITE);

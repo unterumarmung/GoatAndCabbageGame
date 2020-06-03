@@ -82,8 +82,8 @@ public class GameField {
             return goat;
 
         var possibleGoat = cells.values().stream().flatMap(cell -> cell.objects().stream())
-                                                    .filter(gameObject -> gameObject instanceof Goat).findFirst();
-        possibleGoat.ifPresent(gameObject -> goat = (Goat)gameObject);
+                .filter(gameObject -> gameObject instanceof Goat).findFirst();
+        possibleGoat.ifPresent(gameObject -> goat = (Goat) gameObject);
 
         return goat;
     }

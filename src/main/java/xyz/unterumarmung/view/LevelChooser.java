@@ -7,14 +7,15 @@ import xyz.unterumarmung.utils.collections.ReadOnlyList;
 import xyz.unterumarmung.view.providers.ImageProvider;
 
 import javax.swing.*;
-import java.util.stream.Collectors;
 
-import static java.lang.Integer.*;
-import static javax.swing.JOptionPane.*;
+import static java.lang.Integer.parseInt;
+import static javax.swing.JOptionPane.PLAIN_MESSAGE;
+import static javax.swing.JOptionPane.showInputDialog;
 
 public class LevelChooser {
     private final @NotNull LevelLoader levelLoader;
     private final @NotNull ImageProvider iconProvider;
+
     public LevelChooser(@NotNull LevelLoader levelLoader, @NotNull ImageProvider iconProvider) {
         this.levelLoader = levelLoader;
         this.iconProvider = iconProvider;
@@ -36,7 +37,7 @@ public class LevelChooser {
         if (userReply == null)
             return null;
 
-        final var levelId = extractIdFromString((String)userReply);
+        final var levelId = extractIdFromString((String) userReply);
         return findLevelById(levels, levelId);
     }
 

@@ -15,7 +15,7 @@ public class MagneticBoxWidget extends SimpleObjectWidget {
     public MagneticBoxWidget(@NotNull ImageProvider imageProvider, @NotNull Alignment alignment) {
         super(imageProvider);
         if (alignment != DEFAULT_ALIGNMENT) {
-            image = ImageUtils.rotateImageByDegrees(imageProvider.image(), 90);
+            image = ImageUtils.rotateImageClockwise90(imageProvider.image());
         } else {
             image = imageProvider.image();
         }

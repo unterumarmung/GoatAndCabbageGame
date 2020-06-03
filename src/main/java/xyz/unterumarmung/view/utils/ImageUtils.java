@@ -47,4 +47,18 @@ public class ImageUtils {
 
         return rotatedImage;
     }
+
+    public static BufferedImage rotateImageClockwise90(BufferedImage src) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+
+        BufferedImage dest = new BufferedImage(width, height, src.getType());
+
+        Graphics2D graphics2D = dest.createGraphics();
+        graphics2D.translate((height - width) / 2, (height - width) / 2);
+        graphics2D.rotate(Math.PI / 2, height / 2, width / 2);
+        graphics2D.drawRenderedImage(src, null);
+
+        return dest;
+    }
 }

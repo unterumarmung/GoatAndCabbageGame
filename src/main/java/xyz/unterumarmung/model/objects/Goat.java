@@ -52,16 +52,12 @@ public class Goat extends MovableHookable implements SolidObject, MovableObject,
     @Override
     protected boolean canMoveToIndependent(@NotNull Direction direction) {
         var neighbor = cell().neighborCell(direction);
-        return neighbor != null
-                && neighbor.objects().stream().noneMatch(GameObject::isSolid)
-                && hasEnoughSteps();
+        return noneSolidInCell(neighbor) && hasEnoughSteps();
     }
 
     @Override
     protected boolean canReplaceIndependent(@NotNull GameObject gameObject, @NotNull Direction direction) {
-        var neighbor = cell().neighborCell(direction);
-        return neighbor != null
-                && neighbor.objects().stream().filter(o -> o != gameObject).noneMatch(GameObject::isSolid);
+        return noneSolidInCellExcept(cell().neighborCell(direction), gameObject);
     }
 
     public boolean hasEnoughSteps() {

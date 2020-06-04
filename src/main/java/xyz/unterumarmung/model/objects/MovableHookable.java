@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.*;
+
 public abstract class MovableHookable implements MovableObject, HookableObject {
     private Cell cell;
 
@@ -42,14 +44,14 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
     private void collectAllHooked(Set<MovableHookable> hooked) {
         var objs = castHookedToMovableHookable();
 
-        for (var obj : objs.stream().map(pair -> pair.first).filter(obj -> !hooked.contains(obj)).collect(Collectors.toList())) {
+        for (var obj : objs.stream().map(pair -> pair.first).filter(obj -> !hooked.contains(obj)).collect(toList())) {
             hooked.add(obj);
             obj.collectAllHooked(hooked);
         }
     }
 
     private List<Pair<MovableHookable, Direction>> castHookedToMovableHookable() {
-        return hookedObjects().stream().map(Pair::<MovableHookable>castFirst).collect(Collectors.toList());
+        return hookedObjects().stream().map(Pair::<MovableHookable>castFirst).collect(toList());
     }
 
     void setCell(Cell cell) {
@@ -66,7 +68,7 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
     }
 
     private <T extends HookableObject> List<Pair<T, Direction>> filterObjects(Stream<Pair<T, Direction>> objs, Set<MovableHookable> except) {
-        return objs.filter(pair -> !except.contains(pair.first)).collect(Collectors.toList());
+        return objs.filter(pair -> !except.contains(pair.first)).collect(toList());
     }
 
 
@@ -114,7 +116,7 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
     }
 
     private List<Pair<MovableHookable, Direction>> castHookedToMovable(@NotNull List<Pair<HookableObject, Direction>> hookedObjects) {
-        return hookedObjects.stream().map(Pair::<MovableHookable>castFirst).collect(Collectors.toList());
+        return hookedObjects.stream().map(Pair::<MovableHookable>castFirst).collect(toList());
     }
 
     private boolean allHookedAreMovable(List<Pair<HookableObject, Direction>> hookedObjects) {
@@ -134,6 +136,15 @@ public abstract class MovableHookable implements MovableObject, HookableObject {
     }
 
     protected abstract boolean canMoveToIndependent(@NotNull Direction direction);
+
+    protected boolean noneSolidInCell(Cell cellToMove) {
+        return cellToMove != null && cellToMove.objects().stream().noneMatch(GameObject::isSolid);
+    }
+
+    protected boolean noneSolidInCellExcept(Cell cell, GameObject gameObject) {
+        return cell != null
+                && cell.objects().stream().filter(o -> o != gameObject).noneMatch(GameObject::isSolid);
+    }
 
     @Contract(pure = true)
     @Override

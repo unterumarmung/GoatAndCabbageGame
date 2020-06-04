@@ -23,13 +23,18 @@ public class GoatWidget extends GameObjectWidget {
         super.paintComponent(g);
         var delta = CellWidget.CELL_DIMENSION.width / 5;
         var middle = CellWidget.CELL_DIMENSION.width / 2;
-        var resizeDimension = new Dimension(CellWidget.CELL_DIMENSION.width - delta, CellWidget.CELL_DIMENSION.height - delta);
-        var resizedImage = resizeImage(imageProvider.image(), resizeDimension);
+        var resizedImage = resizeImage(imageProvider.image(), resizeDimension());
 
         g.setFont(new Font("Arial", Font.PLAIN, delta));
         g.setColor(Color.WHITE);
         g.drawString(String.valueOf(goat.steps()), middle, delta);
         g.drawImage(resizedImage, delta, delta, null);
+    }
+
+    @NotNull
+    private Dimension resizeDimension() {
+        var delta = CellWidget.CELL_DIMENSION.width / 5;
+        return new Dimension(CellWidget.CELL_DIMENSION.width - delta, CellWidget.CELL_DIMENSION.height - delta);
     }
 
 //    private class KeyController implements KeyListener {

@@ -37,16 +37,12 @@ public class MetalBox extends MovableHookable implements Box, SolidObject, Magni
 
     @Override
     protected boolean canReplaceIndependent(@NotNull GameObject gameObject, @NotNull Direction direction) {
-        var neighbor = cell().neighborCell(direction);
-        return neighbor != null
-                && neighbor.objects().stream().filter(o -> o != gameObject).noneMatch(GameObject::isSolid);
+        return noneSolidInCellExcept(cell().neighborCell(direction), gameObject);
     }
 
     @Override
     protected boolean canMoveToIndependent(@NotNull Direction direction) {
-        var neighbor = cell().neighborCell(direction);
-        return neighbor != null
-                && neighbor.objects().stream().noneMatch(GameObject::isSolid);
+        return noneSolidInCell(cell().neighborCell(direction));
     }
 
     @Override

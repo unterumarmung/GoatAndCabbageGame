@@ -86,9 +86,7 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
         return noneSolidInDirection && noneOfNeighborCellHasWrongPole(neighbourObjectsWithDirection);
     }
 
-    private boolean noneSolidInCell(Cell cellToMove) {
-        return cellToMove.objects().stream().noneMatch(GameObject::isSolid);
-    }
+
 
     private boolean noneOfNeighborCellHasWrongPole(List<Pair<GameObject, Direction>> neighbourObjectsWithDirection) {
         return neighbourObjectsWithDirection.stream()
@@ -126,9 +124,7 @@ public class MagneticBox extends MovableHookable implements MagneticObject, Magn
     @Override
     protected boolean canReplaceIndependent(@NotNull GameObject gameObject, @NotNull Direction direction) {
         var cellToMove = cell().neighborCell(direction);
-        var noneSolidInDirection = cellToMove.objects().stream()
-                .filter(gameObject1 -> gameObject1 != gameObject)
-                .noneMatch(GameObject::isSolid);
+        var noneSolidInDirection = noneSolidInCellExcept(cellToMove, gameObject);;
 
         var neighbourObjectsWithDirection =
                 getNeighborObjectsWithDirectionOnLateralSides(direction, cellToMove);

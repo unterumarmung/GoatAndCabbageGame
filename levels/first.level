@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level id="1">
+    <description>The very first level</description>
+    <gameField width="5" height="5">
+        <exitPoint x="3" y="3"></exitPoint>
+        <goat initialSteps="10">
+            <position x="0" y="0"></position>
+        </goat>
+        <wall>
+            <position x="2" y="3"></position>
+        </wall>
+        <wall>
+            <position x="3" y="2"></position>
+        </wall>
+    </gameField>
+</Level>

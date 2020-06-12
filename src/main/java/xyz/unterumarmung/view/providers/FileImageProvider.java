@@ -12,7 +12,7 @@ public class FileImageProvider implements ImageProvider {
     private final @NotNull String filename;
     private BufferedImage image;
 
-    public FileImageProvider(@NotNull String filename) {
+    public FileImageProvider(@NotNull final String filename) {
         this.filename = filename;
     }
 

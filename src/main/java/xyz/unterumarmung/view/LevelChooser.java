@@ -16,7 +16,7 @@ public class LevelChooser {
     private final @NotNull LevelLoader levelLoader;
     private final @NotNull ImageProvider iconProvider;
 
-    public LevelChooser(@NotNull LevelLoader levelLoader, @NotNull ImageProvider iconProvider) {
+    public LevelChooser(@NotNull final LevelLoader levelLoader, @NotNull final ImageProvider iconProvider) {
         this.levelLoader = levelLoader;
         this.iconProvider = iconProvider;
     }

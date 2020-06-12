@@ -21,7 +21,7 @@ public class ImageUtils {
     }
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
-    public static @NotNull BufferedImage rotateImageByDegrees(@NotNull BufferedImage image, int angle) {
+    public static @NotNull BufferedImage rotateImageByDegrees(@NotNull final BufferedImage image, final int angle) {
         final double radians = toRadians(angle);
         final double sin = abs(sin(radians));
         final double cos = abs(cos(radians));
@@ -35,8 +35,8 @@ public class ImageUtils {
         final var affineTransform = new AffineTransform();
         affineTransform.translate((newImageWidth - imageWidth) / 2, (newImageHeight - imageHeight) / 2);
 
-        int x = imageWidth / 2;
-        int y = imageHeight / 2;
+        final int x = imageWidth / 2;
+        final int y = imageHeight / 2;
 
         affineTransform.rotate(radians, x, y);
         rotatedImageGraphics.setTransform(affineTransform);
@@ -48,17 +48,16 @@ public class ImageUtils {
         return rotatedImage;
     }
 
-    public static BufferedImage rotateImageClockwise90(BufferedImage src) {
-        int width = src.getWidth();
-        int height = src.getHeight();
+    public static BufferedImage rotateImageClockwise90(@NotNull final BufferedImage sourceImage) {
+        final int width = sourceImage.getWidth();
+        final int height = sourceImage.getHeight();
 
-        BufferedImage dest = new BufferedImage(width, height, src.getType());
-
-        Graphics2D graphics2D = dest.createGraphics();
+        final var rotatedImage = new BufferedImage(width, height, sourceImage.getType());
+        final var graphics2D = rotatedImage.createGraphics();
         graphics2D.translate((height - width) / 2, (height - width) / 2);
         graphics2D.rotate(Math.PI / 2, height / 2, width / 2);
-        graphics2D.drawRenderedImage(src, null);
+        graphics2D.drawRenderedImage(sourceImage, null);
 
-        return dest;
+        return rotatedImage;
     }
 }

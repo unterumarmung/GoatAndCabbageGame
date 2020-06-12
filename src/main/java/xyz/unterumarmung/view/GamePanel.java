@@ -25,7 +25,7 @@ public class GamePanel extends JFrame implements MessageListener {
     private final @NotNull Game game;
     private final @NotNull FieldWidget fieldWidget;
 
-    public GamePanel(@NotNull Game game, @NotNull FieldWidget fieldWidget, @NotNull SubscriptionHandler subscriptionHandler) throws HeadlessException {
+    public GamePanel(@NotNull final Game game, @NotNull final FieldWidget fieldWidget, @NotNull final SubscriptionHandler subscriptionHandler) throws HeadlessException {
         this.game = game;
         this.fieldWidget = fieldWidget;
         subscriptionHandler.subscribeTo(game, this);
@@ -37,7 +37,7 @@ public class GamePanel extends JFrame implements MessageListener {
 
     private void configureGui() {
         setVisible(true);
-        JPanel content = (JPanel) this.getContentPane();
+        final var content = (JPanel) this.getContentPane();
         content.add(this.fieldWidget);
         pack();
         setResizable(false);
@@ -76,7 +76,7 @@ public class GamePanel extends JFrame implements MessageListener {
     }
 
     private void handleState(GameState gameState) {
-        final String MESSAGE_TITLE = "Игра завершена!";
+        final var MESSAGE_TITLE = "Игра завершена!";
         if (gameState == GameState.ENDED_SUCCESS_GOAT_REACHED_CABBAGE) {
             showMessageDialog(this, "Коза успешно достигла капусты!", MESSAGE_TITLE, PLAIN_MESSAGE);
             close();
@@ -88,7 +88,7 @@ public class GamePanel extends JFrame implements MessageListener {
 
     @Override
     public void handleMessage(MessageSource source, MessageData data) {
-        var gameMessage = (GameMessage) data;
+        final var gameMessage = (GameMessage) data;
         handleState(gameMessage.gameState);
     }
 
